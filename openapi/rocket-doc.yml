@@ -17,21 +17,20 @@ paths:
       operationId: create-interview
       summary: Create an Interview
       description: |
-        Create an Interview. 
-        <br><br>
-        For <b>Persistent</b> Interviews, pass in a reference to a Binder or an owner email.
-        If a <b>binderId</b> is provided, this new Interview will be created within the context
-        of this Binder. If a <b>partyEmailAddress</b> is used, a new binder is created.
-        <br><br>
-        For <b>Ephemeral</b> Interviews, a Binder is not used or created and no user entered 
-        information will be stored. 
-        <br/><br/>
-        The <b>templateId</b> specifies Document Template used for the Interview.
-        <br/><br/>
-        A service token is provided in the response header scoped to the Interview resource
-        for all requests except for persistent Interviews when a Binder reference is provided.
-        <br/><br/>
-        Authorization\: Requires general access token.
+        This endpoint allows you to create a new interview session, either persistent or ephemeral.
+
+        **Persistent Interviews**: 
+        - Provide a reference to a Binder (`binderId`) or an owner email (`partyEmailAddress`).
+        - If a `binderId` is provided, the new interview will be created within the context of this Binder.
+        - If a `partyEmailAddress` is used, a new Binder is created.
+
+        **Ephemeral Interviews**: 
+        - A Binder is neither used nor created.
+        - No user-entered information will be stored.
+
+        **Service Token**:
+        - A service token is provided in the response header, scoped to the interview resource for all requests except for persistent interviews when a Binder reference is provided.
+
       requestBody:
         # description: InterviewCreateRequest
         content:
@@ -81,24 +80,24 @@ paths:
     get:
       tags:
         - Interviews
+      operationId: retrieve-interview-status
+      summary: Retrieve Interview Status
       description: |
-        This endpoint returns list of Interviews.
-        <br/><br/>
-        Authorization\: Requires general access token.
-      operationId: retrieveInterviewStatus
+          This endpoint returns a list of interviews associated with the partner.
+          The results can optionally be filtered by the `partnerEndUserId` to narrow down the list to a specific end user.
       parameters:
         - name: partnerEndUserId
           in: query
           description: |
-            The id of the Partner's End-user used to filter the list.
+            The unique identifier of the partner's end user used to filter the list of interviews.
+            If provided, only interviews associated with this end user will be returned.
           schema:
             $ref: "#/components/schemas/partnerEndUserId"
           required: false
       responses:
         '200':
           description: |
-            Returns the Interview status of all interviews belonging to the
-            Partner, optionally filterable by partnerEndUserId.
+            Successfully returns the status of all interviews belonging to the partner.
           content:
             application/json:
               schema:
@@ -113,17 +112,17 @@ paths:
     get:
       tags:
         - Interviews
+      summary: Retrieve Interview
       description: |
-        Returns an existing Interview
-        <br/><br/>
-        Authorization\: Requires a general access or scoped access token.
-      operationId: retrieveInterview
+        Retrieves the details of an existing interview identified by the `interviewId`. This endpoint allows you to fetch all the information related to a specific interview, including its status and associated data.
+      operationId: retrieve-interview
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
+          description: The unique identifier of the interview to retrieve.
       responses:
         '200':
           description: |
-            Returns an existing Interview.
+            Successfully returns the details of the specified interview.
           content:
             application/json:
               schema:
@@ -136,16 +135,16 @@ paths:
     delete:
       tags:
         - Interviews
+      summary: Delete an Interview Resource
       description: |
-        Deletes an Interview resource.
-        <br/><br/>
-        Authorization\: Requires a general access or scoped access token.
-      operationId: deleteInterview
+        Deletes an existing interview resource identified by the `interviewId`. This operation permanently removes the interview and its associated data from the system.
+      operationId: delete-interview
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
+          description: The unique identifier of the interview to be deleted.
       responses:
         '204':
-          description: Interview resource Deleted
+          description: The interview resource was successfully deleted.
         '400':
           description: Bad Request
         '401' :
@@ -156,16 +155,16 @@ paths:
     post:
       tags:
         - Interviews
+      summary: Complete an Interview
       description: |
-        Completes the Interview, for which answers have been supplied.
-        <br/><br/>
-        Authorization\: Requires a general access or scoped access token.
-      operationId: completeInterview
+        Completes the specified interview for which answers have been supplied. This operation finalizes the interview, ensuring that all provided answers are processed and saved.
+      operationId: complete-interview
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
+          description: The unique identifier of the interview to be completed.
       responses:
         '201':
-          description: Created
+          description: The interview was successfully completed and the answers have been processed and saved.
           content:
             application/json:
               schema:
@@ -178,30 +177,21 @@ paths:
 
   /interviews/{interviewId}/pages/{pageRef}:
     get:
+      summary: Retrieve a Page
       tags:
         - Interviews
       description: |
-        Retrieve a page. 
-        <br><br> 
-        For an ephemeral interview, it is only relevant to get the first page
-         as it will always return the template's default answersPayload. 
-        <br><br>
-        The format for the currentPageData defaults
-        to "display" and the preview format defaults to "text/html" for this
-        call. 
-        <br><br>
-        If we are on the first page of the interview, then the
-        previous page and the current page will be the same. Similarly, if we
-        are on the last page of the interview, the current page and the next
-        page will be the same.
-        <br/><br/>
-        Authorization\: Requires a general or scoped access token.
+        Retrieves a specific page of the interview identified by `interviewId` and `pageRef`.
+
+        For an ephemeral interview, it is only relevant to get the first page as it will always return the template's default `answersPayload`. The format for the `currentPageData` defaults to **display** and the preview format defaults to **text/html** for this call.
+
+        If currently on the first page of the interview, then the previous page and the current page will be the same. Similarly, if currently on the last page of the interview, the current page and the next page will be the same.
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
         - $ref: "#/components/parameters/pageRefPath"
       responses:
         "200":
-          description: Success
+          description: Successfully retrieves the specified page of the interview.
           content:
             application/json:
               schema:
@@ -211,8 +201,7 @@ paths:
         '401' :
           description: Unauthorized
         "405":
-          description: |
-            You tried to GET a non-first page of an ephemeral interview.
+          description: Method Not Allowed. Attempted to retrieve a non-first page of an ephemeral interview.
     patch:
       tags:
         - Interviews
@@ -549,7 +538,7 @@ components:
     interviewIdPath:
       name: interviewId
       in: path
-      description: The id of the Interview
+      description: The unique identifier of the interview.
       required: true
       schema:
         type: string
@@ -559,12 +548,9 @@ components:
       name: pageRef
       in: path
       description: |
-        Either a pageId or a pseudonym for a page.
-        <br><br>One of
-        <ul>
-          <li>$pageId - real id of the requested page</li>
-          <li>"first" - pseudonym for the first page of the Interview.</li>
-        </ul>
+        Either a pageId or a pseudonym for a page. Enter one of the following options:
+        - `$pageId`: real id of the requested page.
+        - `"first"`: pseudonym for the first page of the Interview.
       schema:
         type: string
       example: "Fkbbc110f2d2eb"
@@ -691,11 +677,11 @@ components:
       properties:
         binderId:
           type: string
-          description: The Binder Id resource.
+          description: The Binder's unique identifier.
           example: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
         documentId:
           type: string
-          description: The Document Id resource.
+          description: The Document's unique identifier.
           example: 7d989647-ecf2-4673-9486-80c3b890ed3c
       required:
         - binderId
@@ -752,8 +738,8 @@ components:
 
     fieldType:
       description: |
-        Meta data type suggesting what this field should contain and
-        loosely describing how a UI might display it for user interaction.
+        Metadata type suggesting what this field should contain and loosely describing how a UI might display it for user interaction.
+        The field type provides hints on the nature of the data and the appropriate form input controls to use.
       type: object
       enum:
         - "TEXT"
@@ -812,13 +798,13 @@ components:
           $ref: "#/components/schemas/interviewId"
         interviewName:
           type: string
-          description: The Interview name.
+          description: The Interview's name.
           example: Employment contract
         templateId:
           $ref: "#/components/schemas/templateId"
         templateVersionId:
           type: string
-          description: The ID of the template version being used for this interview.
+          description: The unique identifier of the template version being used for this interview.
           example: d9243532-6fae-41b8-a082-6d6844fa6246
         partnerEndUserId:
           $ref: "#/components/schemas/partnerEndUserId"
@@ -826,7 +812,7 @@ components:
           $ref: "#/components/schemas/storageType"
         interviewStatus:
           type: string
-          description: The status of the Interview.
+          description: The current status of the Interview.
           enum:
             - created
             - completed
@@ -884,9 +870,12 @@ components:
 
     createInterviewEphemeral:
       type: object
+      description: |
+        Ephemeral interviews do not create or use binders and do not store user-entered information. 
+        This type of interview is typically used for sessions where data persistence is not required.
       properties:
         storageType:
-          $ref: "#/components/schemas/storageType"
+          $ref: "#/components/schemas/storageType" 
         partnerEndUserId:
           $ref: "#/components/schemas/partnerEndUserId"
         templateId:
@@ -899,14 +888,18 @@ components:
 
     createInterviewPersistent:
       type: object
+      description: |
+        Persistent interviews store user-entered information and can be associated with a Binder or an owner email address.
+        If a `binderId` is provided, the new interview will be created within the context of this Binder. 
+        If a `partyEmailAddress` is used, a new Binder is created for the interview.
       properties:
         storageType:
           $ref: "#/components/schemas/storageType"
         binderId:
           type: string
           description: |
-            The identifier of the Binder to add the Interview resource to; mutually exclusive to partyEmailAddress.
-            ** Not used for ephemeral interviews
+            The unique identifier of the Binder to which the interview will be added. 
+            This parameter is mutually exclusive with `partyEmailAddress` and should not be used for ephemeral interviews.
           example: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
         partyEmailAddress:
           $ref: "#/components/schemas/partyEmailAddress"
@@ -922,8 +915,9 @@ components:
     partyEmailAddress:
       type: string
       description: |
-        The identifying Party owner of the Binder; mutually exclusive to binderId.
-        ** Not used for ephemeral interviews
+        The email address of the party for whom the interview is being created.
+        If provided, a new Binder is created for this email address.
+        This parameter is mutually exclusive with `binderId`.
       example: user@xyzcompany.com
 
     interviewCreateResponse:
@@ -944,7 +938,7 @@ components:
         $ref: '#/components/schemas/interview'
 
     interviewId:
-      description: Id of the Interview
+      description: The unique identifier of the Interview.
       type: string
       example: 76105B3E-AC8A-4202-8ED2-B991A02B8456
 
@@ -1101,7 +1095,10 @@ components:
 
     partnerEndUserId:
       type: string
-      description: String used to identify the Partner end user.
+      description: A unique identifier for the end user provided by the partner application. This helps in linking the interview to a specific user within the partner's system.
+    templateId:
+      description: |
+        The unique identifier of the document template to be used for the interview. This template defines the structure and content of the interview. Retrieve a list of available templates with the [Get Templates](/get-templates) endpoint.
       example: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
 
     question:
@@ -1172,7 +1169,7 @@ components:
         - data
 
     previewMimeType:
-      description: Mime-type for the preview
+      description: Mime-type for the preview.
       type: string
       enum:
         - "text/html"
@@ -1245,7 +1242,9 @@ components:
 
     storageType:
       description: |
-        Type of backend data storage strategy used for this interview. Ephemeral interview answers are not stored.
+        Specifies the type of backend data storage strategy used for this interview.
+        Use `persistent` to indicate that the interview should store user-entered information.
+        Keep in mind that `ephemeral` interview answers are not stored.
       type: string
       enum:
         - ephemeral
@@ -1254,13 +1253,13 @@ components:
 
     tam:
       description: |
-        Tagged Answer Model
-        Format for injecting data into an interview or retrieving data from an interview
+        The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview.
+        This model maps the input data to the corresponding fields and entities within the document template.
       type: object
       properties:
         name:
           type: string
-          description: The Template name.
+          description: The name of the template being used for the interview.
           example: Employment contract
         templateId:
           $ref: "#/components/schemas/templateId"
@@ -1275,9 +1274,12 @@ components:
 
     tamField:
       type: object
+      description: |
+        Each field corresponds to a data point in the interview, allowing for the collection and retrieval of user-entered information. 
+        These fields are pre-filled with initial data and align with the template's structure, facilitating a customized and relevant interview process.
       properties:
         entity:
-          description: This entity correlates with an object in the entities array
+          description: This entity correlates with an object in the entities array, linking the field to a specific entity involved in the interview. The entity helps to contextualize the field within the broader interview structure.
           type: string
         fieldClass:
           $ref: "#/components/schemas/tamEntityClass"
@@ -1285,9 +1287,15 @@ components:
           $ref: "#/components/schemas/fieldType"
         value:
           type: string
+          description: |
+            The actual value of the field. 
+            This is the data entered by the user or provided initially, corresponding to the field's type and purpose within the interview.
 
     tamEntity:
       type: object
+      description: |
+        Represents an entity involved in the interview process. 
+        Entities can be individuals, organizations, or properties, each playing specific roles within the context of the interview.
       properties:
         name:
           $ref: "#/components/schemas/tamEntityName"
@@ -1300,6 +1308,8 @@ components:
 
     tamClass:
       type: string
+      description: |
+        The classification of the entity. 
       enum:
         - Person
         - Organization
@@ -1308,21 +1318,29 @@ components:
         Person
 
     tamRole:
+      description: |
+        A list of roles that the entity plays within the interview context. 
+        Roles define the specific function or position of the entity in the interview, such as 'Applicant' or 'Employer'.
       type: string
       example: "Applicant"
 
     tamEntityName:
+      description: |
+        The name of the entity. This could be the name of a person, organization, or property involved in the interview.
       type: string
       example: "Formed Entity"
 
     tamEntityClass:
+      description: |
+        The classification of the field within the entity. 
+        This defines the type or category of the field, aligning with the entity's role and characteristics.
       type: string
       example: "Entity Type"
 
-    templateId:
-      description: The id of the Template resource.
-      type: string
-      example: 0bf17ad8-a229-1289-ef4a-00b7c9ad9cab
+    # templateId:
+    #   description: The id of the Template resource.
+    #   type: string
+    #   example: 0bf17ad8-a229-1289-ef4a-00b7c9ad9cab
 
     templatesGetResponse:
       type: array
