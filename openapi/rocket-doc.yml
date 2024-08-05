@@ -205,16 +205,12 @@ paths:
     patch:
       tags:
         - Interviews
+      summary: Submit a Page
+      operationId: submit-page
       description: |
-        Submit a page. Usually, this is performed with the intention of
-        discovering the next or previous page and/or getting an updated preview.
-        <br/><br/>
-        Note: If we are on the first page of the interview, then the previous page
-        and the current page will be the same. Similarly, if we are on the last
-        page of the interview, the current page and the next page will be the
-        same.
-        <br/><br/>
-        Authorization\: Requires a general or scoped access token.
+        Submits data for a specific page of the interview identified by `interviewId` and `pageId`. This operation is typically performed to discover the next or previous page and/or to get an updated preview.
+        
+        If currently on the first page of the interview, then the previous page and the current page will be the same. Similarly, if currently on the last page of the interview, the current page and the next page will be the same.
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
         - $ref: "#/components/parameters/pageIdPath"
@@ -226,7 +222,7 @@ paths:
               $ref: "#/components/schemas/pagePatchRequest"
       responses:
         "200":
-          description: Success
+          description: Successfully submits the data for the specified page and returns the updated page information.
           content:
             application/json:
               schema:
@@ -240,14 +236,17 @@ paths:
     get:
       tags:
         - Interviews
-      description: get data from this interview in TAM form
-      operationId: getTaggedAnswers
+      summary: Retrieve Tagged Answers
+      description: |
+        Retrieves all the answers for tagged fields from the specified interview in Tagged Answer Model (TAM) format.
+        
+        This endpoint allows you to fetch structured data for the interview, which includes the tagged answers aligned with the TAM structure.
+      operationId: retrieve-tagged-answers
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
       responses:
         '200':
-          description: |
-            Returns all the answers for tagged fields in TAM form
+          description: Successfully returns all the answers for tagged fields in TAM format.
           content:
             application/json:
               schema:
@@ -262,11 +261,10 @@ paths:
     post:
       tags:
         - Documents
+      summary: Create a Document from an Ephemeral Interview
       description: |
-        Gets a document from an ephemeral interview of type specified using the Interview's answersPayload.
-        <br/><br/>
-        Authorization\: Requires a general access token.
-      operationId: postDocument
+        Creates a document from an ephemeral interview using the provided `answersPayload`. This endpoint processes the interview responses to generate the specified type of document.
+      operationId: post-document
       requestBody:
         # description: InterviewCreateRequest
         content:
@@ -276,7 +274,7 @@ paths:
         required: true
       responses:
         '201':
-          description: Created
+          description: Successfully created the document from the provided interview data.
           content:
             application/json:
               schema:
@@ -290,10 +288,9 @@ paths:
   /documents/{documentId}:
     get:
       description: |
-        Returns the Document from a persistent Interview in the format specified by the Accept header.
-        <br/><br/>
-        Authorization\: Requires a general access token.
-      operationId: getDocument
+        Returns the document from a persistent interview in the format specified by the Accept header. This endpoint allows you to fetch the document in either HTML or PDF format, as specified in the request.
+      operationId: retrieve-document
+      summary: Retrieve a Document
       tags:
         - Documents
       parameters:
@@ -301,6 +298,7 @@ paths:
         - name: Accept
           in: header
           required: false
+          description: Specifies the desired format of the document. Supported formats are `text/html` and `application/pdf`.
           schema:
             enum:
               - text/html
@@ -308,24 +306,22 @@ paths:
             type: string
         - name: rl-binder-id
           in: header
-          description: The Id of the Binder containing the desired Document to retrieve.
+          description: The unique identifier of the Binder containing the document to retrieve. This ID is used to locate the specific Binder resource.
           required: true
           schema:
             type: string
         - name: unsigned
           in: query
-          description: |
-            If present, then an unsigned version of the Document is served.
-            Unsigned is in fact the last uploaded version of the Document (just before invitation was triggered).
+          description: If present, the unsigned version of the document is served. The unsigned version is the last uploaded version of the document, just before the invitation was triggered.
           required: false
           schema:
             type: string
       responses:
         '303':
-          description: Redirection to the file
+          description: Redirection to the file. The response contains the location of the resource where the client should be redirected.
           headers:
             location:
-              description: location of the resource where the client should be redirected to
+              description: Location of the resource where the client should be redirected.
               schema:
                 type: string
         '400':
@@ -333,7 +329,7 @@ paths:
         '401' :
           description: Unauthorized
         '412' :
-          description: Precondition Failed (file type not supported)
+          description: Precondition Failed. The requested file type is not supported.
       deprecated: false
 
   /templates:
@@ -529,7 +525,7 @@ components:
     documentIdPath:
       name: documentId
       in: path
-      description: The id of the Document
+      description: The unique identifier of the Document
       required: true
       schema:
         type: string
@@ -559,8 +555,7 @@ components:
     pageIdPath:
       name: pageRef
       in: path
-      description: |
-        The id of the page
+      description: The unique identifier of the page to be submitted.
       schema:
         type: string
       example: "Fkbbc110f2d2eb"
@@ -970,9 +965,10 @@ components:
             - $ref: '#/components/schemas/pageDataReference'
 
     pageDataPatch:
-      description: Describes the type of page data -
-        reference only contains a pageId and is used for iterating through an
-        interview; display shows the question information for that page.
+      description: |
+        Describes the type of page data:
+        - `reference`: Contains only the `pageId` and is used for iterating through an interview, providing navigation without detailed content.
+        - `display`: Shows the full question information for that page, including all content necessary for the interview process.
       type: string
       enum:
         - display
