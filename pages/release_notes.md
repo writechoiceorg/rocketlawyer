@@ -15,9 +15,7 @@ RocketDoc API v2 brings significant improvements and new features to enhance the
 
 1. **Interview UX**:
 
-   - **Options**:
-     - Use the embedded UX for interviews provided by Rocket Lawyer.
-     - Create a custom embedded UX for interviews.
+   - **Custom Embedded UX**: Create a custom embedded UX through the API, allowing full customization to reflect your brand and visuals.
 
 2. **Data I/O**:
 
