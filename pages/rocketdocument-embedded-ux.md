@@ -2,8 +2,10 @@ Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section
 
 ## Items Required
 
-1. **Client Credentials** [I don't find a reference to this in the Welcome Guide page]  
-   Obtain these through the onboarding process in the [Welcome Guide](welcome-guide).
+Ensure you have the following items ready to create and customize a Rocket Lawyer document:
+
+1. **Client Credentials** 
+   Obtain these through the onboarding process in the [Welcome Guide](welcome-guide). [I don't find a reference to this in the Welcome Guide page]  
 
 2. **templateId**  
    This is the unique ID for the template used to initialize the interview. For example, for a lease agreement, you can use: `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
@@ -31,7 +33,7 @@ Follow the steps below to complete this guide:
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
 ```http
-POST https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken
+POST https://api-sandbox.rocketlawyer.com/partners/v2/auth/accesstoken
 ```
 
 Include the correct credentials (`client_id` and `client_secret`) and `grant_type`:
@@ -65,7 +67,7 @@ The response includes an Access Token:
 Create an interview by making a POST request to the [RocketDocument API](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/post):
 
 ```http
-POST https://api-sandbox.rocketlawyer.com/rocketdoc/v1/interviews
+POST https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews
 ```
 
 Include the Access Token in the Authorization header:
@@ -161,7 +163,7 @@ To integrate with **RocketSign**, retrieve the Interview JSON Object and save th
 **Request**
 
 ```http
-GET https://api-sandbox.rocketlawyer.com/rocketdoc/v1/interviews/{interviewId}
+GET https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}
 ```
 
 **Example Response**
