@@ -200,7 +200,7 @@ GET https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}
 
 ## Next Steps
 
-Now that you can create, display, and interact with a document interview, explore these resources:
+You’ve successfully created, displayed, and interacted with a document interview. To further enhance your integration and explore additional capabilities, check out the following resources:
 
 **Quick Starts**
 - [Quick Start: RocketSign Embedded UX](rocketsign-embedded-ux)
