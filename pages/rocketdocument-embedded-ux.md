@@ -29,7 +29,7 @@ Follow the steps below to complete this guide:
 ### Step 1: Generate an Access Token
 
 > **Note:** 
-> Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
+> - Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
 
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
@@ -56,7 +56,7 @@ The response includes an Access Token:
 ```
 
 > **Note:**
-> Token content has been redacted for security reasons.
+> - Token content has been redacted for security reasons.
 
 ### Step 2: Create the Interview
 
