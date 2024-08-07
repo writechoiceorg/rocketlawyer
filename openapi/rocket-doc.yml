@@ -61,8 +61,7 @@ paths:
         required: true
       responses:
         '201':
-          description: |
-            Returns a new Interview.
+          description: Successfully returns a new Interview.
           headers:
             rl-rdoc-servicetoken:
               schema:
@@ -80,17 +79,15 @@ paths:
     get:
       tags:
         - Interviews
-      operationId: retrieve-interview-status
-      summary: Retrieve Interview Status
+      operationId: list-interviews
+      summary: List All Interviews
       description: |
-          This endpoint returns a list of interviews associated with the partner.
-          The results can optionally be filtered by the `partnerEndUserId` to narrow down the list to a specific end user.
+          This endpoint returns a list of interviews associated with the partner. The results can optionally be filtered by the `partnerEndUserId` to narrow down the list to a specific end user.
       parameters:
         - name: partnerEndUserId
           in: query
           description: |
-            The unique identifier of the partner's end user used to filter the list of interviews.
-            If provided, only interviews associated with this end user will be returned.
+            The unique identifier of the partner's end user used to filter the list of interviews. If provided, only interviews associated with this end user will be returned.
           schema:
             $ref: "#/components/schemas/partnerEndUserId"
           required: false
@@ -112,7 +109,7 @@ paths:
     get:
       tags:
         - Interviews
-      summary: Retrieve Interview
+      summary: Retrieve Interview by ID
       description: |
         Retrieves the details of an existing interview identified by the `interviewId`. This endpoint allows you to fetch all the information related to a specific interview, including its status and associated data.
       operationId: retrieve-interview
@@ -135,7 +132,7 @@ paths:
     delete:
       tags:
         - Interviews
-      summary: Delete an Interview Resource
+      summary: Delete an Interview
       description: |
         Deletes an existing interview resource identified by the `interviewId`. This operation permanently removes the interview and its associated data from the system.
       operationId: delete-interview
@@ -175,7 +172,7 @@ paths:
           description: Unauthorized
       deprecated: false
 
-  /interviews/{interviewId}/pages/{pageRef}:
+  /interviews/{interviewId}/pages/{pageId}:
     get:
       summary: Retrieve a Page
       tags:
@@ -208,7 +205,9 @@ paths:
       summary: Submit a Page
       operationId: submit-page
       description: |
-        Submits data for a specific page of the interview identified by `interviewId` and `pageId`. This operation is typically performed to discover the next or previous page and/or to get an updated preview.
+        Submits the answers for a specific page questions of the interview identified by `interviewId` and `pageId`. 
+        
+        This operation can also be used to retrieve the next or previous page preview, and/or get the updated preview of the current page. This is controlled by the `format` key in each pages respective data inside the request's body.
         
         If currently on the first page of the interview, then the previous page and the current page will be the same. Similarly, if currently on the last page of the interview, the current page and the next page will be the same.
       parameters:
@@ -541,19 +540,20 @@ components:
       example: 76105B3E-AC8A-4202-8ED2-B991A02B8456
 
     pageRefPath:
-      name: pageRef
+      name: pageId
       in: path
       description: |
         Either a pageId or a pseudonym for a page. Enter one of the following options:
-        - `$pageId`: real id of the requested page.
+        - `pageId`: the unique identifier of the requested page.
         - `"first"`: pseudonym for the first page of the Interview.
+        - `"last"`: pseudonym for the last page of the Interview.
       schema:
         type: string
       example: "Fkbbc110f2d2eb"
       required: true
 
     pageIdPath:
-      name: pageRef
+      name: pageId
       in: path
       description: The unique identifier of the page to be submitted.
       schema:
@@ -852,10 +852,10 @@ components:
 
     InterviewCreateRequest:
       oneOf:
-        - $ref: "#/components/schemas/createInterviewEphemeral"
-        - $ref: "#/components/schemas/createInterviewPersistent"
+        - $ref: "#/components/schemas/Create-Persintent-Interview"
+        - $ref: "#/components/schemas/Create-Ephemeral-Interview"
 
-    createInterviewEphemeral:
+    Create-Ephemeral-Interview:
       type: object
       description: |
         Ephemeral interviews do not create or use binders and do not store user-entered information. 
@@ -873,7 +873,7 @@ components:
         - storageType
         - templateId
 
-    createInterviewPersistent:
+    Create-Persintent-Interview:
       type: object
       description: |
         Persistent interviews store user-entered information and can be associated with a Binder or an owner email address.
