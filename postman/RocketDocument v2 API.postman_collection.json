@@ -57,7 +57,7 @@
 								"accesstoken"
 							]
 						},
-						"description": "`Use the /v1/auth/accesstoken` endpoint to obtain a general access token for authenticating subsequent API requests. This token allows your backend systems to securely interact with the Rocket Lawyer API, controlling the content and actions each user can perform within Rocket Lawyer.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `client_credentials`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |"
+						"description": "Use the `/v1/auth/accesstoken` endpoint to obtain a general access token for authenticating subsequent API requests. This token allows your backend systems to securely interact with the Rocket Lawyer API, controlling the content and actions each user can perform within Rocket Lawyer.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `client_credentials`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |"
 					},
 					"response": []
 				},
