@@ -28,6 +28,8 @@ Follow the steps below to complete this guide:
 
 ### Step 1: Generate an Access Token
 
+Before interacting with the RocketDocument API, you must authenticate your calls by obtaining an Access Token. This token will authorize all subsequent API requests.
+
 > **Note:** Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
 
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
@@ -127,7 +129,7 @@ Insert this web component tag in the body:
 - `{rl-rdoc-servicetoken}`: The service token from Step 1. Learn more in the [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview).
 - `{interview-id}`: From the response in Step 2.
 
-> Attention! `{interview-id}` is different from `templateId`.
+> **Attention!** `{interview-id}` is different from `templateId`.
 
 Simplified webpage example:
 
