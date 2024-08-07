@@ -38,6 +38,11 @@ paths:
             schema:
               "$ref": "#/components/schemas/InterviewCreateRequest"
             examples:
+              Persistent storage with partyEmailAddress:
+                value:
+                  partyEmailAddress: user@xyzcompany.com
+                  partnerEndUserId: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
+                  templateId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
               Ephemeral storage:
                 value:
                   storageType: ephemeral
@@ -49,11 +54,7 @@ paths:
                   binderId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
                   partnerEndUserId: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
                   templateId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
-              Persistent storage with partyEmailAddress:
-                value:
-                  partyEmailAddress: user@xyzcompany.com
-                  partnerEndUserId: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
-                  templateId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
+              
               Persistent storage with Group Config with defaults exempting email or binder (contact support):
                 value:
                   partnerEndUserId: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
@@ -219,9 +220,94 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/pagePatchRequest"
+            examples:
+              Retrieve updated current page:
+                value:
+                  answersPayload:
+                    Flfmu8ta21l9eh: ""
+                    Flfmufliy5gnuf: ""
+                    Flfmulpp4orak5: "true"
+                    Flfmum2u1mcvif: "false"
+                    Flfmuuwxkfljt6: "true"
+                    Flfmuwllpj97qz: "false"
+                    Flfmuznrnxr8vn: ""
+                    Flfqvnvr121l11: ""
+                    Clfqvxpiwq5btl:
+                      - Flfqvvhivulxtb: "answer 1"
+                        Flfqvwpr3a35lw: "answer 2"
+                      - Flfqvvhivulxtb: "answer 3"
+                        Flfqvwpr3a35lw: "answer 4"
+                    Clfqxxxexkmjzr:
+                      - Flfqwerocs85au: ""
+                    Flfqyoh037bgfr: ""
+                    Flfqyp3z2r6prc: "false"
+                  currentPageData:
+                    format: "display"
+                  previousPageData:
+                    format: "reference"
+                  nextPageData:
+                    format: "reference"
+                  preview:
+                    mimeType: "text/html"
+              Retrieve previous page preview:
+                value:
+                  answersPayload:
+                    Flfmu8ta21l9eh: ""
+                    Flfmufliy5gnuf: ""
+                    Flfmulpp4orak5: "true"
+                    Flfmum2u1mcvif: "false"
+                    Flfmuuwxkfljt6: "true"
+                    Flfmuwllpj97qz: "false"
+                    Flfmuznrnxr8vn: ""
+                    Flfqvnvr121l11: ""
+                    Clfqvxpiwq5btl:
+                      - Flfqvvhivulxtb: "answer 1"
+                        Flfqvwpr3a35lw: "answer 2"
+                      - Flfqvvhivulxtb: "answer 3"
+                        Flfqvwpr3a35lw: "answer 4"
+                    Clfqxxxexkmjzr:
+                      - Flfqwerocs85au: ""
+                    Flfqyoh037bgfr: ""
+                    Flfqyp3z2r6prc: "false"
+                  currentPageData:
+                    format: "reference"
+                  previousPageData:
+                    format: "display"
+                  nextPageData:
+                    format: "reference"
+                  preview:
+                    mimeType: "text/html"
+              Retrieve next page preview:
+                value:
+                  answersPayload:
+                    Flfmu8ta21l9eh: ""
+                    Flfmufliy5gnuf: ""
+                    Flfmulpp4orak5: "true"
+                    Flfmum2u1mcvif: "false"
+                    Flfmuuwxkfljt6: "true"
+                    Flfmuwllpj97qz: "false"
+                    Flfmuznrnxr8vn: ""
+                    Flfqvnvr121l11: ""
+                    Clfqvxpiwq5btl:
+                      - Flfqvvhivulxtb: "answer 1"
+                        Flfqvwpr3a35lw: "answer 2"
+                      - Flfqvvhivulxtb: "answer 3"
+                        Flfqvwpr3a35lw: "answer 4"
+                    Clfqxxxexkmjzr:
+                      - Flfqwerocs85au: ""
+                    Flfqyoh037bgfr: ""
+                    Flfqyp3z2r6prc: "false"
+                  currentPageData:
+                    format: "reference"
+                  previousPageData:
+                    format: "reference"
+                  nextPageData:
+                    format: "display"
+                  preview:
+                    mimeType: "text/html"
       responses:
         "200":
-          description: Successfully submits the data for the specified page and returns the updated page information.
+          description: Successfully submits the data for the specified page.
           content:
             application/json:
               schema:
@@ -863,6 +949,7 @@ components:
       properties:
         storageType:
           $ref: "#/components/schemas/storageType" 
+          example: ephemeral
         partnerEndUserId:
           $ref: "#/components/schemas/partnerEndUserId"
         templateId:
@@ -882,6 +969,7 @@ components:
       properties:
         storageType:
           $ref: "#/components/schemas/storageType"
+          example: persistent
         binderId:
           type: string
           description: |
@@ -1238,12 +1326,12 @@ components:
     storageType:
       description: |
         Specifies the type of backend data storage strategy used for this interview.
-        Use `persistent` to indicate that the interview should store user-entered information.
-        Keep in mind that `ephemeral` interview answers are not stored.
+        - `persistent`: the interview will store user-entered information.
+        - `ephemeral`: the interview won't store user-entered information.
       type: string
       enum:
-        - ephemeral
         - persistent
+        - ephemeral
       default: persistent
 
     tam:
