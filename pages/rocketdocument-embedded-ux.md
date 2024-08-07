@@ -28,7 +28,8 @@ Follow the steps below to complete this guide:
 
 ### Step 1: Generate an Access Token
 
-> **Note:** Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
+> **Note:** 
+> Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
 
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
@@ -54,12 +55,13 @@ The response includes an Access Token:
 }
 ```
 
-> **Note:** Token content is redacted for security.
+> **Note:**
+> Token content has been redacted for security reasons.
 
 ### Step 2: Create the Interview
 
 > **Assumptions:**
-> - You have the `templateId` for the template to base the interview on. In this guide, we're using a Lease Agreement templateId. For other document types, use the corresponding templateId.
+> - You have the `templateId` for the template to base the interview on. In this guide, we're using a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
 > - You have a valid `partnerEndUserId`.
 
 **Request**
