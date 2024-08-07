@@ -149,30 +149,6 @@ paths:
           description: Unauthorized
       deprecated: false
 
-  /interviews/{interviewId}/completions:
-    post:
-      tags:
-        - Interviews
-      summary: Complete an Interview
-      description: |
-        Completes the specified interview for which answers have been supplied. This operation finalizes the interview, ensuring that all provided answers are processed and saved.
-      operationId: complete-interview
-      parameters:
-        - $ref: "#/components/parameters/interviewIdPath"
-          description: The unique identifier of the interview to be completed.
-      responses:
-        '201':
-          description: The interview was successfully completed and the answers have been processed and saved.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/InterviewCompleteResponse'
-        '400':
-          description: Bad Request
-        '401' :
-          description: Unauthorized
-      deprecated: false
-
   /interviews/{interviewId}/pages/{pageId}:
     get:
       summary: Retrieve a Page
@@ -316,6 +292,30 @@ paths:
           description: Bad Request
         '401' :
           description: Unauthorized
+
+  /interviews/{interviewId}/completions:
+    post:
+      tags:
+        - Interviews
+      summary: Complete an Interview
+      description: |
+        Completes the specified interview for which answers have been supplied. This operation finalizes the interview, ensuring that all provided answers are processed and saved.
+      operationId: complete-interview
+      parameters:
+        - $ref: "#/components/parameters/interviewIdPath"
+          description: The unique identifier of the interview to be completed.
+      responses:
+        '201':
+          description: The interview was successfully completed and the answers have been processed and saved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InterviewCompleteResponse'
+        '400':
+          description: Bad Request
+        '401' :
+          description: Unauthorized
+      deprecated: false
 
   /interviews/{interviewId}/tagged-answers:
     get:
@@ -974,7 +974,8 @@ components:
           type: string
           description: |
             The unique identifier of the Binder to which the interview will be added. 
-            This parameter is mutually exclusive with `partyEmailAddress` and should not be used for ephemeral interviews.
+            ⚠️ <small>This parameter is mutually exclusive with `partyEmailAddress`.</small> ⚠️
+            ⚠️ <small>Should not be used for ephemeral interviews.</small> ⚠️
           example: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
         partyEmailAddress:
           $ref: "#/components/schemas/partyEmailAddress"
@@ -992,7 +993,7 @@ components:
       description: |
         The email address of the party for whom the interview is being created.
         If provided, a new Binder is created for this email address.
-        This parameter is mutually exclusive with `binderId`.
+        ⚠️ <small>This parameter is mutually exclusive with `binderId`.</small> ⚠️
       example: user@xyzcompany.com
 
     interviewCreateResponse:
@@ -1336,8 +1337,7 @@ components:
 
     tam:
       description: |
-        The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview.
-        This model maps the input data to the corresponding fields and entities within the document template.
+        The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. This model maps the input data to the corresponding fields and entities within the document template.
       type: object
       properties:
         name:
