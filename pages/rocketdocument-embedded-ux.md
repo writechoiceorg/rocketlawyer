@@ -2,7 +2,7 @@ Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section
 
 ## Items Required
 
-1. **Client Credentials**  
+1. **Client Credentials** [I don't find a reference to this in the Welcome Guide page]  
    Obtain these through the onboarding process in the [Welcome Guide](welcome-guide).
 
 2. **templateId**  
@@ -15,6 +15,14 @@ Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section
    The email address of the end user for document notifications.
 
 ## Getting Started
+
+Follow the steps below to complete this guide:
+
+1. [Generate an Access Token](#step-1-generate-an-access-token)
+2. [Create the Interview](#step-2-create-the-interview)
+3. [Access the RocketDocument UI](#step-3-access-the-rocketdocument-ui)
+4. [Display Your Document](#step-4-display-your-document)
+5. [Integrate with RocketSign (Optional)](#step-5-optional-integrate-with-rocketsign)
 
 ### Step 1: Generate an Access Token
 
