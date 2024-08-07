@@ -54,14 +54,14 @@ paths:
                   binderId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
                   partnerEndUserId: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
                   templateId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
-              
-              Persistent storage with Group Config with defaults exempting email or binder (contact support):
-                value:
+
+              ? Persistent storage with Group Config with defaults exempting email or binder (contact support)
+              : value:
                   partnerEndUserId: cfd1ee5a-061a-40cc-be72-8cbb9945b5d9
                   templateId: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
         required: true
       responses:
-        '201':
+        "201":
           description: Successfully returns a new Interview.
           headers:
             rl-rdoc-servicetoken:
@@ -72,9 +72,9 @@ paths:
             "application/json":
               schema:
                 "$ref": "#/components/schemas/interviewCreateResponse"
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
     get:
@@ -83,7 +83,7 @@ paths:
       operationId: list-interviews
       summary: List All Interviews
       description: |
-          This endpoint returns a list of interviews associated with the partner. The results can optionally be filtered by the `partnerEndUserId` to narrow down the list to a specific end user.
+        This endpoint returns a list of interviews associated with the partner. The results can optionally be filtered by the `partnerEndUserId` to narrow down the list to a specific end user.
       parameters:
         - name: partnerEndUserId
           in: query
@@ -93,16 +93,16 @@ paths:
             $ref: "#/components/schemas/partnerEndUserId"
           required: false
       responses:
-        '200':
+        "200":
           description: |
             Successfully returns the status of all interviews belonging to the partner.
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/interviewsGetResponse"
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -118,16 +118,16 @@ paths:
         - $ref: "#/components/parameters/interviewIdPath"
           description: The unique identifier of the interview to retrieve.
       responses:
-        '200':
+        "200":
           description: |
             Successfully returns the details of the specified interview.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/interviewGetResponse'
-        '400':
+                $ref: "#/components/schemas/interviewGetResponse"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
     delete:
@@ -141,11 +141,11 @@ paths:
         - $ref: "#/components/parameters/interviewIdPath"
           description: The unique identifier of the interview to be deleted.
       responses:
-        '204':
+        "204":
           description: The interview resource was successfully deleted.
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -170,9 +170,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/pageResponse"
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
         "405":
           description: Method Not Allowed. Attempted to retrieve a non-first page of an ephemeral interview.
@@ -183,9 +183,9 @@ paths:
       operationId: submit-page
       description: |
         Submits the answers for a specific page questions of the interview identified by `interviewId` and `pageId`. 
-        
+
         This operation can also be used to retrieve the next or previous page preview, and/or get the updated preview of the current page. This is controlled by the `format` key in each pages respective data inside the request's body.
-        
+
         If currently on the first page of the interview, then the previous page and the current page will be the same. Similarly, if currently on the last page of the interview, the current page and the next page will be the same.
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
@@ -288,9 +288,9 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/pageResponse"
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
 
   /interviews/{interviewId}/completions:
@@ -305,15 +305,15 @@ paths:
         - $ref: "#/components/parameters/interviewIdPath"
           description: The unique identifier of the interview to be completed.
       responses:
-        '201':
+        "201":
           description: The interview was successfully completed and the answers have been processed and saved.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/InterviewCompleteResponse'
-        '400':
+                $ref: "#/components/schemas/InterviewCompleteResponse"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -324,21 +324,21 @@ paths:
       summary: Retrieve Tagged Answers
       description: |
         Retrieves all the answers for tagged fields from the specified interview in Tagged Answer Model (TAM) format.
-        
+
         This endpoint allows you to fetch structured data for the interview, which includes the tagged answers aligned with the TAM structure.
       operationId: retrieve-tagged-answers
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
       responses:
-        '200':
+        "200":
           description: Successfully returns all the answers for tagged fields in TAM format.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tam'
-        '400':
+                $ref: "#/components/schemas/tam"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -346,10 +346,10 @@ paths:
     post:
       tags:
         - Documents
-      summary: Retrieve Ephemeral Interview Document
+      summary: Retrieve Ephemeral Document
       description: |
         Retrieve an ephemeral interview document using the provided `answersPayload`. This endpoint processes the interview responses to generate the specified type of document.
-      operationId: post-document
+      operationId: retrieve-ephemeral-document
       requestBody:
         # description: InterviewCreateRequest
         content:
@@ -358,15 +358,15 @@ paths:
               "$ref": "#/components/schemas/documentsPostRequest"
         required: true
       responses:
-        '201':
+        "201":
           description: Successfully retrieves the document from the provided interview data.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/documentsPostResponse'
-        '400':
+                $ref: "#/components/schemas/documentsPostResponse"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -374,7 +374,7 @@ paths:
     get:
       description: |
         Returns the document from a persistent interview in the format specified by the Accept header. This endpoint allows you to fetch the document in either HTML or PDF format, as specified in the request.
-      operationId: retrieve-document
+      operationId: retrieve-persistent-document
       summary: Retrieve Persistent Document
       tags:
         - Documents
@@ -402,18 +402,18 @@ paths:
           schema:
             type: string
       responses:
-        '303':
+        "303":
           description: Redirection to the file. The response contains the location of the resource where the client should be redirected.
           headers:
             location:
               description: Location of the resource where the client should be redirected.
               schema:
                 type: string
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
-        '412' :
+        "412":
           description: Precondition Failed. The requested file type is not supported.
       deprecated: false
 
@@ -432,7 +432,7 @@ paths:
         - $ref: "#/components/parameters/pageSizeQuery"
         - $ref: "#/components/parameters/reverseQuery"
       responses:
-        '200':
+        "200":
           description: Successfully returns a list of templates.
           headers:
             cursor:
@@ -442,10 +442,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/templatesGetResponse'
-        '400':
+                $ref: "#/components/schemas/templatesGetResponse"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -453,7 +453,7 @@ paths:
     get:
       tags:
         - Templates
-      summary: Retrieve a Template
+      summary: Retrieve a Template by ID
       description: |
         Retrieves a specific template identified by the `templateId`. The response includes detailed information such as the template's name, short and long descriptions, and URL references to its thumbnail and preview.
       operationId: get-template
@@ -461,7 +461,7 @@ paths:
         - $ref: "#/components/parameters/templateIdPath"
           description: The unique identifier of the template to be retrieved.
       responses:
-        '200':
+        "200":
           description: Successfully returns the requested template, including its details and URL references.
           headers:
             Cache-Control:
@@ -471,10 +471,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/templateGetResponse'
-        '400':
+                $ref: "#/components/schemas/templateGetResponse"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -498,7 +498,7 @@ paths:
             default: text/html
             type: string
       responses:
-        '200':
+        "200":
           description: Successfully returns the template preview in the specified format.
           headers:
             Cache-Control:
@@ -515,9 +515,9 @@ paths:
                       <b>Example</b>
                     </body>
                   </html>
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -541,7 +541,7 @@ paths:
             default: image/png
             type: string
       responses:
-        '200':
+        "200":
           description: Successfully returns the template thumbnail in the specified format.
           headers:
             Cache-Control:
@@ -553,9 +553,9 @@ paths:
               schema:
                 type: string
                 example: image
-        '400':
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -569,15 +569,15 @@ paths:
       parameters:
         - $ref: "#/components/parameters/templateIdPath"
       responses:
-        '200':
+        "200":
           description: Successfully returns the Tagged Answer Model (TAM) for the specified template.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/tam'
-        '400':
+                $ref: "#/components/schemas/tam"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -593,15 +593,15 @@ paths:
         - $ref: "#/components/parameters/EntityQueryIndex"
         - $ref: "#/components/parameters/lookupValueQuery"
       responses:
-        '200':
+        "200":
           description: Successfully returns an object representing suggestions for entity fields.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/entityResponse'
-        '400':
+                $ref: "#/components/schemas/entityResponse"
+        "400":
           description: Bad Request
-        '401' :
+        "401":
           description: Unauthorized
       deprecated: false
 
@@ -723,7 +723,6 @@ components:
       required: false
 
   schemas:
-
     answersPayload:
       type: object
       example:
@@ -842,12 +841,14 @@ components:
           $ref: "#/components/schemas/fieldType"
         default:
           type: string
-          description: Indicates the default value for this field - for example if the Radio button then could be "true".
+          description:
+            Indicates the default value for this field - for example if the Radio button then could be "true".
             If no default then "" will be returned
           example: ""
         label:
           type: string
-          description: The label to apply to the input to guide the user about what information is expected.
+          description:
+            The label to apply to the input to guide the user about what information is expected.
             For example if the question is about Address then the label might be for City
           example: "City"
         symbol:
@@ -893,11 +894,11 @@ components:
         createdAt:
           type: string
           description: The date the resource was created.
-          example: '2020-12-01T17:51:40.795Z'
+          example: "2020-12-01T17:51:40.795Z"
         updatedAt:
           type: string
           description: The date the resource was updated.
-          example: '2021-12-01T18:51:40.795Z'
+          example: "2021-12-01T18:51:40.795Z"
       required:
         - interviewId
         - interviewName
@@ -919,7 +920,7 @@ components:
         - type: object
           properties:
             binder:
-              $ref: '#/components/schemas/binder'
+              $ref: "#/components/schemas/binder"
 
     interviewEphemeral:
       description: An Ephemeral Interview
@@ -934,7 +935,7 @@ components:
       type: object
       properties:
         binder:
-          $ref: '#/components/schemas/binder'
+          $ref: "#/components/schemas/binder"
 
     InterviewCreateRequest:
       oneOf:
@@ -948,7 +949,7 @@ components:
         This type of interview is typically used for sessions where data persistence is not required.
       properties:
         storageType:
-          $ref: "#/components/schemas/storageType" 
+          $ref: "#/components/schemas/storageType"
           example: ephemeral
         partnerEndUserId:
           $ref: "#/components/schemas/partnerEndUserId"
@@ -999,19 +1000,19 @@ components:
     interviewCreateResponse:
       type: object
       oneOf:
-        - $ref: '#/components/schemas/interviewEphemeral'
-        - $ref: '#/components/schemas/interviewPersistent'
+        - $ref: "#/components/schemas/interviewEphemeral"
+        - $ref: "#/components/schemas/interviewPersistent"
 
     interviewGetResponse:
       type: object
       oneOf:
-        - $ref: '#/components/schemas/interviewEphemeral'
-        - $ref: '#/components/schemas/interviewPersistent'
+        - $ref: "#/components/schemas/interviewEphemeral"
+        - $ref: "#/components/schemas/interviewPersistent"
 
     interviewsGetResponse:
       type: array
       items:
-        $ref: '#/components/schemas/interview'
+        $ref: "#/components/schemas/interview"
 
     interviewId:
       description: The unique identifier of the Interview.
@@ -1031,19 +1032,19 @@ components:
           $ref: "#/components/schemas/preview"
         previousPageData:
           oneOf:
-            - $ref: '#/components/schemas/pageDataReference'
-            - $ref: '#/components/schemas/pageDataDisplaySingle'
-            - $ref: '#/components/schemas/pageDataDisplayCyclical'
+            - $ref: "#/components/schemas/pageDataReference"
+            - $ref: "#/components/schemas/pageDataDisplaySingle"
+            - $ref: "#/components/schemas/pageDataDisplayCyclical"
         currentPageData:
           oneOf:
-            - $ref: '#/components/schemas/pageDataReference'
-            - $ref: '#/components/schemas/pageDataDisplaySingle'
-            - $ref: '#/components/schemas/pageDataDisplayCyclical'
+            - $ref: "#/components/schemas/pageDataReference"
+            - $ref: "#/components/schemas/pageDataDisplaySingle"
+            - $ref: "#/components/schemas/pageDataDisplayCyclical"
         nextPageData:
           oneOf:
-            - $ref: '#/components/schemas/pageDataDisplaySingle'
-            - $ref: '#/components/schemas/pageDataDisplayCyclical'
-            - $ref: '#/components/schemas/pageDataReference'
+            - $ref: "#/components/schemas/pageDataDisplaySingle"
+            - $ref: "#/components/schemas/pageDataDisplayCyclical"
+            - $ref: "#/components/schemas/pageDataReference"
 
     pageDataPatch:
       description: |
@@ -1078,7 +1079,7 @@ components:
             - display
         progressPercentage:
           type: integer
-          example: '78'
+          example: "78"
         questions:
           $ref: "#/components/schemas/questions"
       required:
@@ -1129,14 +1130,8 @@ components:
             description: An array of answer objects for the questions on the page returned; this is used for where the pageData type=cyclical
             example:
               [
-                {
-                  "Flfqvvhivulxtb": "answer 1",
-                  "Flfqvwpr3a35lw": "answer 2"
-                },
-                {
-                  "Flfqvvhivulxtb": "answer 3",
-                  "Flfqvwpr3a35lw": "answer 4"
-                }
+                { "Flfqvvhivulxtb": "answer 1", "Flfqvwpr3a35lw": "answer 2" },
+                { "Flfqvvhivulxtb": "answer 3", "Flfqvwpr3a35lw": "answer 4" },
               ]
       required:
         - cycleId
@@ -1216,7 +1211,7 @@ components:
       properties:
         format:
           $ref: "#/components/schemas/pageDataPatch"
-    
+
     previousPageDataPatchRequest:
       properties:
         format:
@@ -1226,7 +1221,7 @@ components:
       properties:
         format:
           $ref: "#/components/schemas/pageDataPatch"
-    
+
     previewPatchRequest:
       properties:
         mimeType:
@@ -1238,7 +1233,8 @@ components:
           $ref: "#/components/schemas/previewMimeType"
         data:
           type: string
-          description: Base64 encoded string of the html of the document representing the document preview,
+          description:
+            Base64 encoded string of the html of the document representing the document preview,
             if answers have been provided then these will be included in the preview
           example: "PGh0bWw+PGJvZHk+Um9ja2V0RG9jdW1lbnQgcHJldmlldzwvYm9keT48L2h0bWw+Cg=="
       required:
@@ -1295,8 +1291,7 @@ components:
         - Person
         - Organization
         - Property
-      example:
-        Person
+      example: Person
 
     entityInstanceRole:
       type: object
@@ -1392,13 +1387,12 @@ components:
     tamClass:
       type: string
       description: |
-        The classification of the entity. 
+        The classification of the entity.
       enum:
         - Person
         - Organization
         - Property
-      example:
-        Person
+      example: Person
 
     tamRole:
       description: |
@@ -1445,7 +1439,7 @@ components:
           example: Employment contract
         shortDescription:
           type: string
-          description:  A brief summary of the document template. This description provides a quick overview of the template's purpose and content.
+          description: A brief summary of the document template. This description provides a quick overview of the template's purpose and content.
           example: A contract for employment.
         longDescription:
           type: string
