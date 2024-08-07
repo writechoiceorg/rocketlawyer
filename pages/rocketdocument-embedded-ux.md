@@ -4,16 +4,16 @@ Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section
 
 Ensure you have the following items ready to create and customize a Rocket Lawyer document:
 
-1. **Client Credentials** 
-   Obtain these through the onboarding process in the [Welcome Guide](welcome-guide). [I don't find a reference to this in the Welcome Guide page]  
+1. **Client Credentials**
+   Obtain these through the onboarding process in the [Welcome Guide](welcome-guide).  
 
-2. **templateId**  
+2. **templateId**
    This is the unique ID for the template used to initialize the interview. For example, for a lease agreement, you can use: `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
 
-3. **partnerEndUserId**  
+3. **partnerEndUserId** 
    An ID that identifies the end user in your system.
 
-4. **partyEmailAddress**  
+4. **partyEmailAddress**
    The email address of the end user for document notifications.
 
 ## Getting Started
