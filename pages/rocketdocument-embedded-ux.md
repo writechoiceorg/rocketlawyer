@@ -5,7 +5,7 @@ Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section
 Ensure you have the following items ready to create and customize a Rocket Lawyer document:
 
 1. **Client Credentials**   
-     Obtain these through the onboarding process in the [Welcome Guide](welcome-guide).  
+     Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).  
 
 2. **templateId**   
      This is the unique ID for the template used to initialize the interview. For example, for a lease agreement, you can use: `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
@@ -28,8 +28,7 @@ Follow the steps below to complete this guide:
 
 ### Step 1: Generate an Access Token
 
-> **Note:** 
-> - Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
+> **Note:** Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
 
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
@@ -55,13 +54,12 @@ The response includes an Access Token:
 }
 ```
 
-> **Note:**
-> - Token content has been redacted for security reasons.
+> **Note:** Token content has been redacted for security reasons.
 
 ### Step 2: Create the Interview
 
 > **Assumptions:**
-> - You have the `templateId` for the template to base the interview on. In this guide, we're using a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
+> - You have the `templateId` for the template to base the interview on. This guide uses a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
 > - You have a valid `partnerEndUserId`.
 
 **Request**
@@ -129,7 +127,7 @@ Insert this web component tag in the body:
 - `{rl-rdoc-servicetoken}`: The service token from Step 1. Learn more in the [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview).
 - `{interview-id}`: From the response in Step 2.
 
-> Attention! `{interview-id}` is not the same thing as `templateId`.
+> Attention! `{interview-id}` is different from `templateId`.
 
 Simplified webpage example:
 
