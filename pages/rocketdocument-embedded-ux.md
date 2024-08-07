@@ -1,7 +1,6 @@
-This Quick Start guides you through using the **RocketDocument™ Embedded UX** to create and customize a Rocket Lawyer document through a simple interview-style experience. By following these steps, you'll be able to complete a document and display it using the **RocketSign® Embedded UX**.
+Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section provides a step-by-step process for creating and customizing a Rocket Lawyer document using a simple interview-style experience. By following these steps, you'll be able to complete a document and display it using the **RocketSign® Embedded UX**. 
 
-
-## What You'll Need
+## Items Required
 
 1. **Client Credentials**  
    Obtain these through the onboarding process in the [Welcome Guide](welcome-guide).
