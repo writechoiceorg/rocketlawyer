@@ -1,396 +1,309 @@
-# Guide to Building a Custom UI with RocketDocument API v2
+# How to Build a Custom UI
 
-This guide will help you integrate directly with our API to build your custom user experience (UX) using RocketDocument v2. We'll cover the following:
+This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting and resuming interviews, iterating through question pages, and completing interviews to retrieve documents.
 
-1. Introduction to API v2
-2. Understanding Response Body Format
-3. Utilizing PageData for UI Rendering
-4. Integrating GET & PATCH Endpoints
-5. Handling User Inputs and Payload Updates
+## Authentication
 
-## 1. Introduction to API v2
+### Create General Access Token
+To interact with the RocketDocument API, you'll first need to obtain a general access token. This token will be used to authenticate subsequent API requests.
 
-RocketDocument API v2 provides comprehensive support for creating and managing interview UI pages. By leveraging the pageData elements within the response bodies of GET & PATCH `/interviews/:id/pages/:id` endpoints, you can build and customize interview pages dynamically.
+**Endpoint:**
+```
+POST /v1/auth/accesstoken
+```
 
-### Resources
-
-- **RocketDocument v2**: OpenAPI 3.1 specification.
-- **General Page Flow**: Documentation on page navigation.
-- **Paging Example**: Sample API response for pagination.
-
-Note: Reference pages will be linked when published on RocketLawyer’s developer portal.
-
-## 2. Understanding Response Body Format
-
-Each response from the API contains six top-level elements essential for constructing the UI:
-
-- `name`: The name of the document template.
-- `answersPayload`: Tracks user-entered data.
-- `previousPageData`, `currentPageData`, and `nextPageData`: Used for building UI elements and navigating through the interview.
-- `preview`: Contains the HTML preview of the interview, including user input up to this point (not covered in this document).
-
-### Example Response
-
+**Request Body:**
 ```json
 {
-  "name": "Lorem Ipsum Quill Document",
-  "answersPayload": { /* details below */ },
-  "previousPageData": { "pageId": "<pageId>", "format": "reference" },
-  "currentPageData": { "pageId": "<pageId>", "format": "display" },
-  "nextPageData": { "pageId": "<pageId>", "format": "reference" },
-  "preview": { "format": null, "data": null }
+  "grant_type": "client_credentials",
+  "client_id": "{{partnerClientId}}",
+  "client_secret": "{{partnerClientSecret}}"
 }
 ```
 
-## 3. Utilizing PageData for UI Rendering
-
-### Format Types
-
-PageData can be in two formats: `reference` and `display`.
-
-- **Reference**: Contains only `pageId` and is used for navigation.
-- **Display**: Contains all necessary information for UI rendering.
-
-### Display Format Example
-
+**Response:**
 ```json
 {
-  "pageId": "<opaque UUID of the page>",
-  "format": "display",
-  "type": "<single or cyclical>",
-  "cycleId": "<opaque UUID of the cycle (if cyclical)>",
-  "progressPercentage": "<percentage of interview complete>",
-  "questions": [ /* array of questions */ ],
-  "answers": { /* answers object for single */ } or [ /* answers array for cyclical */ ]
+  "access_token": "your-general-access-token"
 }
 ```
 
-### Questions and Fields
+### Store Token
+Store this token securely in your backend for use in subsequent requests.
 
-Each question includes:
+## Choosing a Template
 
-```json
-{
-  "id": "<opaque UUID>",
-  "title": "<question title>",
-  "hint": "<hint text>",
-  "fields": [ /* array of fields */ ]
-}
+### Get List of Templates
+Retrieve a list of available document templates.
+
+**Endpoint:**
+```
+GET /v2/templates
 ```
 
-Fields describe the UI elements, influencing the widgets to use and client-side validation.
-
-### Field Types
-
-- `TEXT`: Single line of text
-- `PARAGRAPH`: Multiple lines or paragraphs
-- `NUMBER`: Numeric values
-- `CURRENCY`: Currency values
-- `PERCENTAGE`: Percent values
-- `SSN`: Social Security Number
-- `PHONE_NUMBER`, `PHONE_EXT`: Phone numbers
-- `DATE`: Date chooser
-- `CHECKBOX`: Selectable items
-- `DROPDOWN`: Single selection from a list
-- `RADIO`: Single radio button group
-
-#### Example of Field Types
-
-```json
-{
-  "id": "Fl0ch40o9y0bgv",
-  "label": "Name",
-  "type": "TEXT",
-  "value": "",
-  "default": ""
-}
+**Headers:**
+```http
+Authorization: Bearer {{generalAccessToken}}
 ```
 
-### Visibility Conditions
-
-Some questions should not be visible until a condition is met. If so, a question will contain:
-
+**Response:**
 ```json
-{
-  "showIf": "condition(<fieldid> <operator> [<value>])"
-}
-```
-
-Operators for visibility conditions include:
-
-- `=`: field’s value is equal to value
-- `!=`: field’s value is not equal to value
-- `>`: greater than (number fields)
-- `>=`: greater than or equal to (number fields)
-- `<`: less than (number fields)
-- `<=`: less than or equal to (number fields)
-
-For cyclical questions, visibility determinations should be made locally to each cycle based on the answers within that cycle.
-
-### Cyclicals
-
-Cyclicals repeat questions for entities like beneficiaries in a Will. The `type` is set to `cyclical`, and `cycleId` is included.
-
-#### Cyclical Example
-
-```json
-{
-  "pageId": "<opaque UUID of the page>",
-  "format": "display",
-  "type": "cyclical",
-  "cycleId": "Clfqvxpiwq5btl",
-  "progressPercentage": "50",
-  "questions": [ /* array of questions */ ],
-  "answers": [
-    {
-      /* answers object */
-    }
-  ]
-}
-```
-
-## 4. Integrating GET & PATCH Endpoints
-
-### GET /interviews/:id/pages/:id
-
-Use this endpoint to retrieve page data for rendering. The `currentPageData` always contains the display type pageData.
-
-### PATCH /interviews/:id/pages/:id
-
-This endpoint is used to update pageData and submit user responses. Ensure the answersPayload is updated and submitted along with the request.
-
-#### Example PATCH Request
-
-```json
-{
-  "currentPageData": { "format": "display" },
-  "previousPageData": { "format": "reference" },
-  "nextPageData": { "format": "reference" }
-}
-```
-
-## 5. Handling User Inputs and Payload Updates
-
-### answersPayload
-
-The `answersPayload` is crucial for storing user inputs. It should be updated dynamically as users progress through the interview.
-
-#### Example
-
-For a text field:
-
-```json
-{
-  "id": "Flfmu8ta21l9eh",
-  "label": "Name",
-  "type": "TEXT",
-  "value": "",
-  "default": ""
-}
-```
-
-When the user enters "Bob":
-
-```json
-{
-  "answersPayload": {
-    "Flfmu8ta21l9eh": "Bob",
-    // other fields
+[
+  {
+    "id": "template-id-1",
+    "name": "Template Name 1"
+  },
+  {
+    "id": "template-id-2",
+    "name": "Template Name 2"
   }
+]
+```
+
+### Get Template Thumbnail
+Get a thumbnail image for a specific template.
+
+**Endpoint:**
+```
+GET /v2/templates/{{templateId}}/thumbnail
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{generalAccessToken}}
+```
+
+**Response:**
+Image data
+
+### Get Template Preview
+Retrieve a preview of a specific template.
+
+**Endpoint:**
+```
+GET /v2/templates/{{templateId}}/preview
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{generalAccessToken}}
+```
+
+**Response:**
+HTML content
+
+## Starting an Interview
+
+### Create Interview
+Initiate an interview session with a selected template.
+
+**Endpoint:**
+```
+POST /v2/interviews
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{generalAccessToken}}
+```
+
+**Request Body:**
+```json
+{
+  "templateId": "{{templateId}}",
+  "partnerEndUserId": "{{upid}}",
+  "partyEmailAddress": "someone@something.com"
 }
 ```
 
-### Cyclical Fields
-
-For cyclical fields, update the `answersPayload` to reflect multiple cycles of user input.
-
-#### Example
-
-For two cycles with answers "Jane", "30" and "Frank", "40":
-
+**Response:**
 ```json
 {
-  "Clfqvxpiwq5btl": [
-    {
-      "Flfqvvhivulxtb": "Jane",
-      "Flfqvwpr3a35lw": "30"
-    },
-    {
-      "Flfqvvhivulxtb": "Frank",
-      "Flfqvwpr3a35lw": "40"
-    }
-  ]
+  "interviewId": "new-interview-id",
+  "answersPayload": { ... }
 }
 ```
 
-### General PageData Construction Example
+### Get Scoped Access Token
+Obtain a scoped access token for the interview session.
 
-This is an example taken from Rocket Lawyer's Non-Disclosure Agreement:
+**Endpoint:**
+```
+POST /v1/auth/accesstoken
+```
 
+**Headers:**
+```http
+Authorization: Bearer {{serviceToken}}
+```
+
+**Request Body:**
 ```json
 {
-  "name": "Non-Disclosure Agreement US",
-  "answersPayload": {
-    "Fl0ccyw9hrz12w": "",
-    "Fl0ce6o5rqiow6": "false",
-    "Fl0cedn4nzqul0": "true",
-    "Fl0ceh1ajbf26x": "",
-    "Fl0cekmuq6lnn9": "",
-    "Fl0cem469ome4s": "",
-    "Fl0cenxq87uftg": "",
-    "Fl0cf3mup66h8q": "",
-    "Fl0cfafi2si05k": "",
-    "Fl0cfe369zsoxq": "",
-    "Fl0i6dpwfapy4d": "",
-    "Fl0i6mcudwvkpb": "",
-    "Fl0i6n12ngd2ef": "",
-    "Fl0i6ocex3s5tq": "",
-    "Fl0i717os3n6u6": "",
-    "Fl0ch27vteziyw": "true",
-    "Fl0ch34xos5g8a": "false",
-    "Fl0ch40o9y0bgv": "",
-    "Fl0ch98o15wo4f": "",
-    "Fl0ch9ti8559j1": "",
-    "Fl0cha8p851rgx": "",
-    "Fl0chnmtifkffv": "",
-    "Fl0choh96ekr71": "",
-    "Fl0cisfa7duax7": "",
-    "Fl0i4w8bwhjiox": "",
-    "Fl0i55drikdxro": "",
-    "Fl0i56likftmur": "",
-    "Fl0i5c1dx7ypr2": "",
-    "Fl0i5ugj10ck7f": "",
-    "Fl0gtd9uxjpp3k": "",
-    "Fl0cmyd6lm6g8f": "true",
-    "Fl0cmzsv4l7jzy": "false",
-    "Fl0cn1uret1n09": "true",
-    "Fl0cn2i4feh7zz": "false",
-    "Fl0cn75ajg3ecw": "",
-    "Fl0cn9dxru9957": "",
-    "version": 3
-  },
-  "previousPageData": {
-    "pageId":
+  "grant_type": "authorization_code",
+  "client_id": "{{partnerClientId}}",
+  "client_secret": "{{partnerClientSecret}}",
+  "code": "{{serviceToken}}"
+}
+```
 
- "Ql0cfx84j81kd9",
-    "format": "reference"
-  },
+**Response:**
+```json
+{
+  "access_token": "scoped-access-token"
+}
+```
+
+## Resuming an Interview
+
+### Resume Interview
+Resume an existing interview using the scoped access token and saved answers.
+
+**Endpoint:**
+```
+PATCH /v2/interviews/{{interviewId}}
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{scopedAccessToken}}
+```
+
+**Request Body:**
+```json
+{
+  "answersPayload": { ... }
+}
+```
+
+**Response:**
+```json
+{
+  "answersPayload": { ... }
+}
+```
+
+## Iterating Through Question Pages
+
+### Get First Page
+Retrieve the first page of the interview session.
+
+**Endpoint:**
+```
+GET /v2/interviews/{{interviewId}}/pages/first
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{scopedAccessToken}}
+```
+
+**Response:**
+```json
+{
+  "pageId": "first-page-id",
+  "questions": [ ... ],
+  "answers": { ... }
+}
+```
+
+### Get Page by ID
+Retrieve a specific page of the interview session by its page ID.
+
+**Endpoint:**
+```
+GET /v2/interviews/{{interviewId}}/pages/{{pageId}}
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{scopedAccessToken}}
+```
+
+**Response:**
+```json
+{
+  "pageId": "specific-page-id",
+  "questions": [ ... ],
+  "answers": { ... }
+}
+```
+
+### Submit Page and Display Next
+Submit the current page and retrieve the next page preview.
+
+**Endpoint:**
+```
+PATCH /v2/interviews/{{interviewId}}/pages/{{pageId}}
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{scopedAccessToken}}
+```
+
+**Request Body:**
+```json
+{
   "currentPageData": {
-    "pageId": "Fkbbc110f2d2eb",
-    "type": "single",
-    "format": "display",
-    "progressPercentage": "78",
-    "questions": [
-      {
-        "id": "Fkrp9n844hj7gtr",
-        "label": "Who will receive the Confidential Information?",
-        "hint": "Enter the name and address of the person who will be receiving the Confidential Information (the \"Recipient\"). Example: \"John Smith\".",
-        "fields": [
-          {
-            "id": "Fl0ch40o9y0bgv",
-            "label": "Name",
-            "type": "TEXT",
-            "value": "",
-            "default": ""
-          },
-          {
-            "id": "Fl0ch98o15wo4f",
-            "label": "Address",
-            "type": "TEXT",
-            "value": "",
-            "default": ""
-          },
-          {
-            "id": "Fl0ch9ti8559j1",
-            "label": "City",
-            "type": "TEXT",
-            "value": "",
-            "default": ""
-          },
-          {
-            "id": "Fl0cha8p851rgx",
-            "label": "State",
-            "type": "DROPDOWN",
-            "value": "",
-            "default": "",
-            "options": [
-              "Alabama",
-              "Alaska",
-              "Arizona",
-              "Arkansas",
-              "California",
-              "Colorado",
-              "Connecticut",
-              "Delaware",
-              "District of Columbia",
-              "Florida",
-              "Georgia",
-              "Hawaii",
-              "Idaho",
-              "Illinois",
-              "Indiana",
-              "Iowa",
-              "Kansas",
-              "Kentucky",
-              "Louisiana",
-              "Maine",
-              "Maryland",
-              "Massachusetts",
-              "Michigan",
-              "Minnesota",
-              "Mississippi",
-              "Missouri",
-              "Montana",
-              "Nebraska",
-              "Nevada",
-              "New Hampshire",
-              "New Jersey",
-              "New Mexico",
-              "New York",
-              "North Carolina",
-              "North Dakota",
-              "Ohio",
-              "Oklahoma",
-              "Oregon",
-              "Pennsylvania",
-              "Rhode Island",
-              "South Carolina",
-              "South Dakota",
-              "Tennessee",
-              "Texas",
-              "Utah",
-              "Vermont",
-              "Virginia",
-              "Washington",
-              "West Virginia",
-              "Wisconsin",
-              "Wyoming"
-            ]
-          },
-          {
-            "id": "Fl0chnmtifkffv",
-            "label": "ZIP Code",
-            "type": "TEXT",
-            "default": ""
-          }
-        ]
-      }
-    ],
-    "answers": {}
+    "format": "display"
   },
-  "nextPageData": {
-    "pageId": "Ql0cmum8nx7sx2",
-    "format": "reference"
-  },
-  "preview": {
-    "format": null,
-    "data": null
-  }
+  "answersPayload": { ... }
 }
 ```
 
-## Conclusion
+**Response:**
+```json
+{
+  "nextPageData": {
+    "pageId": "next-page-id",
+    "questions": [ ... ],
+    "answers": { ... }
+}
+```
 
-By following this guide, you can effectively build and customize your UX using RocketDocument API v2. Ensure to dynamically update the `answersPayload` and handle PageData correctly to create a seamless user experience.
+## Completing the Interview and Getting the Document
 
-For further details and examples, refer to the full API specification and accompanying resources.
+### Complete Interview
+Complete the interview session and generate the final document.
+
+**Endpoint:**
+```
+POST /v2/interviews/{{interviewId}}/completions
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{generalAccessToken}}
+```
+
+**Response:**
+```json
+{
+  "documentId": "final-document-id"
+}
+```
+
+### Get Document
+Retrieve the completed document.
+
+**Endpoint:**
+```
+POST /v2/documents
+```
+
+**Headers:**
+```http
+Authorization: Bearer {{generalAccessToken}}
+```
+
+**Request Body:**
+```json
+{
+  "interviewId": "{{interviewId}}",
+  "answersPayload": { ... }
+}
+```
+
+**Response:**
+Document data
