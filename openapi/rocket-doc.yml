@@ -131,6 +131,38 @@ paths:
         "401":
           description: Unauthorized
       deprecated: false
+    put:
+      tags:
+        - Interviews
+      summary: Update an Interview
+      description: |
+        This endpoint updates an existing Interview with data in the Tagged Answer Model (TAM) format. It's important to note that data previously entered for this interview will be lost.
+      operationId: update-interview
+      parameters:
+        - $ref: "#/components/parameters/interviewIdPath"
+          description: The unique identifier of the interview to update.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                inputData:
+                  $ref: "#/components/schemas/tam"
+                  description: The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a interview's TAM with the [Retrieve Tagged Answer](/retrieve-tagged-answers) endpoint.
+        required: true
+      responses:
+        "200":
+          description: |
+            Successfully updates the specified interview.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/interviewGetResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      deprecated: false
     delete:
       tags:
         - Interviews
@@ -182,10 +214,10 @@ paths:
     patch:
       tags:
         - Interviews
-      summary: Submit a Page
+      summary: Submit a Page's Answers
       operationId: submit-page
       description: |
-        Submits the answers for a specific page questions of the interview identified by `interviewId` and `pageId`. 
+        Submits the answers for a specific page questions of the interview identified by `interviewId` and `pageId`.
 
         This operation can also be used to retrieve the next or previous page preview, and/or get the updated preview of the current page. This is controlled by the `format` key in each pages respective data inside the request's body.
 
@@ -730,6 +762,9 @@ components:
 
   schemas:
     answersPayload:
+      description: |
+        A key-value object to include all provided answers. Each key refers to a answer unique identifier in the system (`Flfmulpp4orak5`), with its value being the actual answer provided by the end user.
+        <small>Example: `{ "Flfmulpp4orak5": "true", "Flfmufliy5gnuf": "John Doe" }`</small>
       type: object
       example:
         "Flfmu8ta21l9eh": ""
@@ -800,6 +835,7 @@ components:
           $ref: "#/components/schemas/interviewId"
         storageType:
           $ref: "#/components/schemas/storageType"
+          example: ephemeral
         document:
           $ref: "#/components/schemas/document"
       required:
@@ -963,6 +999,7 @@ components:
           $ref: "#/components/schemas/templateId"
         inputData:
           $ref: "#/components/schemas/tam"
+          description: The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a template's TAM with the [Retrieve Tagged Answer Model](/get-template-tam) endpoint.
       required:
         - storageType
         - templateId
@@ -992,6 +1029,7 @@ components:
           $ref: "#/components/schemas/templateId"
         inputData:
           $ref: "#/components/schemas/tam"
+          description: The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a template's TAM with the [Retrieve Tagged Answer Model](/get-template-tam) endpoint.
       required:
         - templateId
 
