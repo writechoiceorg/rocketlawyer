@@ -16,6 +16,8 @@ Ensure you have the following items ready to create and customize a Rocket Lawye
 4. **partyEmailAddress**        
      The email address of the end user for document notifications.
 
+> **Note:** Use `api-sandbox.rocketlawyer.com` for testing environments. When you're ready for production, switch to `api.rocketlawyer.com`. This applies to all interactions with the RocketDocument API.     
+
 ## Getting Started
 
 Follow the steps below to complete this guide:
@@ -28,9 +30,7 @@ Follow the steps below to complete this guide:
 
 ### Step 1: Generate an Access Token
 
-Before interacting with the RocketDocument API, you must authenticate your calls by obtaining an Access Token. This token will authorize all subsequent API requests.
-
-> **Note:** Use `api-sandbox.rocketlawyer.com` for testing. For production, switch to `api.rocketlawyer.com`.
+Before interacting with the RocketDocument API, you must authenticate your calls by obtaining an Access Token. This token will be used to authorize all subsequent API requests. In this step, you will learn how to generate an Access Token by calling the Authentication API.
 
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
@@ -60,9 +60,12 @@ The response includes an Access Token:
 
 ### Step 2: Create the Interview
 
-> **Assumptions:**
-> - You have the `templateId` for the template to base the interview on. This guide uses a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
-> - You have a valid `partnerEndUserId`.
+With the Access Token in hand, the next step is to create an interview session for the document. This interview is based on a specific document template and will gather the necessary information to customize the document. This step will guide you through making a POST request to the RocketDocument API to create the interview.
+
+**Assumptions**
+
+- You have the `templateId` for the template to base the interview on. This guide uses a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
+- You have a valid `partnerEndUserId`.
 
 **Request**
 
@@ -112,7 +115,7 @@ Authorization: Bearer {rl-rdoc-servicetoken}
 
 ### Step 3: Access the RocketDocument UI
 
-To embed RocketDocument UX in your UI, include the following in your HTML:
+Now that the interview is set up, you need to embed the RocketDocument UX into your platform’s UI. This step involves adding specific HTML elements and JavaScript to load the interactive interview interface. Here, you will learn how to include the required script and web component tags in your HTML.
 
 Add this script tag in the header:
 
@@ -152,13 +155,15 @@ Simplified webpage example:
 
 ### Step 4: Display Your Document
 
-After loading RocketDocument Embedded UX, your interview should be interactive:
+After loading RocketDocument Embedded UX, your interview should be interactive. This step explains how to ensure the interview loads correctly and provides a visual example of what the embedded interface looks like. By the end of this step, your document will be fully interactive.
 
 ![RocketDocument Embedded UX](https://rl-cicdv2-apigee-public-prod.apigee.io/files/RocketDocument-Embedded-Mobile.png)
 
-> Congratulations! You've successfully displayed the document using **RocketDocument Embedded UX**.
+> **Congratulations!** You've successfully displayed the document using **RocketDocument Embedded UX**.
 
 ### Step 5 (Optional): Integrate with **RocketSign**
+
+For platforms that require digital signatures, integrating RocketSign with RocketDocument adds this capability. In this step, you will learn how to retrieve the interview JSON object, save the `binderId`, and reuse the service token for RocketSign. This optional step extends the functionality of your integrated solution to include electronic signatures.
 
 To integrate with **RocketSign**, retrieve the Interview JSON Object and save the **binderId**. Keep the service token (`rl-rdoc-servicetoken`) for reuse with RocketSign.
 
