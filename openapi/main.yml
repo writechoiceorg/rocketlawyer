@@ -563,9 +563,9 @@ components:
       in: query
       description: |
         Specifies the name of the index to filter search results. Use this parameter to perform searches against a specific index. Possible indexed lookups:
-        - virtual
-        - virtualAndUngrouped
-        - groupBy
+        - `virtual`
+        - `virtualAndUngrouped`
+        - `groupBy`
       schema:
         type: string
         enum:
@@ -583,7 +583,6 @@ components:
         ⚠️ <small>Ignored if the `index` parameter is not present.</small> ⚠️
       schema:
         type: string
-      example: "groupBy"
       required: false
 
     cursorQuery:
@@ -835,6 +834,7 @@ components:
           $ref: "#/components/schemas/partnerEndUserId"
         storageType:
           $ref: "#/components/schemas/storageType"
+          example: ephemeral
         inputData:
           $ref: "#/components/schemas/tam"
           description: The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a template's TAM with the [Retrieve Tagged Answer Model](/get-template-tam) endpoint.
@@ -851,6 +851,7 @@ components:
           $ref: "#/components/schemas/partnerEndUserId"
         storageType:
           $ref: "#/components/schemas/storageType"
+          example: persistent
         inputData:
           $ref: "#/components/schemas/tam"
           description: The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a template's TAM with the [Retrieve Tagged Answer Model](/get-template-tam) endpoint.
@@ -859,27 +860,30 @@ components:
 
     create_persistent_interview_with_binder:
       allOf:
-        - $ref: "#/components/schemas/createInterviewPersistent"
         - type: object
           properties:
             binderId:
               $ref: "#/components/schemas/binderId"
+        - $ref: "#/components/schemas/createInterviewPersistent"
       required:
         - binderId
 
     create_persistent_interview_with_party_email:
       allOf:
-        - $ref: "#/components/schemas/createInterviewPersistent"
         - type: object
           properties:
             partyEmailAddress:
               $ref: "#/components/schemas/partyEmailAddress"
+        - $ref: "#/components/schemas/createInterviewPersistent"
       required:
         - partyEmailAddress
 
     binderId:
       type: string
-      description: The Binder's unique identifier.
+      description: |
+        The unique identifier of the Binder to which the interview will be added. 
+        ⚠️ <small>This parameter is mutually exclusive with `partyEmailAddress`.</small> ⚠️
+        ⚠️ <small>Should not be used for ephemeral interviews.</small> ⚠️
       example: 0af17ba7-f332-5346-bb3f-00b7c9af7deb
 
     partyEmailAddress:
@@ -900,7 +904,10 @@ components:
       properties:
         inputData:
           $ref: '#/components/schemas/tam'
-          description: The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a interview's TAM with the [Retrieve Tagged Answer](/retrieve-tagged-answers) endpoint.
+          description: |
+            The Tagged Answer Model (TAM) represents the structured format for injecting data into an interview or retrieving data from an interview. Retrieve a interview's TAM with the following endpoints:
+            - [Retrieve Persistent Interview Data](/)
+            - [Retrieve Ephemeral Interview Data](/)
 
     interviewId:
       description: The unique identifier of the Interview.
@@ -1071,12 +1078,16 @@ components:
         answersPayload:
           $ref: "#/components/schemas/answersPayload"
         currentPageData:
+          description: An instruction object for the returned current page data.
           $ref: "#/components/schemas/currentPageDataPatchRequest"
         previousPageData:
+          description: An instruction object for the returned previous page data.
           $ref: "#/components/schemas/previousPageDataPatchRequest"
         nextPageData:
+          description: An instruction object for the returned next page data.
           $ref: "#/components/schemas/nextPageDataPatchRequest"
         preview:
+          description: An instruction object for the preview data.
           $ref: "#/components/schemas/previewPatchRequest"
 
     partnerEndUserId:
