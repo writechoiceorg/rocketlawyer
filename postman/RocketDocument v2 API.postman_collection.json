@@ -1,0 +1,1322 @@
+{
+	"info": {
+		"_postman_id": "01263ed3-fe05-4138-9317-cb009aab9d54",
+		"name": "RocketDocument v2 API",
+		"description": "# RocketDocument v2\n\nThe diagram below shows the interaction between a partner application and Rocket Lawyer's RocketDoc v2 API. It outlines the steps to fully integrate our API into your system. The diagram will go through the following:\n\n1. **Get Access Token**: Obtain a general access token by sending a POST request with backend credentials to `/auth/accesstoken`.\n    \n2. **Choosing a Template**: Retrieve a list of document templates and select a specific template for preview.\n    \n3. **Start Interview**: Initiate an interview by creating an interview object and obtaining a service token for scoped access.\n    \n4. **Resume Interview**: Continue an existing interview using the scoped access token and saved answers.\n    \n5. **Iterate Through Question Pages**: Navigate through the interview pages, answering questions, and saving responses.\n    \n6. **Complete Interview and Get Document**: Finalize the interview and retrieve the completed document.\n    \n\n<img src=\"https://content.pstmn.io/51381cc8-4dbe-421e-ae53-fbeb1c7128a3/QVBJIFVzYWdlIGZvciBSb2NrZXREb2MgSW50ZXJ2aWV3IChwYXJ0bmVyIG93bmluZyBVSSkucG5n\">",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28471659",
+		"_collection_link": "https://www.postman.com/dark-meadow-504378/workspace/rocketlawyer/collection/28471659-01263ed3-fe05-4138-9317-cb009aab9d54?action=share&source=collection_link&creator=28471659"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Generate General Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"console.log(jsonResponse)",
+									"pm.environment.set('generalAccessToken', jsonResponse.access_token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"grant_type\": \"client_credentials\",\n\t\"client_id\": \"{{partnerClientId}}\",\n\t\"client_secret\": \"{{partnerClientSecret}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pasAPI}}/v1/auth/accesstoken",
+							"host": [
+								"{{pasAPI}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"accesstoken"
+							]
+						},
+						"description": "Use this endpoint to obtain a general access token for authenticating subsequent API requests. This token allows your backend systems to securely interact with the Rocket Lawyer API, controlling the content and actions each user can perform within Rocket Lawyer.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `client_credentials`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Service Token for Interview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"console.log(jsonResponse)",
+									"pm.environment.set('serviceToken', jsonResponse.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"purpose\" : \"api.rocketlawyer.com/rocketdoc\",\n\t\"interviewId\" : \"{{interviewId}}\",\n    \"partnerEndUserId\" : \"{{upid}}\",\n\t\"expirationTime\": 1753696695\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pasAPI}}/v1/auth/servicetoken",
+							"host": [
+								"{{pasAPI}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"servicetoken"
+							]
+						},
+						"description": "Use this endpoint to obtain a service token for client-side applications. This token allows client applications running on a user's device to load Rocket Lawyer's embedded user experience with a specific level of access.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `purpose` | The purpose for the service token (e.g., `api.rocketlawyer.com/rocketdoc`). |\n| `interviewId` | The interview ID for which the token is being requested. |\n| `partnerEndUserId` | Your partner's end user ID. |\n| `expirationTime` | The expiration time for the token, in UNIX epoch time. |"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Scoped Access Token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"pm.environment.set('scopedAccessToken',jsonResponse.access_token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true,
+							"accept-encoding": true,
+							"accept": true,
+							"user-agent": true
+						},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"grant_type\": \"authorization_code\",\n\t\"client_id\" : \"{{partnerClientId}}\",\n\t\"client_secret\" : \"{{partnerClientSecret}}\",\n\t\"code\" : \"{{serviceToken}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{pasAPI}}/v1/auth/accesstoken",
+							"host": [
+								"{{pasAPI}}"
+							],
+							"path": [
+								"v1",
+								"auth",
+								"accesstoken"
+							]
+						},
+						"description": "This endpoint can be used to obtain a scoped access token using a service token. This token allows for more granular access control within the Rocket Lawyer API, enabling specific actions or permissions for an interview session.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `authorization_code`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |\n| `code` | The service token obtained from the Get Service Token endpoint. |"
+					},
+					"response": []
+				}
+			],
+			"description": "# Authentication API\n\n## Overview\n\nThe Rocket Lawyer API employs API keys to securely authenticate requests. This ensures that only authorized applications can access and interact with the Rocket Lawyer platform. By using API keys, you can enable your users to utilize Rocket Lawyer features without needing separate login credentials.\n\n> Important: Do not share your API key and secret with anyone. These credentials grant access to your Rocket Lawyer account and should be kept secure to prevent unauthorized access. \n  \n\n## Pre-requisites\n\nBefore you can start using the Rocket Lawyer API, ensure the following:\n\n- **Developer Account:** You need a registered developer account with Rocket Lawyer. Refer to the [Registration](https://developer.rocketlawyer.com/accounts/create) page to create a new account.\n    \n\n> A Rocket Lawyer representative must approve your account. This approval process typically takes 1-2 business days. \n  \n\n- **API Credentials:** Obtain your API key and secret by logging into the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com).\n    \n\nIf you are new to Rocket Lawyer API, please visit the [Rocket Lawyer documentation](https://developer.rocketlawyer.com/).\n\n## Authentication\n\nRocket Lawyer API uses two types of authentication:\n\n### Server-to-server\n\nThe Authentication API allows your backend systems to control the content each user can access within Rocket Lawyer. This seamless integration enables your application to use Rocket Lawyer APIs without requiring your users to manage separate login credentials.\n\nTo obtain an access token, make a POST request to the `/auth/access` endpoint with valid credentials.\n\nThe response will include your access token, along with metadata such as its expiration time. Following the RFC 6750 standard, use the access token as a bearer token in subsequent API calls.\n\n### Client side\n\n**Service Tokens** can be used by client applications (running on your user's device) to load Rocket Lawyer's embedded user experience with a specific level of access. For example, you can load a specific document as its owner.\n\nTo create a service token, make a POST request to `/v1/auth/servicetoken` with valid credentials.\n\nThe response will include the newly generated service token with an expiration date set by you in the request."
+		},
+		{
+			"name": "Templates",
+			"item": [
+				{
+					"name": "List Templates",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/templates",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"templates"
+							],
+							"query": [
+								{
+									"key": "cursor",
+									"value": "25285311-89bd-4cea-8800-7b9ce0192428",
+									"description": "A pagination cursor used to retrieve the next set of results in a paginated response.",
+									"disabled": true
+								},
+								{
+									"key": "pageSize",
+									"value": "<integer>",
+									"description": "Defines the number of results to return per page in a paginated response.",
+									"disabled": true
+								},
+								{
+									"key": "reverse",
+									"value": "<bool>",
+									"description": "Determines the order of search results. When set to true, results are returned in reverse order.",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This endpoint retrieves a list of document templates available in Rocket Lawyer. This allows you to access and select templates for creating and managing documents."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Template by Id",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/templates/:templateId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"templates",
+								":templateId"
+							],
+							"variable": [
+								{
+									"key": "templateId",
+									"value": "{{templateId}}",
+									"description": "The unique identifier of the template to be retrieved."
+								}
+							]
+						},
+						"description": "This endpoint retrieves detailed information about a specific document template by its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Template Preview",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/templates/:templateId/preview",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"templates",
+								":templateId",
+								"preview"
+							],
+							"variable": [
+								{
+									"key": "templateId",
+									"value": "{{templateId}}",
+									"description": "The unique identifier of the template to be retrieved."
+								}
+							]
+						},
+						"description": "This endpoint retrieves a preview of a specific document template by its ID. The response provides a visual representation of the template in HTML format."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Template Thumbnail",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/templates/:templateId/thumbnail",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"templates",
+								":templateId",
+								"thumbnail"
+							],
+							"variable": [
+								{
+									"key": "templateId",
+									"value": "{{templateId}}",
+									"description": "The unique identifier of the template to be retrieved."
+								}
+							]
+						},
+						"description": "This endpoint retrieves a thumbnail image of a specific document template by its ID. The response provides a visual representation of the template in PNG format."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Template Tagged Answer Model (TAM)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/templates/:templateId/tagged-answer-model",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"templates",
+								":templateId",
+								"tagged-answer-model"
+							],
+							"variable": [
+								{
+									"key": "templateId",
+									"value": "{{templateId}}",
+									"description": "The unique identifier of the template."
+								}
+							]
+						},
+						"description": "This retrieves the Tagged Answer Model (TAM) for the specified template identified by the `templateId`. The TAM provides a structured format for injecting data into an interview or retrieving data from an interview."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Interviews",
+			"item": [
+				{
+					"name": "Create Interview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"const jsonRequest = JSON.parse(request.data);",
+									"pm.environment.set('upid', jsonRequest.partnerEndUserId);",
+									"if (jsonResponse.interviewId) {",
+									"    pm.environment.set('interviewId', jsonResponse.interviewId)",
+									"}",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									"const serviceTokenHeader = pm.response.headers.get(\"rl-rdoc-servicetoken\")",
+									"if (serviceTokenHeader) {",
+									"    pm.environment.set('serviceToken',serviceTokenHeader)",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"templateId\": \"{{templateId}}\",\n    \"partnerEndUserId\": \"{{upid}}\",\n    \"partyEmailAddress\": \"someone@something.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews"
+							]
+						},
+						"description": "Use this endpoint to create a new interview session for a specific document template. This allows you to initiate the process of filling out a document based on a selected template.\n\nThe request body should be in JSON format and needs to include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `templateId` | The ID of the document template to use for the interview. |\n| `partnerEndUserId` | A unique identifier for the end user provided by the partner application. |\n| `partyEmailAddress` | The email address of the party for whom the interview is being created. |"
+					},
+					"response": []
+				},
+				{
+					"name": "List Interviews",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews"
+							],
+							"query": [
+								{
+									"key": "partnerEndUserId",
+									"value": "<string>",
+									"description": "The unique identifier of the partner's end user used to filter the list of interviews. ",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This endpoint retrieves a list of interview sessions associated with your account. This allows you to view and manage existing interviews."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Interview by ID",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"connection": true
+						},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview to retrieve."
+								}
+							]
+						},
+						"description": "This endpoint retrieves detailed information about a specific interview session by its ID. This allows you to fetch all the information about a specific interview, including its status and associated data."
+					},
+					"response": []
+				},
+				{
+					"name": "Complete Interview",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"pm.environment.set('binderId', jsonResponse.binder.binderId)",
+									"pm.environment.set('documentId', jsonResponse.binder.documentId)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": true,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/completions",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"completions"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview to be completed."
+								}
+							]
+						},
+						"description": "Use this endpoint to complete an interview session. This endpoint completes the interview and generates the final document based on the provided answers."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Tagged Answers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/tagged-answers",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"tagged-answers"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								}
+							]
+						},
+						"description": "This endpoint retrieves all the answers for tagged fields from the specified interview in the Tagged Answer Model (TAM) format. This endpoint allows you to fetch structured data for the interview, which includes the tagged answers aligned with the TAM structure."
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Interview",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"inputData\": {\r\n    \"name\": \"<string>\",\r\n    \"entities\": [\r\n      {\r\n        \"name\": \"<string>\",\r\n        \"class\": \"Person\",\r\n        \"roles\": [\r\n          \"<string>\",\r\n          \"<string>\"\r\n        ],\r\n        \"isCyclical\": false\r\n      },\r\n      {\r\n        \"name\": \"<string>\",\r\n        \"class\": \"Person\",\r\n        \"roles\": [\r\n          \"<string>\",\r\n          \"<string>\"\r\n        ],\r\n        \"isCyclical\": false\r\n      }\r\n    ],\r\n    \"fields\": [\r\n      {\r\n        \"entity\": \"<string>\",\r\n        \"fieldClass\": \"<string>\",\r\n        \"type\": \"CURRENCY\",\r\n        \"value\": \"<string>\",\r\n        \"cycleId\": \"<string>\"\r\n      },\r\n      {\r\n        \"entity\": \"<string>\",\r\n        \"fieldClass\": \"<string>\",\r\n        \"type\": \"SSN\",\r\n        \"value\": \"<string>\",\r\n        \"cycleId\": \"<string>\"\r\n      }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								}
+							]
+						},
+						"description": "This endpoint updates an existing Interview with data in the Tagged Answer Model (TAM) format. It's important to note that data previously entered for this interview will be lost.\n\nThe request body should be in JSON format and needs to include the inputData parameter with the following TAM structure:\n\n| **Field** | **Description** |\n| --- | --- |\n| inputData | Object containing input data to be prefilled at the document. |\n| inputData.name | Name associated with the input data. |\n| inputData.entities | Array of entities related to the input data. |\n| inputData.entities\\[\\].name | Name of the entity. |\n| inputData.entities\\[\\].class | Class of the entity (e.g., \"Organization\"). |\n| inputData.entities\\[\\].roles | Roles associated with the entity. |\n| inputData.entities\\[\\].isCyclical | Indicates if the entity is cyclical (can receive multiple answers). |\n| inputData.fields | Array of fields associated with the input data. |\n| inputData.fields\\[\\].entity | Name of the entity related to the field. |\n| inputData.fields\\[\\].fieldClass | Class of the field. |\n| inputData.fields\\[\\].type | Type of data in the field (e.g. \"TEXT\" or \"RADIO\"). |\n| inputData.fields\\[\\].value | Value associated with the field. |\n| inputData.fields\\[\\].cycleId | Identifier for the cycle associated with the field. |"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Interview Pages",
+			"item": [
+				{
+					"name": "Get First Page",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"",
+									"function setDisplayPageId(pageData) {",
+									"    if (pageData && pageData.format && pageData.format === \"display\" && pageData.pageId) {",
+									"        pm.environment.set('pageId', pageData.pageId); ",
+									"    } ",
+									"}",
+									"",
+									"setDisplayPageId(jsonResponse.previousPageData);",
+									"setDisplayPageId(jsonResponse.currentPageData);",
+									"setDisplayPageId(jsonResponse.nextPageData);",
+									"",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/pages/first",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"pages",
+								"first"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								}
+							]
+						},
+						"description": "This endpoint is used to retrieve the first page of an interview session. This allows you to begin the interview process by presenting the initial set of questions to the user."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Page by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"",
+									"function setDisplayPageId(pageData) {",
+									"    if (pageData && pageData.format && pageData.format === \"display\" && pageData.pageId) {",
+									"        pm.environment.set('pageId', pageData.pageId); ",
+									"    } ",
+									"}",
+									"",
+									"setDisplayPageId(jsonResponse.previousPageData);",
+									"setDisplayPageId(jsonResponse.currentPageData);",
+									"setDisplayPageId(jsonResponse.nextPageData);",
+									"",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/pages/:pageId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"pages",
+								":pageId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								},
+								{
+									"key": "pageId",
+									"value": "{{pageId}}",
+									"description": "Either a pageId or a pseudonym for a page. Enter one of the following options:\n        - `pageId`: the unique identifier of the requested page.\n        - `\"first\"`: pseudonym for the first page of the Interview.\n        - `\"last\"`: pseudonym for the last page of the Interview."
+								}
+							]
+						},
+						"description": "This endpoint retrieves a specific page of an interview session by its page ID. This allows you to access and display any interview page to the user."
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Page and Display Next",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"",
+									"function setDisplayPageId(pageData) {",
+									"    if (pageData && pageData.format && pageData.format === \"display\" && pageData.pageId) {",
+									"        pm.environment.set('pageId', pageData.pageId); ",
+									"    } ",
+									"}",
+									"",
+									"setDisplayPageId(jsonResponse.previousPageData);",
+									"setDisplayPageId(jsonResponse.currentPageData);",
+									"setDisplayPageId(jsonResponse.nextPageData);",
+									"",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableCookies": true,
+						"followRedirects": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currentPageData\": {\n    \"format\": \"reference\"\n  },\n  \"previousPageData\": {\n    \"format\": \"reference\"\n  },\n  \"nextPageData\": {\n    \"format\": \"display\"\n  },\n  \"preview\": {\n    \"mimeType\": \"text/html\"\n  },\n  \"answersPayload\": {{answersPayload}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/pages/:pageId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"pages",
+								":pageId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								},
+								{
+									"key": "pageId",
+									"value": "{{pageId}}",
+									"description": "The unique identifier of the page to be submitted."
+								}
+							]
+						},
+						"description": "This version of the `/v2/interviews/{interviewId}/pages/{pageId}` endpoint updates the current page of an interview session and also retrieves the next page preview. This allows you to save the user's answers and progress to the next set of questions.\n\nThe request body should be in JSON format and must include the following parameters to indicate that you want to move to the next page:\n\n| Parameter | Description |\n| --- | --- |\n| `nextPageData` | Object indicating the next page's data with the format set to `display`. |\n| `preview` | Object containing the MIME type of the preview. |\n| `answersPayload` | Object containing the user's answers. |"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Page and Display Previous",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"",
+									"function setDisplayPageId(pageData) {",
+									"    if (pageData && pageData.format && pageData.format === \"display\" && pageData.pageId) {",
+									"        pm.environment.set('pageId', pageData.pageId); ",
+									"    } ",
+									"}",
+									"",
+									"setDisplayPageId(jsonResponse.previousPageData);",
+									"setDisplayPageId(jsonResponse.currentPageData);",
+									"setDisplayPageId(jsonResponse.nextPageData);",
+									"",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableCookies": false,
+						"followRedirects": false
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currentPageData\": {\n    \"format\": \"reference\"\n  },\n  \"previousPageData\": {\n    \"format\": \"display\"\n  },\n  \"nextPageData\": {\n    \"format\": \"reference\"\n  },\n  \"preview\": {\n    \"mimeType\": \"text/html\"\n  },\n  \"answersPayload\": {{answersPayload}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/pages/:pageId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"pages",
+								":pageId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								},
+								{
+									"key": "pageId",
+									"value": "{{pageId}}",
+									"description": "The unique identifier of the page to be submitted."
+								}
+							]
+						},
+						"description": "This version of the `/v2/interviews/{interviewId}/pages/{pageId}` endpoint updates the current page of an interview session and also retrieves the previous page preview. This allows you to save the user's answers and go back to the previous set of questions.\n\nThe request body should be in JSON format and must include the following parameters to indicate that you want to move to the previous page:\n\n| Parameter | Description |\n| --- | --- |\n| `previousPageData` | Object indicating the previous page's data with the format set to `display`. |\n| `preview` | Object containing the MIME type of the preview. |\n| `answersPayload` | Object containing the user's answers. |"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Page and Display Current",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"",
+									"function setDisplayPageId(pageData) {",
+									"    if (pageData && pageData.format && pageData.format === \"display\" && pageData.pageId) {",
+									"        pm.environment.set('pageId', pageData.pageId); ",
+									"    } ",
+									"}",
+									"",
+									"setDisplayPageId(jsonResponse.previousPageData);",
+									"setDisplayPageId(jsonResponse.currentPageData);",
+									"setDisplayPageId(jsonResponse.nextPageData);",
+									"",
+									"if (jsonResponse.answersPayload) {",
+									"    pm.environment.set('answersPayload', JSON.stringify(jsonResponse.answersPayload));",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {},
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"currentPageData\": {\n    \"format\": \"display\"\n  },\n  \"previousPageData\": {\n    \"format\": \"reference\"\n  },\n  \"nextPageData\": {\n    \"format\": \"reference\"\n  },\n  \"preview\": {\n    \"mimeType\": \"text/html\"\n  },\n  \"answersPayload\": {{answersPayload}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId/pages/:pageId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId",
+								"pages",
+								":pageId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								},
+								{
+									"key": "pageId",
+									"value": "{{pageId}}",
+									"description": "The unique identifier of the page to be submitted."
+								}
+							]
+						},
+						"description": "This version of the `/v2/interviews/{interviewId}/pages/{pageId}` endpoint updates the current page of an interview session and retrieves the updated preview of the current page. This allows you to save the user's answers and refresh the current page with the latest data.\n\nThe request body should be in JSON format and must include the following parameters to indicate that you want to refresh the current page:\n\n| Parameter | Description |\n| --- | --- |\n| `currentPageData` | Object indicating the current page's data with the format set to `display`. |\n| `preview` | Object containing the MIME type of the preview. |\n| `answersPayload` | Object containing the user's answers. |"
+					},
+					"response": []
+				}
+			],
+			"description": "# Build a UI with RocketDocument v2\n\n# Summary\n\nThis provides partner developer information on how to use RocketDocument interview pages endpoints  \nand the pageData elements within the response body of  \n`GET & PATCH /interviews/:id/pages/:id` to build interview UI pages.\n\n# Resources\n\nRocketDocument v2 OpenAPI 3.1 specification\n\n# Response Body Format\n\nThe general format to every response contains 6 top level elements.\n\n- `name` - the name of the document template\n- `answersPayload` - data structure to keep track of user entered data. Described in detail below.\n- `previousPageData`, `currentPageData` and `nextPageData` - Used for building UI elements and navigating through the interview. Described in detail below.\n- `preview` - Contains the HTML preview of the interview including user input up to this point in the interview. It is base64 encoded.\n    \n\nHere is an example for the top level elements:\n\n``` json\n{\n  \"name\": \"Lorem Ipsum Quill Document\",\n  \"answersPayload\": {\n    <answersPayload>\n  },\n  \"previousPageData\": {\n    \"pageId\": \"<pageId>\",\n    \"format\": \"reference\"\n  },\n  \"currentPageData\": {\n    \"pageId\": \"<pageId>\",\n    \"format\": \"display\",\n    <rest of pageData display>\n  },\n  \"nextPageData\": {\n    \"pageId\": \"<pageId>\",\n    \"format\": \"reference\"  \n  },\n  \"preview\": {\n    \"mimeType\": null,\n    \"data\": null\n  }\n}\n\n```\n\n# PageData\n\n## Format Types\n\nPageData comes in 2 formats: `reference` and `display`. The `reference` format contains  \nonly a `pageId` and is used for iterating through an interview. The `display` format contains  \nall that is needed for the UI to render the page. PageData `display` format will only appear  \nin only one of `previousPageData`, `currentPageData` and `nextPageData`.\n\nIn `GET /interviews/:id/pages/:id`, `currentPageData` will always contain the `display` format.  \nThe others (`previousPageData` and `nextPageData`) will contain `reference` format pageData object.\n\nFor `PATCH /interviews/:id/pages/:id`, the request will determine which format each pageData object  \nwill contain. The following request snippet requests that `currentPageData` will contain the  \n`display` type pageData object.\n\n``` json\n  \"currentPageData\": {\n    \"format\": \"display\"\n  },\n  \"previousPageData\": {\n    \"format\": \"reference\"\n  },\n  \"nextPageData\": {\n    \"format\": \"reference\"\n  },\n\n```\n\nNote that if more than one are requested as `display`, only one will return as `display` format.  \nPreference is in order of: `nextPageData`, `currentPageData`, `previousPageData`. If none are  \nrequested as `display`, only `references` will be returned. This is useful when only desiring to  \nre-generate a preview.\n\n## Display Format\n\nAll display pageData elements will minimally have these top level elements that contain questions:\n\n``` json\n{\n  \"pageId\": \"<opaque UUID of the page>\",\n  \"format\": \"display\",\n  \"type\": \"<single or cyclical>\"\n  \"cycleId\": \"<opaque UUID of the cycle - present only if type=cyclical>\",\n  \"progressPercentage\": \"<percentage of interview complete>\",\n  \"questions\": [ \n    <array of questions>  \n  ],\n  \"answers\" : {\n    <answers object - this form for pageData type:single>\n  },\n  \"answers\" : [\n    <array of answers objects - this form for pageData type:cyclical>\n  ]\n}\n\n```\n\n## Questions\n\nAll questions array elements contain:\n\n``` json\n\"questions\": { \n  \"id\": \"<opaque UUID of the question>\",\n  \"title\": \"<the title of the question>\",\n  \"hint\": \"<a class='preserveHtml' class='preserveHtml' hint for filling out the fields>\",\n  \"help\": \"  \"fields\": [\n    <array of fields>\n  ]\n}\n\n```\n\n### Visibility Conditions\n\nSome questions should not be visible until a condition is met. If so, a question will contain:\n\n``` json\n\"showIf\": \"condition(<fieldid> <operator> [<value>])\"\n\n```\n\nMost field types are character based will allow these operators:  \n\n| operator | description |\n| --- | --- |\n| `=` | field’s value is equal to value |\n| `!=` | field’s value is not equal to value |\n| `>` | greater than or equal to (number fields) |\n| `>=` | greater than or equal to (number fields) |\n| `<` | less than (number fields) |\n| `<=` | less than or equal to (number fields) |\n\nFor cyclical questions, visibility determinations should be made locally to each cycle, based on  \nthe answers within that cycle.\n\n## Fields\n\nEach of the field data types describes the content of what the field should contain to influence  \nthe UI developer on which widget to use and what type of client side validation could be used.  \nThe field types do not imply server side validation. For ease and consistency of development, all  \nfield values are stored as strings, including boolean values.\n\nAll fields array elements contain:\n\n``` json\n{\n  \"id\": \"<opaque UUID of the field>\",\n  \"label\": \"<field label>\",\n  \"type\": \"<field type>\",\n  \"default\": \"<initial-value>\"\n}\n\n```\n\n### Text\n\nDesigned for a single line of text (IE names, addresses, etc)\n\n`\"type\": \"TEXT\"`\n\n### Paragraph\n\nSimilar to `TEXT` but could contain significantly more and could contain multiple lines or even multiple paragraphs. It might be helpful for the user if this widget were resizable. (IE property description)\n\n`\"type\": \"PARAGRAPH\"`\n\n### Number\n\nField that should contain a number\n\n`\"type\": \"NUMBER\"`\n\n### Currency\n\nA field that holds currency. This field will also contain symbol to denote the type of currency used.  \nTo be able to show this right symbol, there is the need to evaluate the template since all the  \ntemplates have a country and language attributes. Those will be used (usually the country) to know  \nthe right symbol.\n\n``` json\n{\n    \"id\": \"<opaque UUID of the field>\",\n    \"label\": \"<field label>\",\n    \"type\": \"CURRENCY\",\n    \"symbol\": \"$\"\n    \"default\": \"<value>\"\n}\n\n```\n\n### Percentage\n\nNumber that represents a percentage. IE 100=100%, 25=25%, 12.5=12.5%, etc.\n\n`\"type\": \"PERCENTAGE\"`\n\n### SSN\n\nHolds a social security number\n\n`\"type\": \"SSN\"`\n\n### Phone\n\nTypes for phone number and extension\n\n`\"type\": \"PHONE_NUMBER\"`\n\n`\"type\": \"PHONE_EXT\"`\n\n### Date\n\nFor dates. Could be implemented as a date chooser. It might be useful to include client side validation.\n\n`\"type\": \"DATE\"`\n\n### Checkbox\n\nAn item that is selectable\n\n`\"type\": \"CHECKBOX`\n\n### Dropdown\n\nThis will allow the user to select one item from a list. This field type contains an array of `options`.\n\n``` json\n{\n  \"id\": \"<opaque UUID of the field>\",\n  \"label\": \"<field label>\",\n  \"type\": \"DROPDOWN\",\n  \"options\": [\n    \"Option 1\",\n    \"Option 2\",\n    \"Option 3\",\n    \"Option 4\",\n    \"Option 5\"\n  ],\n  \"default\": \"<value>\"\n}\n\n```\n\n### Radio button\n\nThere should only be one radio button group per question. The field default denotes which is selected by default.\n\n``` json\n\"fields\": [\n  {\n    \"id\": \"<opaque UUID>\",\n    \"label\": \"Radio Option A\",\n    \"type\": \"RADIO\",\n    \"default\": \"true\"\n  },\n  {\n    \"id\": \"<opaque UUID>\",\n    \"label\": \"Radio Option B\",\n    \"type\": \"RADIO\",\n    \"default\": \"false\"\n  }\n]\n\n```\n\n## Cyclicals\n\nCyclicals enable the UI to repeat questions. For example, the interview for Will and Testament needs  \nto ask who are the beneficiaries and what each might receive and under what conditions. These  \nquestions need to be repeated for each of the beneficiaries. A page specifies that it contains a  \ncyclical through the type element and then defines the `cycleId`. `questions` and `fields` are all  \nrepeated for each cycle.\n\nThe pageData object of type `cyclical` differs from single in 2 ways:\n\n- pageData has a `cycleId`\n- answers is an array of objects\n    \n\n``` json\n{\n  \"pageId\": \"<opaque UUID of the page>\",\n  \"format\": \"display\",\n  \"type\": \"cyclical\",\n  \"title\" : \"<optional element, primarily used chain cyclicals>\",\n  \"cycleId\": \"Clfqvty59mpobo\",\n  \"progressPercentage\": \"50\",\n  \"questions\": [ \n    <array of questions>  \n  ],\n  \"answers\" : [\n    {\n      <answers object>\n    }\n  ]\n}\n\n```\n\n## Answers\n\nNot to be confused with `answersPayload`, `answers` are extrapolated from the `answersPayload`  \nserver-side and contained in the response to ease UI development. These answers directly correlate  \nto the question fields. All question fields should have a correlating element within the answers  \nobject. For cyclicals, answers element will be an array of answers. This means that all the answers in this section belong to the page being shown since those are the only ones that we are going to show.\n\nExamples: Assume the following pageData snippet:\n\n``` json\n\"questions\" : [\n  {\n    \"id\": \"Q1234\",\n    \"title\": \"Question 1\",\n    \"hint\": \"\",\n    \"help\": \"\",\n    \"fields\": [\n      {\n        \"id\": \"F1111\",\n        \"label\": \"field 1\",\n        \"type\": \"TEXT\",\n        \"default\": \"\"\n      },\n      {\n        \"id\": \"F2222\",\n        \"label\": \"field 2\",\n        \"type\": \"TEXT\",\n        \"default\": \"\"\n      }\n    ]\n  },\n  {\n    \"id\": \"Q1235\",\n    \"title\": \"Question 2\",\n    \"hint\": \"\",\n    \"help\": \"\",\n    \"fields\": [\n      {\n        \"id\": \"F3333\",\n        \"label\": \"field 3\",\n        \"type\": \"TEXT\",\n        \"default\": \"\"\n      },\n      {\n        \"id\": \"F4444\",\n        \"label\": \"field 4\",\n        \"type\": \"TEXT\",\n        \"default\": \"\"\n      }\n    ]\n  }\n]\n\n```\n\nFor pageData type `single`, where the user answered all the questions, the next time the user  \nreturns to the page, pageData will contain:\n\n``` json\n\"answers\": {\n  \"F1111\": \"answer 1\",\n  \"F2222\": \"answer 2\",\n  \"F3333\": \"answer 3\",\n  \"F4444\": \"answer 4\"\n}\n\n```\n\nFor pageData type `cyclical` where the user has answered questions for 2 cycles:\n\n``` json\n\"answers\": [\n  {\n    \"F1111\": \"answer 1\",\n    \"F2222\": \"answer 2\",\n    \"F3333\": \"answer 3\"\n  },\n  {\n    \"F1111\": \"answer 4\",\n    \"F2222\": \"answer 5\",\n    \"F3333\": \"answer 6\"\n  }\n]\n\n```\n\n# answersPayload\n\n`answersPayload` is the data structure used to store user input and pass to the backend for  \ngenerating pages within the interview and to create ephemeral documents. Here is where it appears  \nand how you should handle it:\n\n- `POST /interviews` - The `answersPayload` makes its first appearance is in the response to creating an  \n    interview. It contains the default for the document template.\n- `GET /interviews/:id/pages/:id`\n    - For `ephemeral` interviews, this will always contain the default for the document template.\n    - For `persistent` interviews, this will return the `answersPayload` from the last saved point.\n- `PATCH /interviews/:id/pages/:id` - by the time this endpoint is used, it is assumed that the client  \n    will be keeping track of the `answersPayload`. As a users is iterating through the interview, the  \n    UI should update `answersPayload` and submit it with this endpoint. This endpoint will then echo it  \n    back to the client as part of the response. It is used on the server side to build the next page.\n- `POST /documents` - `answersPayload` is used to create a document for an `ephemeral` interview.\n    \n\nThis is the default answersPayload for the Lorum Ipsum template:\n\n``` json\n\"answersPayload\": {\n    \"Flfmu8ta21l9eh\": \"\",\n    \"Flfmuapr3merom\": \"\",\n    \"Flfmuc7avnckno\": \"\",\n    \"Flfmudkmyins28\": \"\",\n    \"Flfmudy12wpt42\": \"\",\n    \"Flfmueaitww2si\": \"\",\n    \"Flfmueus054smy\": \"\",\n    \"Flfmuf9d0rxhhy\": \"\",\n    \"Flfmufliy5gnuf\": \"\",\n    \"Flfmulpp4orak5\": \"true\",\n    \"Flfmum2u1mcvif\": \"false\",\n    \"Flfmuuwxkfljt6\": \"true\",\n    \"Flfmuwllpj97qz\": \"false\",\n    \"Flfmuxn5g03q4z\": \"true\",\n    \"Flfmuytjst5yo9\": \"false\",\n    \"Flfmuznrnxr8vn\": \"\",\n    \"Flfqvit30l6v1v\": \"\",\n    \"Flfqvjc5djla5m\": \"\",\n    \"Flfqvnozj9u8r7\": \"\",\n    \"Flfqvnvr121l11\": \"\",\n    \"Clfqvty59mpobo\" : [\n      {\n        \"Flfqvs6uomr7a8\": \"\"\n      }\n    ],\n    \"Clfqvxpiwq5btl\": [\n      {\n        \"Flfqvvhivulxtb\": \"\",\n        \"Flfqvwpr3a35lw\": \"\"\n      }\n    ],\n    \"Clfqxxxexkmjzr\": [\n      {\n        \"Flfqwerocs85au\": \"\"\n      }\n    ],\n    \"Flfqykpxer721j\": \"13/04/2023\",\n    \"Flfqykynx3au7f\": \"\",\n    \"Flfqyoh037bgfr\": \"chain answer\",\n    \"Flfqyp3z2r6prc\": \"false\",\n    \"Flfqypitjtpdvs\": \"true\"\n  }\n\n```\n\n## Updating answersPayload\n\nAs the user is iterating through the interview and being presented with pages of `questions` and  \n`fields`, the UI needs to capture each of the field values and update the corresponding field within  \nthe `answersPayload`.\n\nFor example, for the field:\n\n``` json\n{\n  \"id\": \"Flfmu8ta21l9eh\",\n  \"label\": \"Name\",\n  \"type\": \"TEXT\",\n  \"default\": \"\"\n},\n\n```\n\nthere is a corresponding field in the `answersPayload` above. If the user enters “Bob” in this text  \nfield, `answersPayload` should reflect that when the page is submitted:\n\n``` json\n\"answersPayload\": {\n    \"Flfmu8ta21l9eh\": \"Bob\",\n    \"Flfmuapr3merom\": \"\",\n    ...\n}\n\n```\n\n**Cyclicals** are a little different but similarly updated. For the above `answersPayload` and this  \nsnippet of pageData,\n\n``` json\n  ...\n  \"type\": \"cyclical\"\n  \"cycleId\": \"Clfqvxpiwq5btl\",\n  \"questions\": [ \n    {\n      \"id\": \"Q1235\",\n      \"title\": \"Question 2\",\n      \"hint\": \"\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqvs6uomr7a8\",\n          \"label\": \"Name\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfqvs6uomr7a8\",\n          \"label\": \"Age\",\n          \"type\": \"NUMBER\",\n          \"default\": \"\" \n        }\n      ],\n    }\n  ]\n  ...  \n\n```\n\nIf the user uses 2 cycles of the cyclical, entering “Jane” and “30” in the first and “Frank”  \nand “40” in the second, the `answersPayload` should be updated like this:\n\n``` json\n\"Clfqvxpiwq5btl\": [\n  {\n    \"Flfqvvhivulxtb\": \"Jane\",\n    \"Flfqvwpr3a35lw\": \"30\"\n  },\n  {\n    \"Flfqvvhivulxtb\": \"Frank\",\n    \"Flfqvwpr3a35lw\": \"40\"\n  }\n],\n\n```\n\n# General PageData Construction\n\nThis is an example taken from Rocket Lawyer's **Non-Disclosure Agreement**. In or near each box is  \nthe JSON path where you will find the data representing the elements needed to be created. This can  \nbe used as a visual reference of how Rocket Lawyer has laid out elements.\n\n<img src=\"https://content.pstmn.io/8bb0d11a-4884-4457-96d4-36f744cb786d/cGFnZURhdGEtZXhhbXBsZS5wbmc=\" alt=\"\">\n\nThis is a sample page response from `GET/PATCH /interviews/:id/pages/:id` that would create the  \nabove UI page.\n\n``` json\n{\n  \"name\" : \"Non-Disclosure Agreement US\",\n  \"answersPayload\":{\n      \"Fl0ccyw9hrz12w\":\"\",\n      \"Fl0ce6o5rqiow6\":\"false\",\n      \"Fl0cedn4nzqul0\":\"true\",\n      \"Fl0ceh1ajbf26x\":\"\",\n      \"Fl0cekmuq6lnn9\":\"\",\n      \"Fl0cem469ome4s\":\"\",\n      \"Fl0cenxq87uftg\":\"\",\n      \"Fl0cf3mup66h8q\":\"\",\n      \"Fl0cfafi2si05k\":\"\",\n      \"Fl0cfe369zsoxq\":\"\",\n      \"Fl0i6dpwfapy4d\":\"\",\n      \"Fl0i6mcudwvkpb\":\"\",\n      \"Fl0i6n12ngd2ef\":\"\",\n      \"Fl0i6ocex3s5tq\":\"\",\n      \"Fl0i717os3n6u6\":\"\",\n      \"Fl0ch27vteziyw\":\"true\",\n      \"Fl0ch34xos5g8a\":\"false\",\n      \"Fl0ch40o9y0bgv\":\"\",\n      \"Fl0ch98o15wo4f\":\"\",\n      \"Fl0ch9ti8559j1\":\"\",\n      \"Fl0cha8p851rgx\":\"\",\n      \"Fl0chnmtifkffv\":\"\",\n      \"Fl0choh96ekr71\":\"\",\n      \"Fl0cisfa7duax7\":\"\",\n      \"Fl0i4w8bwhjiox\":\"\",\n      \"Fl0i55drikdxro\":\"\",\n      \"Fl0i56likftmur\":\"\",\n      \"Fl0i5c1dx7ypr2\":\"\",\n      \"Fl0i5ugj10ck7f\":\"\",\n      \"Fl0gtd9uxjpp3k\":\"\",\n      \"Fl0cmyd6lm6g8f\":\"true\",\n      \"Fl0cmzsv4l7jzy\":\"false\",\n      \"Fl0cn1uret1n09\":\"true\",\n      \"Fl0cn2i4feh7zz\":\"false\",\n      \"Fl0cn75ajg3ecw\":\"\",\n      \"Fl0cn9dxru9957\":\"\",\n      \"version\":3\n  },\n  \"previousPageData\": {\n    \"pageId\": \"Ql0cfx84j81kd9\"\n    \"format\": \"reference\"\n  },\n  \"currentPageData\": {\n    \"pageId\": \"Fkbbc110f2d2eb\",\n    \"type\": \"single\",\n    \"format\": \"display\",\n    \"progressPercentage\": \"78\",\n    \"questions\": [\n      {\n        \"id\": \"Fkrp9n844hj7gtr\",\n        \"label\": \"Who will receive the Confidential Information?\",\n        \"hint\": \"Enter the name and address of the person who will be receiving the Confidential Information (the \\\"Recipient\\\"). Example: \\\"John Smith\\\".e\",\n        \"help\" : {\n          \"title\": \"Confidential Information\",\n          \"paragraphs\": \"<BR><FONT SIZE=4 COLOR=TEAL>Confidential Information</FONT>\\n<P>Confidential Information includes any information or material that is proprietary to the Owner. Specifically listing certain types of documents or information reminds the parties of what types of information may be sensitive and important to the Owner. It is customary for agreements to provide that information obtained from other sources regarding the Owner is not protected under the agreement.\\n<P>Generally, a Non-Disclosure Agreement provides for certain exceptions. The Recipient is not required to keep confidential.\\n<P><UL><DD>any information that has been previously made public or information received from a third party;\\n<P><DD>information that the Recipient independently creates;\\n<P><DD>information that must be disclosed by the operation of law (for example, a court order regarding information on a safety inspection that is at issue in a law suit); and\\n<P><DD>information for which the Owner has granted prior permission regarding its disclosure.</UL>\"\n        },\n        \"fields\": [\n          {\n            \"id\": \"Fl0ch40o9y0bgv\",\n            \"label\": \"Name\",\n            \"type\": \"TEXT\",\n            \"default\": \"\"\n          },\n          {\n            \"id\": \"Fl0ch98o15wo4f\",\n            \"label\": \"Address\",\n            \"type\": \"TEXT\",\n            \"default\": \"\"\n          },\n          {\n            \"id\": \"Fl0ch9ti8559j1\",\n            \"label\": \"City\",\n            \"type\": \"TEXT\",\n            \"default\": \"\"\n          },\n          {\n            \"id\": \"Fl0cha8p851rgx\",\n            \"label\": \"State\",\n            \"type\": \"DROPDOWN\",\n            \"default\": \"\",\n            \"options\": [\n              \"Alabama\",\n              \"Alaska\",\n              \"Arizona\",\n              \"Arkansas\",\n              \"California\",\n              \"Colorado\",\n              \"Connecticut\",\n              \"Delaware\",\n              \"District of Columbia\",\n              \"Florida\",\n              \"Georgia\",\n              \"Hawaii\",\n              \"Idaho\",\n              \"Illinois\",\n              \"Indiana\",\n              \"Iowa\",\n              \"Kansas\",\n              \"Kentucky\",\n              \"Louisiana\",\n              \"Maine\",\n              \"Maryland\",\n              \"Massachusetts\",\n              \"Michigan\",\n              \"Minnesota\",\n              \"Mississippi\",\n              \"Missouri\",\n              \"Montana\",\n              \"Nebraska\",\n              \"Nevada\",\n              \"New Hampshire\",\n              \"New Jersey\",\n              \"New Mexico\",\n              \"New York\",\n              \"North Carolina\",\n              \"North Dakota\",\n              \"Ohio\",\n              \"Oklahoma\",\n              \"Oregon\",\n              \"Pennsylvania\",\n              \"Rhode Island\",\n              \"South Carolina\",\n              \"South Dakota\",\n              \"Tennessee\",\n              \"Texas\",\n              \"Utah\",\n              \"Vermont\",\n              \"Virginia\",\n              \"Washington\",\n              \"West Virginia\",\n              \"Wisconsin\",\n              \"Wyoming\"\n            ]\n          },\n          {\n            \"id\": \"Fl0chnmtifkffv\",\n            \"label\": \"ZIP Code\",\n            \"type\": \"TEXT\",\n            \"default\": \"\"\n          }\n        ]\n      }\n    ],\n    \"answers\": {\n    }\n  },\n  \"nextPageData\": {\n    \"pageId\": \"Ql0cmum8nx7sx2\",\n    \"format\": \"reference\"\n  },\n  \"preview\": {\n    \"format\": null,\n    \"data\": null\n  }\n}\n\n```\n\n# Page Logic Flow\n\nThis diagram shows the general page logic flow through an interview.\n\n<img src=\"https://content.pstmn.io/e837ca04-e50c-432c-b670-e61c27bcca1b/UGFnZXNEaWFncmFtLVBhZ2UtMS5kcmF3aW8ucG5n\" alt=\"\" height=\"2191\" width=\"821\">\n\n# Example using the Lorum Ipsum Template\n\nThe Lorum Ipsum template was created to exemplify the all potential UI elements available within  \nRocketDocument templates. This section uses the Lorum Ipsum template to show pageData elements within the  \nresponse body of `GET & PATCH /interviews/:id/pages/:id` and the cooresponding UI that RocketLawyer  \nhas built.\n\nYou can use RocketLaywer’s  \n[RocketDocument v1 UI](https://partner-demo-app.ip.cicdv2.sandbox.rocketlawyer.com/partners/logo-ipsum-2/document?templateId=0b0f7ca1-e59e-42cd-974d-a7bdc63645f6)  \nto iterate through the interview in this live example.\n\n## Page 1 - Text Fields\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/91bc6050-0dac-43ce-83a8-9e6d359fed54/bG9ydW1JcHN1bVBhZ2UwMS5wbmc=\" alt=\"\" height=\"745\" width=\"866\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfmu8tao22p40\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"0\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfmu8t9u32a73\",\n      \"help\": \"Scelerisque felis imperdiet proin fermentum leo vel orci. Scelerisque felis imperdiet proin fermentum leo vel. Libero volutpat sed cras ornare arcu. Bibendum ut tristique et egestas quis ipsum suspendisse. Et tortor consequat id porta nibh venenatis. Rutrum tellus pellentesque eu tincidunt tortor.\",\n      \"hint\": \"Vestibulum lectus mauris ultrices eros in. Sed lectus vestibulum mattis ullamcorper velit sed. Nunc sed id semper risus in hendrerit gravida rutrum. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ac tortor dignissim convallis aenean et. Lacinia quis vel eros donec ac odio tempor orci dapibus.\",\n      \"title\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n      \"fields\": [\n        {\n          \"id\": \"Flfmu8ta21l9eh\",\n          \"label\": \"For Shorter Answers\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmuapr3merom\",\n          \"label\": \"For Longer Answers\",\n          \"type\": \"PARAGRAPH\",\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 2 - Other Fields\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/dbef14d5-d4eb-405f-a9ee-a9e44336dd31/bG9ydW1JcHN1bVBhZ2UwMi5wbmc=\" alt=\"\" height=\"979\" width=\"863\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfmuc7bp91na3\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"8\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfmuc7alkdhgw\",\n      \"help\": \"Scelerisque felis imperdiet proin fermentum leo vel orci. Scelerisque felis imperdiet proin fermentum leo vel. Libero volutpat sed cras ornare arcu. Bibendum ut tristique et egestas quis ipsum suspendisse. Et tortor consequat id porta nibh venenatis. Rutrum tellus pellentesque eu tincidunt tortor.\",\n      \"hint\": \"Vestibulum lectus mauris ultrices eros in. Sed lectus vestibulum mattis ullamcorper velit sed. Nunc sed id semper risus in hendrerit gravida rutrum. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ac tortor dignissim convallis aenean et. Lacinia quis vel eros donec ac odio tempor orci dapibus.\",\n      \"title\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n      \"fields\": [\n        {\n          \"id\": \"Flfmuc7avnckno\",\n          \"label\": \"For Specific Dates\",\n          \"type\": \"DATE\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmudkmyins28\",\n          \"label\": \"For Numbers\",\n          \"type\": \"NUMBER\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmudy12wpt42\",\n          \"label\": \"For Currency Fields\",\n          \"type\": \"CURRENCY\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmueaitww2si\",\n          \"label\": \"For Percentages\",\n          \"type\": \"PERCENTAGE\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmueus054smy\",\n          \"label\": \"For Social Security Numbers\",\n          \"type\": \"SSN\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmuf9d0rxhhy\",\n          \"label\": \"For Phone Numbers\",\n          \"type\": \"PHONE_NUMBER\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfmufliy5gnuf\",\n          \"label\": \"For Phone Extensions\",\n          \"type\": \"PHONE_EXT\",\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 3 - Dropdowns\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/09b62e56-8fdd-4d3d-b0f5-dd314dfc6d02/bG9ydW1JcHN1bVBhZ2UwMy5wbmc=\" alt=\"\" height=\"503\" width=\"860\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfqvjc6l4o4u8\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"17\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfqvjc49rfy5f\",\n      \"help\": \"Scelerisque felis imperdiet proin fermentum leo vel orci. Scelerisque felis imperdiet proin fermentum leo vel. Libero volutpat sed cras ornare arcu. Bibendum ut tristique et egestas quis ipsum suspendisse. Et tortor consequat id porta nibh venenatis. Rutrum tellus pellentesque eu tincidunt tortor.\",\n      \"hint\": \"Vestibulum lectus mauris ultrices eros in. Sed lectus vestibulum mattis ullamcorper velit sed. Nunc sed id semper risus in hendrerit gravida rutrum. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ac tortor dignissim convallis aenean et. Lacinia quis vel eros donec ac odio tempor orci dapibus.\",\n      \"title\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqvjc5djla5m\",\n          \"label\": \"For answers from a set number of options\",\n          \"type\": \"DROPDOWN\",\n          \"options\": [\n            \"Option 1\",\n            \"Option 2\",\n            \"Option 3\",\n            \"Option 4\",\n            \"Option 5\"\n          ],\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 4 - Checkboxes\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/6e8e315e-3def-4e45-bfa9-26c4e3f851b6/bG9ydW1JcHN1bVBhZ2UwNC5wbmc=\" alt=\"\" height=\"543\" width=\"862\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfqvit43sqo1v\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"25\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfqvit2q2xfq0\",\n      \"help\": \"Scelerisque felis imperdiet proin fermentum leo vel orci. Scelerisque felis imperdiet proin fermentum leo vel. Libero volutpat sed cras ornare arcu. Bibendum ut tristique et egestas quis ipsum suspendisse. Et tortor consequat id porta nibh venenatis. Rutrum tellus pellentesque eu tincidunt tortor.\",\n      \"hint\": \"Vestibulum lectus mauris ultrices eros in. Sed lectus vestibulum mattis ullamcorper velit sed. Nunc sed id semper risus in hendrerit gravida rutrum. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ac tortor dignissim convallis aenean et. Lacinia quis vel eros donec ac odio tempor orci dapibus.\",\n      \"title\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqvit30l6v1v\",\n          \"label\": \"Checkbox Options 1\",\n          \"type\": \"CHECKBOX\",\n          \"default\": \"false\"\n        },\n        {\n          \"id\": \"Flfqvnozj9u8r7\",\n          \"label\": \"Checkbox Options 2\",\n          \"type\": \"CHECKBOX\",\n          \"default\": \"false\"\n        },\n        {\n          \"id\": \"Flfqvnvr121l11\",\n          \"label\": \"Checkbox Options 3\",\n          \"type\": \"CHECKBOX\",\n          \"default\": \"false\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 5 - Radio buttons\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/f995b925-4f83-427f-9531-9ad935c8a971/bG9ydW1JcHN1bVBhZ2UwNS5wbmc=\" alt=\"\" height=\"428\" width=\"861\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfmujgzikgt81\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"33\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfmujgxlrwily\",\n      \"help\": \"\",\n      \"hint\": \"\",\n      \"title\": \"This is a question based on Radios. Select Option A to have the next question in sequence appear.\",\n      \"fields\": [\n        {\n          \"id\": \"Flfmulpp4orak5\",\n          \"label\": \"Radio Option A\",\n          \"type\": \"RADIO\",\n          \"default\": \"true\"\n        },\n        {\n          \"id\": \"Flfmum2u1mcvif\",\n          \"label\": \"Radio Option B\",\n          \"type\": \"RADIO\",\n          \"default\": \"false\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 6 - Conditionals (server side)\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/5537deef-af92-4eb0-91c2-c89662811312/bG9ydW1JcHN1bVBhZ2UwNi5wbmc=\" alt=\"\" height=\"433\" width=\"861\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfmuuwzedl04e\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"42\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfmuuwx10sjly\",\n      \"hint\": \"Select option D to have the next question appear.\",\n      \"title\": \"This question will appear when Radio Option A is selected.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfmuuwxkfljt6\",\n          \"label\": \"Radio Option C\",\n          \"type\": \"RADIO\",\n          \"default\": \"true\"\n        },\n        {\n          \"id\": \"Flfmuwllpj97qz\",\n          \"label\": \"Radio Option D\",\n          \"type\": \"RADIO\",\n          \"default\": \"false\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 7 - Conditionals (server side)\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/f751bb05-b638-4bd1-9477-d4824001d506/bG9ydW1JcHN1bVBhZ2UwNy5wbmc=\" alt=\"\" height=\"422\" width=\"856\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfmuxn81cb728\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"50\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfmuxn4q5gzt4\",\n      \"hint\": \"\",\n      \"title\": \"This question will appear when Radio Option A and Radio Option D are BOTH selected.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfmuxn5g03q4z\",\n          \"label\": \"Radio Option E\",\n          \"type\": \"RADIO\",\n          \"default\": \"true\"\n        },\n        {\n          \"id\": \"Flfmuytjst5yo9\",\n          \"label\": \"Radio Option F\",\n          \"type\": \"RADIO\",\n          \"default\": \"false\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 8 - Conditionals (server side)\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/5f7ec6ed-8568-4eb8-8bdc-7168c512bf15/bG9ydW1JcHN1bVBhZ2UwOC5wbmc=\" alt=\"\" height=\"420\" width=\"863\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfmuznu0nlsb6\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"58\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfmuznqy9h345\",\n      \"title\": \"This question will appear if Radio Option A and Radio Option C are selected OR if Radio Option B and Radio Option D are selected.\",\n      \"hint\": \"\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfmuznrnxr8vn\",\n          \"label\": \"Text Field\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 9 - Cyclicals\n\n### Screenshot\n\nPage load:\n\n<img src=\"https://content.pstmn.io/a312b7ef-c02e-479e-93bb-c744b8f9921e/bG9ydW1JcHN1bVBhZ2UwOWEucG5n\" alt=\"\" height=\"501\" width=\"860\">\n\nAfter adding another cycle:\n\n<img src=\"https://content.pstmn.io/9f8fa1d4-219c-4542-b60e-e716b23361a3/bG9ydW1JcHN1bVBhZ2UwOWIucG5n\" alt=\"\" height=\"547\" width=\"860\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfqvs6we4in99\",\n  \"format\": \"display\",\n  \"type\": \"cyclical\",\n  \"cycleId\": \"Clfqvty59mpobo\",\n  \"progressPercentage\": \"67\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfqvs6u935a34\",\n      \"hint\": \"The user can input as many entries as needed. Notice how the punctuation adapts in the boiler plate according to the number of entries.\",\n      \"title\": \"This is a simple cyclical question with one answer.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqvs6uomr7a8\",\n          \"label\": \"Cyclical Answer 1\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": [\n  ]\n}\n\n```\n\n## Page 10 - Cyclical with multiple fields\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/d2ddd909-f9d2-4e22-9512-07a12ba46b5c/bG9ydW1JcHN1bVBhZ2UxMC5wbmc=\" alt=\"\" height=\"561\" width=\"858\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfqvvhkwshzo1\",\n  \"format\": \"display\",\n  \"type\": \"cyclical\",\n  \"cycleId\": \"Clfqvxpiwq5btl\",\n  \"progressPercentage\": \"75\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfqvvhibiztva\",\n      \"title\": \"This is a simple cyclical question with more than one answer.\",\n      \"hint\": \"\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqvvhivulxtb\",\n          \"label\": \"Cyclical Answer 2\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfqvwpr3a35lw\",\n          \"label\": \"Date\",\n          \"type\": \"DATE\",\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": [\n  ]\n}\n\n```\n\n## Page 11 - Chain question with conditionals\n\n### Screenshot\n\nWith “Chain 3 Radio” selected\n\n<img src=\"https://content.pstmn.io/b3597aad-7bee-4b8a-9df9-efde0bcefac6/bG9ydW1JcHN1bVBhZ2UxMWEucG5n\" alt=\"\" height=\"698\" width=\"860\">\n\nWith “Chain 4 Radio” selected\n\n<img src=\"https://content.pstmn.io/50deb26c-043b-41af-a537-be3e661a0817/bG9ydW1JcHN1bVBhZ2UxMWIucG5n\" alt=\"\" height=\"852\" width=\"861\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfqykq1ry32lk\",\n  \"format\": \"display\",\n  \"type\": \"single\",\n  \"progressPercentage\": \"83\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfqykpwkmsmfx\",\n      \"hint\": \"More than one question will appear on the same page, if logic dictates they should be grouped as a question.\",\n      \"title\": \"This is a chain question.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqykpxer721j\",\n          \"label\": \"Date\",\n          \"type\": \"DATE\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfqyoh037bgfr\",\n          \"label\": \"Chain 2\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        }\n      ]\n    },\n    {\n      \"id\": \"Qlfqykusjwfsqy\",\n      \"hint\": \"To trigger the next chain question to appear on this page, select Chain 4 radio.\",\n      \"title\": \"This is the second chain question.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqyp3z2r6prc\",\n          \"label\": \"Chain 3 Radio\",\n          \"default\": \"true\",\n          \"type\": \"RADIO\"\n        },\n        {\n          \"id\": \"Flfqypitjtpdvs\",\n          \"label\": \"Chain 4 Radio\",\n          \"default\": \"false\",\n          \"type\": \"RADIO\"\n        }\n      ]\n    },\n    {\n      \"id\": \"Qlfqykymvr6c8m\",\n      \"title\": \"This question will pop up if the Chain 3 Radio is selected.\",\n      \"hint\": \"\",\n      \"help\": \"\",\n      \"showIf\": \"condition(Flfqypitjtpdvs = true)\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqykynx3au7f\",\n          \"label\": \"Dropdown Option of US States\",\n          \"type\": \"DROPDOWN\",\n          \"default\": \"\",\n          \"options\": [\n            \"Alabama\",\n            \"Alaska\",\n            \"Arizona\",\n            \"Arkansas\",\n            \"California\",\n            \"Colorado\",\n            \"Connecticut\",\n            \"Delaware\",\n            \"District of Columbia\",\n            \"Florida\",\n            \"Georgia\",\n            \"Hawaii\",\n            \"Idaho\",\n            \"Illinois\",\n            \"Indiana\",\n            \"Iowa\",\n            \"Kansas\",\n            \"Kentucky\",\n            \"Louisiana\",\n            \"Maine\",\n            \"Maryland\",\n            \"Massachusetts\",\n            \"Michigan\",\n            \"Minnesota\",\n            \"Mississippi\",\n            \"Missouri\",\n            \"Montana\",\n            \"Nebraska\",\n            \"Nevada\",\n            \"New Hampshire\",\n            \"New Jersey\",\n            \"New Mexico\",\n            \"New York\",\n            \"North Carolina\",\n            \"North Dakota\",\n            \"Ohio\",\n            \"Oklahoma\",\n            \"Oregon\",\n            \"Pennsylvania\",\n            \"Rhode Island\",\n            \"South Carolina\",\n            \"South Dakota\",\n            \"Tennessee\",\n            \"Texas\",\n            \"Utah\",\n            \"Vermont\",\n            \"Virginia\",\n            \"Washington\",\n            \"West Virginia\",\n            \"Wisconsin\",\n            \"Wyoming\"\n          ]\n        }\n      ]\n    }\n  ],\n  \"answers\": {\n  }\n}\n\n```\n\n## Page 12 - Complex Cyclicals\n\n### Screenshot\n\n<img src=\"https://content.pstmn.io/60b36d8d-2e51-4867-b25e-2e20aa7d6d4d/bG9ydW1JcHN1bVBhZ2UxMi5wbmc=\" alt=\"\" height=\"926\" width=\"860\">\n\n### PageData\n\n``` json\n{\n  \"pageId\": \"Plfqwers2moy7d\",\n  \"format\": \"display\",\n  \"type\": \"cyclical\",\n  \"cycleId\": \"Clfqxxxexkmjzr\",\n  \"progressPercentage\": \"92\",\n  \"questions\": [\n    {\n      \"id\": \"Qlfqwernnhnfnj\",\n      \"hint\": \"This comprises of chain questions. Three individual questions which have been joined together on one page. The last question will pop up is the corresponding checkbox is triggered.\",\n      \"title\": \"This is a complex cyclical question.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqwerocs85au\",\n          \"label\": \"Complex Cyclical 1\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        }\n      ]\n    },\n    {\n      \"id\": \"Qlfqxqtkv06v5x\",\n      \"hint\": \"Joining questions together creates a chain cyclical.\",\n      \"title\": \"This is the second question on the same page, which makes it a chain cyclical.\",\n      \"help\": \"\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqxqtlgdisas\",\n          \"label\": \"Enter a Number\",\n          \"type\": \"NUMBER\",\n          \"default\": \"\"\n        },\n        {\n          \"id\": \"Flfqxr4tv21nvc\",\n          \"label\": \"Check the box to trigger the next question to appear\",\n          \"type\": \"CHECKBOX\",\n          \"default\": \"\"\n        }\n      ]\n    },\n    {\n      \"id\": \"Qlfqxs3m3vujui\",\n      \"hint\": \"This is the third question in the chain cyclical.\",\n      \"title\": \"This chain cyclical question will pop up if the checkbox is ticked.\",\n      \"help\": \"\",\n      \"showIf\": \"condition(Flfqxr4tv21nvc = true)\",\n      \"fields\": [\n        {\n          \"id\": \"Flfqxyudep8lza\",\n          \"label\": \"Complex cyclical 4\",\n          \"type\": \"TEXT\",\n          \"default\": \"\"\n        }\n      ]\n    }\n  ],\n  \"answers\": [\n  ]\n}\n\n```"
+		},
+		{
+			"name": "Documents",
+			"item": [
+				{
+					"name": "Get Persistent Document",
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "rl-binder-id",
+								"value": "{{binderId}}",
+								"description": "The unique identifier of the Binder containing the document to retrieve. This ID is used to locate the specific Binder resource.",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/documents/:documentId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"documents",
+								":documentId"
+							],
+							"query": [
+								{
+									"key": "unsigned",
+									"value": null,
+									"description": "If present, the unsigned version of the document is served. The unsigned version is the last uploaded version of the document, just before the invitation was triggered.",
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "documentId",
+									"value": "{{documentId}}",
+									"description": "The unique identifier of the Document."
+								}
+							]
+						},
+						"description": "This endpoint retrieves a persistent interview document by its ID. This allows you to access the final document generated from an interview session.\n\nThis endpoint requires adding the `rl-binder-id` header to the request. This is the ID of the Binder containing the document to retrieve."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Ephemeral Document",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonResponse = pm.response.json();",
+									"const jsonRequest = JSON.parse(request.data);",
+									"pm.environment.set('partnerEndUserId', jsonRequest.partnerEndUserId);",
+									"if (jsonResponse.interviewId) {",
+									"    pm.environment.set('interviewUuid', jsonResponse.interviewId)",
+									"}",
+									"const serviceTokenHeader = pm.response.headers.get(\"rl-rdoc-servicetoken\")",
+									"if (serviceTokenHeader) {",
+									"    pm.environment.set('serviceToken',serviceTokenHeader)",
+									"}",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"followRedirects": false,
+						"disableCookies": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{scopedAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"interviewId\": \"{{interviewId}}\",\n  \"mimeType\": \"text/html\",\n  \"answersPayload\": {{answersPayload}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/documents",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"documents"
+							]
+						},
+						"description": "This endpoint retrieves an ephemeral interview document. It processes the interview responses to generate the specified type of document.\n\nThe request body should be in JSON format and must include the following parameters:\n\n> As Rocket Lawyer doesn't store data from ephemeral interviews, you need to submit the `answerPayload` to this request. \n  \n\n| Parameter | Description |\n| --- | --- |\n| `interviewId` | The ID of the interview session. |\n| `answersPayload` | The payload containing the user's answers. |\n| `mimeType` | The MIME type of the document. |"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Entity Data",
+			"item": [
+				{
+					"name": "Get Entity Information",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/entities",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"entities"
+							],
+							"query": [
+								{
+									"key": "index",
+									"value": "",
+									"description": "Specifies the name of the index to filter search results, enabling optimized lookups. ",
+									"disabled": true
+								},
+								{
+									"key": "lookupValue",
+									"value": null,
+									"description": "The value to search for within the specified index. <br/>⚠️ Ignored if the index parameter is not present. ⚠️",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This endpoint retrieves entity information based on input hints provided through query parameters."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
