@@ -24,7 +24,25 @@ POST /v1/auth/accesstoken
 **Response:**
 ```json
 {
-  "access_token": "your-general-access-token"
+    "refresh_token_expires_in": "0",
+    "api_product_list": "[partner-event-api-subscription-product-sandbox, rocketdoc-api-product-sandbox, partner-auth-service-product-sandbox, binders-product-document-manager-sandbox]",
+    "api_product_list_json": [
+        "partner-event-api-subscription-product-sandbox",
+        "rocketdoc-api-product-sandbox",
+        "partner-auth-service-product-sandbox",
+        "binders-product-document-manager-sandbox"
+    ],
+    "organization_name": "rocketlawyer",
+    "developer.email": "developer@rocketlawyer.com",
+    "token_type": "BearerToken",
+    "issued_at": "1723146278357",
+    "client_id": "ZEAURAIq2q7ngQMBxRdvGFOQmy7q57xWxVW2nVP4EGzLy68H",
+    "access_token": "your-general-access-token",
+    "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
+    "scope": "",
+    "expires_in": "35999",
+    "refresh_count": "0",
+    "status": "approved"
 }
 ```
 
@@ -93,36 +111,61 @@ Authorization: Bearer {{generalAccessToken}}
 HTML content
 
 ## Starting an Interview
+You can create a persistent or ephemeral interview. The difference between the two is....
 
-### Create Interview
-Initiate an interview session with a selected template.
+### Create Persistent Interview
+Initiate a persistent interview session with a selected template.
 
 **Endpoint:**
 ```
 POST /v2/interviews
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{generalAccessToken}}
-```
-
-**Request Body:**
-```json
-{
-  "templateId": "{{templateId}}",
-  "partnerEndUserId": "{{upid}}",
-  "partyEmailAddress": "someone@something.com"
-}
+**Request**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: [[Authorization-masked-secret]]' \
+--data-raw '{
+    "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
+    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "partyEmailAddress": "someone@something.com"
+}'
 ```
 
 **Response:**
 ```json
 {
-  "interviewId": "new-interview-id",
-  "answersPayload": { ... }
+    "interviewName": "Lease Agreement (6)",
+    "concurrencyId": "78f97e2f-f947-4441-bc71-1a08e9e5ec7c",
+    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "storageType": "persistent",
+    "interviewStatus": "created",
+    "createdAt": "2024-08-08T19:21:43.112Z",
+    "updatedAt": "2024-08-08T19:21:43.112Z",
+    "answersPayload": {
+        "Fkrqobtz86esyj": "false",
+        "Fkro0blo0rqrgk": "",
+        ...
+    },
+    "binder": {
+        "binderId": "1dfb6084-e1f3-4229-9155-18f5a4a7b335",
+        "documentId": "83a61e13-e2c1-44db-a9cb-44ee1a025fa5"
+    },
+    "interviewId": "43b02054-85ba-4282-89e3-650be4e34fd3",
+    "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
+    "templateVersionId": "9f0fd7b2-b53c-49a7-aedb-1d5f01d41ced"
 }
 ```
+
+### Create Ephemeral Interview
+Initiate an ephemeral interview session with a selected template.
+
+
+
+
+
+
 
 ### Get Scoped Access Token
 Obtain a scoped access token for the interview session.
@@ -132,29 +175,46 @@ Obtain a scoped access token for the interview session.
 POST /v1/auth/accesstoken
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{serviceToken}}
+**Request**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken' \
+--header 'Content-Type: application/json' \
+--data '{
+    "grant_type": "authorization_code",
+	"client_id" : "{{partnerClientId}}",
+	"client_secret" : "{{partnerClientSecret}}",
+	"code" : "{{serviceToken}}"
+}'
 ```
 
-**Request Body:**
+**Response**
 ```json
 {
-  "grant_type": "authorization_code",
-  "client_id": "{{partnerClientId}}",
-  "client_secret": "{{partnerClientSecret}}",
-  "code": "{{serviceToken}}"
-}
-```
-
-**Response:**
-```json
-{
-  "access_token": "scoped-access-token"
+    "refresh_token_expires_in": "0",
+    "api_product_list": "[partner-event-api-subscription-product-sandbox, rocketdoc-api-product-sandbox, partner-auth-service-product-sandbox, binders-product-document-manager-sandbox]",
+    "api_product_list_json": [
+        "partner-event-api-subscription-product-sandbox",
+        "rocketdoc-api-product-sandbox",
+        "partner-auth-service-product-sandbox",
+        "binders-product-document-manager-sandbox"
+    ],
+    "organization_name": "rocketlawyer",
+    "developer.email": "developer@rocketlawyer.com",
+    "token_type": "BearerToken",
+    "issued_at": "1723146287236",
+    "client_id": "{{partnerClientId}}",
+    "access_token": "scoped-access-token",
+    "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
+    "scope": "",
+    "expires_in": "35999",
+    "refresh_count": "0",
+    "status": "approved"
 }
 ```
 
 ## Resuming an Interview
+
+When using a persistent interview, the end user can resume a previous Interview.
 
 ### Resume Interview
 Resume an existing interview using the scoped access token and saved answers.
@@ -164,22 +224,38 @@ Resume an existing interview using the scoped access token and saved answers.
 PATCH /v2/interviews/{{interviewId}}
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{scopedAccessToken}}
+**Request**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/43b02054-85ba-4282-89e3-650be4e34fd3' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: [[Authorization-masked-secret]]'
 ```
 
-**Request Body:**
+**Response**
 ```json
 {
-  "answersPayload": { ... }
-}
-```
-
-**Response:**
-```json
-{
-  "answersPayload": { ... }
+    "interviewName": "Lease Agreement (6)",
+    "concurrencyId": "78f97e2f-f947-4441-bc71-1a08e9e5ec7c",
+    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "storageType": "persistent",
+    "interviewStatus": "created",
+    "createdAt": "2024-08-08T19:21:43.112Z",
+    "updatedAt": "2024-08-08T19:21:43.505Z",
+    "answersPayload": {
+        "Ckrmq1s8ymxcgp": [
+            {
+                "Fkrmq0xbl3olho": ""
+            }
+        ],
+        ...
+    },
+    "binder": {
+        "binderId": "1dfb6084-e1f3-4229-9155-18f5a4a7b335",
+        "documentId": "83a61e13-e2c1-44db-a9cb-44ee1a025fa5"
+    },
+    "interviewId": "43b02054-85ba-4282-89e3-650be4e34fd3",
+    "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
+    "templateVersionId": "9f0fd7b2-b53c-49a7-aedb-1d5f01d41ced"
 }
 ```
 
@@ -193,72 +269,225 @@ Retrieve the first page of the interview session.
 GET /v2/interviews/{{interviewId}}/pages/first
 ```
 
-**Headers:**
+**Request**
 ```http
-Authorization: Bearer {{scopedAccessToken}}
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/first' \
+--header 'Authorization: Bearer {{scopedAccessToken}}'
 ```
 
-**Response:**
+**Response**
 ```json
 {
-  "pageId": "first-page-id",
-  "questions": [ ... ],
-  "answers": { ... }
+    "answersPayload": {
+        "Ckrmq1s8ymxcgp": [
+            {
+                "Fkrmq0xbl3olho": ""
+            }
+        ],
+        ...
+    },
+    "name": "Lease Agreement",
+    "preview": {
+        "mimeType": "text/html",
+        "data": "..."
+    },
+    "previousPageData": {
+        "pageId": "Pkrmp0p6bxdxoe",
+        "format": "reference"
+    },
+    "currentPageData": {
+        "pageId": "Pkrmp0p6bxdxoe",
+        "format": "display",
+        "type": "single",
+        "progressPercentage": 0,
+        "questions": [
+            {
+                "id": "Qkrmp0p64z0tuu",
+                "title": "Let's get started with a little information about the parties. Is the landlord a company or an individual?",
+                "hint": "The landlord is the party, usually the owner, who has legal control over the possession of certain property and who may lease such possession to another.  The landlord is sometimes referred to as the \"lessor.\"",
+                "fields": [
+                    {
+                        "id": "Fkrmp0p66hd6c7",
+                        "type": "RADIO",
+                        "default": true,
+                        "label": "A company"
+                    },
+                    {
+                        "id": "Fkrmp2d44gs58o",
+                        "type": "RADIO",
+                        "default": "",
+                        "label": "An individual"
+                    }
+                ],
+                "help": ""
+            }
+        ],
+        "answers": {
+            "Fkrmp0p66hd6c7": true,
+            "Fkrmp2d44gs58o": false
+        },
+        "isFirst": true
+    },
+    "nextPageData": {
+        "pageId": "null",
+        "format": "reference"
+    },
+    "concurrencyId": "78f97e2f-f947-4441-bc71-1a08e9e5ec7c"
 }
 ```
 
 ### Get Page by ID
 Retrieve a specific page of the interview session by its page ID.
 
-**Endpoint:**
+**Endpoint**
 ```
 GET /v2/interviews/{{interviewId}}/pages/{{pageId}}
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{scopedAccessToken}}
+**Request**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/{{pageId}}' \
+--header 'Authorization: Bearer {{scopedAccessToken}}' \
+--header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI='
 ```
 
-**Response:**
+**Response**
 ```json
 {
-  "pageId": "specific-page-id",
-  "questions": [ ... ],
-  "answers": { ... }
+    "answersPayload": {
+        "Ckrmq1s8ymxcgp": [
+            {
+                "Fkrmq0xbl3olho": ""
+            }
+        ],
+        ...
+    },
+    "name": "Lease Agreement",
+    "preview": {
+        "mimeType": "text/html",
+        "data": "..."
+    },
+    "previousPageData": {
+        "pageId": "Pkrmp0p6bxdxoe",
+        "format": "reference"
+    },
+    "currentPageData": {
+        "pageId": "Pks6p0qrdiwvbf",
+        "format": "display",
+        "type": "single",
+        "progressPercentage": 1,
+        "questions": [
+            {
+                "id": "Qkrmpkupdijh2k",
+                "title": "Who is the landlord?",
+                "hint": "",
+                "fields": [
+                    {
+                        "id": "Fkrmpkupg2ces0",
+                        "type": "TEXT",
+                        "default": "",
+                        "label": "Company Name"
+                    },
+                    ...
+                ]
+            }
+        ],
+        "answers": {
+            "Fkrmpkupg2ces0": "",
+            "Fkrmpmfcyndisl": "",
+            ...
+        },
+        "isFirst": false
+    },
+    "nextPageData": {
+        "pageId": "null",
+        "format": "reference"
+    }
 }
 ```
 
 ### Submit Page and Display Next
 Submit the current page and retrieve the next page preview.
 
-**Endpoint:**
+**Endpoint**
 ```
 PATCH /v2/interviews/{{interviewId}}/pages/{{pageId}}
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{scopedAccessToken}}
-```
-
-**Request Body:**
-```json
-{
+**Request**
+```curl
+curl --location --request PATCH 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/{{pageId}}' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{scopedAccessToken}}' \
+--data '{
   "currentPageData": {
+    "format": "reference"
+  },
+  "previousPageData": {
+    "format": "reference"
+  },
+  "nextPageData": {
     "format": "display"
   },
-  "answersPayload": { ... }
-}
+  "preview": {
+    "mimeType": "text/html"
+  },
+  "answersPayload": ...
+}'
 ```
 
-**Response:**
+**Response**
 ```json
 {
-  "nextPageData": {
-    "pageId": "next-page-id",
-    "questions": [ ... ],
-    "answers": { ... }
+    "answersPayload": {
+        "Ckrmq1s8ymxcgp": [
+            {
+                "Fkrmq0xbl3olho": ""
+            }
+        ],
+        ...
+    },
+    "name": "Lease Agreement",
+    "preview": {
+        "mimeType": "text/html",
+        "data": "..."
+    },
+    "previousPageData": {
+        "pageId": "Pkrmp0p6bxdxoe",
+        "format": "reference"
+    },
+    "currentPageData": {
+        "pageId": "Pkrmp0p6bxdxoe",
+        "format": "reference"
+    },
+    "nextPageData": {
+        "pageId": "Pks6p0qrdiwvbf",
+        "format": "display",
+        "type": "single",
+        "progressPercentage": 1,
+        "questions": [
+            {
+                "id": "Qkrmpkupdijh2k",
+                "title": "Who is the landlord?",
+                "hint": "",
+                "fields": [
+                    {
+                        "id": "Fkrmpkupg2ces0",
+                        "type": "TEXT",
+                        "default": "",
+                        "label": "Company Name"
+                    },
+                    ...
+                ]
+            }
+        ],
+        "answers": {
+            "Fkrmpkupg2ces0": "",
+            "Fkrmpmfcyndisl": "",
+            ...
+        },
+        "isFirst": false
+    }
 }
 ```
 
@@ -272,38 +501,63 @@ Complete the interview session and generate the final document.
 POST /v2/interviews/{{interviewId}}/completions
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{generalAccessToken}}
+**Request**
+```curl
+curl --location --request POST 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/completions' \
+--header 'Authorization: Bearer {{generalAccessToken}}'
 ```
 
-**Response:**
+**Response**
 ```json
 {
-  "documentId": "final-document-id"
+    "binder": {
+        "binderId": "1dfb6084-e1f3-4229-9155-18f5a4a7b335",
+        "documentId": "83a61e13-e2c1-44db-a9cb-44ee1a025fa5"
+    }
 }
 ```
 
-### Get Document
-Retrieve the completed document.
+### Get Persistent Document
+Retrieve the completed persistent document.
 
-**Endpoint:**
+**Endpoint**
+```
+POST /v2/documents/{{documentID}}
+```
+
+**Request**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents/{{documentID}}' \
+--header 'rl-binder-id: 1dfb6084-e1f3-4229-9155-18f5a4a7b335' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{generalAccessToken}}'
+--header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI='
+```
+
+**Response**
+Document data
+
+### Get Ephemeral Document
+Retrieve the completed ephemeral document.
+
+**Endpoint**
 ```
 POST /v2/documents
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{generalAccessToken}}
+**Request**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Bearer {{generalAccessToken}}' \
+--data '{
+  "interviewId": "43b02054-85ba-4282-89e3-650be4e34fd3",
+  "mimeType": "text/html",
+  "answersPayload": ...
+}'
 ```
 
-**Request Body:**
+**Response**
 ```json
-{
-  "interviewId": "{{interviewId}}",
-  "answersPayload": { ... }
-}
-```
 
-**Response:**
-Document data
+```
