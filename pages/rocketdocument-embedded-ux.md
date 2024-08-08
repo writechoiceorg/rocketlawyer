@@ -1,22 +1,22 @@
-Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section provides a step-by-step process for creating and customizing a Rocket Lawyer document using a simple interview-style experience. By following these steps, you'll be able to complete a document and display it using the **RocketSign® Embedded UX**. 
+Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section provides a step-by-step process for creating and customizing a Rocket Lawyer document using a simple interview-style experience. By following these steps, you'll be able to complete a document and display it using the **RocketSign® Embedded UX**.
 
 ## Items Required
 
 Ensure you have the following items ready to create and customize a Rocket Lawyer document:
 
-1. **Client Credentials**   
-     Obtain these during the onboarding process, which is detailed in the [Welcome Guide](welcome-guide).  
+1. **Client Credentials**
+     Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).
 
-2. **templateId**   
-     This is the unique ID for the template used to initialize the interview. For example, for a lease agreement, you can use: `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
+2. **templateId**
+     This is the unique ID for the template used to initialize the interview. For this guide, we'll use the lease agreement, with the templateID `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
 
-3. **partnerEndUserId**     
+3. **partnerEndUserId**
      An ID that identifies the end user in your system.
 
-4. **partyEmailAddress**        
+4. **partyEmailAddress**
      The email address of the end user for document notifications.
 
-> **Environment Setup:** Use `api-sandbox.rocketlawyer.com` for testing environments. When you're ready for production, switch to `api.rocketlawyer.com`. This applies to all interactions with the RocketDocument API.     
+> **Environment Setup:** Use `api-sandbox.rocketlawyer.com` for testing environments. When you're ready for production, switch to `api.rocketlawyer.com`. This applies to all interactions with the RocketDocument API.
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ Follow the steps below to complete this guide:
 
 ### Step 1: Generate an Access Token
 
-Before interacting with the RocketDocument API, you must authenticate your calls by obtaining an Access Token. This token will be used to authorize all subsequent API requests. In this step, you will learn how to generate an Access Token by calling the Authentication API.
+Before interacting with the RocketDocument API, you must authenticate your calls by obtaining an Access Token. You will use this token to authorize all subsequent API requests. In this step, you will learn how to generate an Access Token by calling the Authentication API.
 
 > **Token Usage Reminder:** The token you receive is tied to a specific binder but can be used across all Rocket Lawyer product APIs until it expires. Remember this to avoid unnecessary token requests.
 
@@ -40,7 +40,7 @@ Authenticate each call to the **RocketDocument API** by obtaining an Access Toke
 POST https://api-sandbox.rocketlawyer.com/partners/v2/auth/accesstoken
 ```
 
-Include the correct credentials (`client_id` and `client_secret`) and `grant_type`:
+Include the credentials (`client_id` and `client_secret`) and `grant_type`:
 
 ```json
 {
@@ -50,7 +50,7 @@ Include the correct credentials (`client_id` and `client_secret`) and `grant_typ
 }
 ```
 
-The response includes an Access Token:
+You will receive a response that includes an Access Token:
 
 ```json
 {
@@ -62,14 +62,14 @@ The response includes an Access Token:
 
 ### Step 2: Create the Interview
 
-With the Access Token in hand, the next step is to create an interview session for the document. This interview is based on a specific document template and will gather the necessary information to customize the document. This step will guide you through making a POST request to the RocketDocument API to create the interview.
+With the Access Token in hand, the next step is to create an interview session for the document. This interview is based on a specific document template, which gathers the necessary information to customize the document. This step will guide you through making a POST request to the RocketDocument API to create the interview.
 
-**Assumptions**
+**Requirements**
 
-Before proceeding, ensure the following assumptions are met:
+Before proceeding, make sure to meet the following requirements:
 
-- You have the `templateId` for the template to base the interview on. This guide uses a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
-- You have a valid `partnerEndUserId`.
+- Have the `templateId` for the template on which to base the interview. This guide uses a Lease Agreement `templateId`. For other document types, use the corresponding `templateId`.
+- Have a valid `partnerEndUserId`.
 
 **Request**
 
@@ -121,7 +121,7 @@ Authorization: Bearer {rl-rdoc-servicetoken}
 
 Now that the interview is set up, you need to embed the RocketDocument UX into your platform’s UI. This step involves adding specific HTML elements and JavaScript to load the interactive interview interface. Here, you will learn how to include the required script and web component tags in your HTML.
 
-> **JavaScript Event Notification:** JavaScript events will notify your front end of critical updates and let you know when it's safe to deactivate the module.
+> **JavaScript Event Notification:** JavaScript events will notify your front end of critical updates and let you know when it is safe to deactivate the module.
 
 Add this script tag in the header:
 
@@ -135,10 +135,12 @@ Insert this web component tag in the body:
 <rocket-document serviceToken="{rl-rdoc-servicetoken}" interviewId="{interview-id}"></rocket-document>
 ```
 
+The elements in this tag are:
+
 - `{rl-rdoc-servicetoken}`: The service token from Step 1. Learn more about it in the [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview).
 - `{interview-id}`: From the response in Step 2.
 
-> **Important Distinction:** `{interview-id}` is the unique identifier for a specific interview session, while `templateId` refers to the ID of the document template used to initiate that interview. These two are not interchangeable, so ensure you're using the correct identifier for each step.
+> **Important Distinction:** `{interview-id}` is the unique identifier for a specific interview session, while `templateId` refers to the ID of the document template used to initiate that interview. They are two different elements, so make sure you're using the correct identifier for each step.
 
 Simplified webpage example:
 
@@ -219,7 +221,3 @@ You’ve successfully created, displayed, and interacted with a document intervi
 **API Documentation**
 - [RocketDocument API Documentation](/docs/rocketdoc-api-product-sandbox/1/overview)
 - [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview)
-
----
-
-This format should enhance readability and align with the Google Developer Style Guide.
