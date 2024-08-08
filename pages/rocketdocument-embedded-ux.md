@@ -5,7 +5,7 @@ Welcome to the **RocketDocument™ Embedded UX** Quick Start guide. This section
 Ensure you have the following items ready to create and customize a Rocket Lawyer document:
 
 1. **Client Credentials**   
-     Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).  
+     Obtain these during the onboarding process, which is detailed in the [Welcome Guide](welcome-guide).  
 
 2. **templateId**   
      This is the unique ID for the template used to initialize the interview. For example, for a lease agreement, you can use: `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
@@ -135,7 +135,7 @@ Insert this web component tag in the body:
 <rocket-document serviceToken="{rl-rdoc-servicetoken}" interviewId="{interview-id}"></rocket-document>
 ```
 
-- `{rl-rdoc-servicetoken}`: The service token from Step 1. Learn more in the [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview).
+- `{rl-rdoc-servicetoken}`: The service token from Step 1. Learn more about it in the [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview).
 - `{interview-id}`: From the response in Step 2.
 
 > **Important Distinction:** `{interview-id}` is the unique identifier for a specific interview session, while `templateId` refers to the ID of the document template used to initiate that interview. These two are not interchangeable, so ensure you're using the correct identifier for each step.
