@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "01263ed3-fe05-4138-9317-cb009aab9d54",
 		"name": "RocketDocument v2 API",
-		"description": "# RocketDocument v2\n\nThe diagram below shows the interaction between a partner application and Rocket Lawyer's RocketDoc v2 API. It outlines the steps to fully integrate our API into your system. The diagram will go through the following:\n\n1. **Get Access Token**: Obtain a general access token by sending a POST request with backend credentials to `/auth/accesstoken`.\n2. **Choosing a Template**: Retrieve a list of document templates and select a specific template for preview.\n3. **Start Interview**: Initiate an interview by creating an interview object and obtaining a service token for scoped access.\n4. **Resume Interview**: Continue an existing interview using the scoped access token and saved answers.\n5. **Iterate Through Question Pages**: Navigate through the interview pages, answering questions, and saving responses.\n6. **Complete Interview and Get Document**: Finalize the interview and retrieve the completed document.\n\n  \n\n<img src=\"https://content.pstmn.io/51381cc8-4dbe-421e-ae53-fbeb1c7128a3/QVBJIFVzYWdlIGZvciBSb2NrZXREb2MgSW50ZXJ2aWV3IChwYXJ0bmVyIG93bmluZyBVSSkucG5n\" alt=\"\">",
+		"description": "# RocketDocument v2\n\nThe diagram below shows the interaction between a partner application and Rocket Lawyer's RocketDoc v2 API. It outlines the steps to fully integrate our API into your system. The diagram will go through the following:\n\n1. **Get Access Token**: Obtain a general access token by sending a POST request with backend credentials to `/auth/accesstoken`.\n    \n2. **Choosing a Template**: Retrieve a list of document templates and select a specific template for preview.\n    \n3. **Start Interview**: Initiate an interview by creating an interview object and obtaining a service token for scoped access.\n    \n4. **Resume Interview**: Continue an existing interview using the scoped access token and saved answers.\n    \n5. **Iterate Through Question Pages**: Navigate through the interview pages, answering questions, and saving responses.\n    \n6. **Complete Interview and Get Document**: Finalize the interview and retrieve the completed document.\n    \n\n<img src=\"https://content.pstmn.io/51381cc8-4dbe-421e-ae53-fbeb1c7128a3/QVBJIFVzYWdlIGZvciBSb2NrZXREb2MgSW50ZXJ2aWV3IChwYXJ0bmVyIG93bmluZyBVSSkucG5n\">",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "28471659",
 		"_collection_link": "https://www.postman.com/dark-meadow-504378/workspace/rocketlawyer/collection/28471659-01263ed3-fe05-4138-9317-cb009aab9d54?action=share&source=collection_link&creator=28471659"
@@ -57,7 +57,7 @@
 								"accesstoken"
 							]
 						},
-						"description": "Use the `/v1/auth/accesstoken` endpoint to obtain a general access token for authenticating subsequent API requests. This token allows your backend systems to securely interact with the Rocket Lawyer API, controlling the content and actions each user can perform within Rocket Lawyer.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `client_credentials`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |"
+						"description": "Use this endpoint to obtain a general access token for authenticating subsequent API requests. This token allows your backend systems to securely interact with the Rocket Lawyer API, controlling the content and actions each user can perform within Rocket Lawyer.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `client_credentials`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |"
 					},
 					"response": []
 				},
@@ -114,7 +114,7 @@
 								"servicetoken"
 							]
 						},
-						"description": "Use the `/v1/auth/servicetoken` endpoint to obtain a service token for client-side applications. This token allows client applications running on a user's device to load Rocket Lawyer's embedded user experience with a specific level of access.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `purpose` | The purpose for the service token (e.g., `api.rocketlawyer.com/rocketdoc`). |\n| `interviewId` | The interview ID for which the token is being requested. |\n| `partnerEndUserId` | Your partner's end user ID. |\n| `expirationTime` | The expiration time for the token, in UNIX epoch time. |"
+						"description": "Use this endpoint to obtain a service token for client-side applications. This token allows client applications running on a user's device to load Rocket Lawyer's embedded user experience with a specific level of access.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `purpose` | The purpose for the service token (e.g., `api.rocketlawyer.com/rocketdoc`). |\n| `interviewId` | The interview ID for which the token is being requested. |\n| `partnerEndUserId` | Your partner's end user ID. |\n| `expirationTime` | The expiration time for the token, in UNIX epoch time. |"
 					},
 					"response": []
 				},
@@ -168,7 +168,7 @@
 								"accesstoken"
 							]
 						},
-						"description": "The `/v1/auth/accesstoken` endpoint can be used to obtain a scoped access token using a service token. This token allows for more granular access control within the Rocket Lawyer API, enabling specific actions or permissions for an interview session.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `authorization_code`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |\n| `code` | The service token obtained from the Get Service Token endpoint. |"
+						"description": "This endpoint can be used to obtain a scoped access token using a service token. This token allows for more granular access control within the Rocket Lawyer API, enabling specific actions or permissions for an interview session.\n\n> Refer to the [Authentication API documentation](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview) for more information. \n  \n\nThe request body should be in JSON format and must include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `grant_type` | Must be set to `authorization_code`. |\n| `client_id` | Your partner client ID. |\n| `client_secret` | Your partner client secret. |\n| `code` | The service token obtained from the Get Service Token endpoint. |"
 					},
 					"response": []
 				}
@@ -228,7 +228,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/templates` endpoint retrieves a list of document templates available in Rocket Lawyer. This allows you to access and select templates for creating and managing documents."
+						"description": "This endpoint retrieves a list of document templates available in Rocket Lawyer. This allows you to access and select templates for creating and managing documents."
 					},
 					"response": []
 				},
@@ -270,7 +270,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/templates/{templateId}` endpoint retrieves detailed information about a specific document template by its ID."
+						"description": "This endpoint retrieves detailed information about a specific document template by its ID."
 					},
 					"response": []
 				},
@@ -306,7 +306,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/templates/{templateId}/preview` endpoint retrieves a preview of a specific document template by its ID. The response provides a visual representation of the template in HTML format."
+						"description": "This endpoint retrieves a preview of a specific document template by its ID. The response provides a visual representation of the template in HTML format."
 					},
 					"response": []
 				},
@@ -342,7 +342,45 @@
 								}
 							]
 						},
-						"description": "The `/v2/templates/{templateId}/thumbnail` endpoint retrieves a thumbnail image of a specific document template by its ID. The response provides a visual representation of the template in PNG format."
+						"description": "This endpoint retrieves a thumbnail image of a specific document template by its ID. The response provides a visual representation of the template in PNG format."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Template Tagged Answer Model (TAM)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/templates/:templateId/tagged-answer-model",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"templates",
+								":templateId",
+								"tagged-answer-model"
+							],
+							"variable": [
+								{
+									"key": "templateId",
+									"value": "{{templateId}}",
+									"description": "The unique identifier of the template."
+								}
+							]
+						},
+						"description": "This retrieves the Tagged Answer Model (TAM) for the specified template identified by the `templateId`. The TAM provides a structured format for injecting data into an interview or retrieving data from an interview."
 					},
 					"response": []
 				}
@@ -425,7 +463,7 @@
 								"interviews"
 							]
 						},
-						"description": "Use the `/v2/interviews` endpoint to create a new interview session for a specific document template. This allows you to initiate the process of filling out a document based on a selected template.\n\nThe request body should be in JSON format and needs to include the following parameters:\n\n| Parameter            | Description                                        |\n|----------------------|----------------------------------------------------|\n| `templateId`         | The ID of the document template to use for the interview. |\n| `partnerEndUserId`   | A unique identifier for the end user provided by the partner application. |\n| `partyEmailAddress`  | The email address of the party for whom the interview is being created. |\n\n"
+						"description": "Use this endpoint to create a new interview session for a specific document template. This allows you to initiate the process of filling out a document based on a selected template.\n\nThe request body should be in JSON format and needs to include the following parameters:\n\n| Parameter | Description |\n| --- | --- |\n| `templateId` | The ID of the document template to use for the interview. |\n| `partnerEndUserId` | A unique identifier for the end user provided by the partner application. |\n| `partyEmailAddress` | The email address of the party for whom the interview is being created. |"
 					},
 					"response": []
 				},
@@ -467,7 +505,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/interviews` endpoint retrieves a list of interview sessions associated with your account. This allows you to view and manage existing interviews."
+						"description": "This endpoint retrieves a list of interview sessions associated with your account. This allows you to view and manage existing interviews."
 					},
 					"response": []
 				},
@@ -542,7 +580,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/interviews/{interviewId}` endpoint retrieves detailed information about a specific interview session by its ID. This allows you to fetch all the information about a specific interview, including its status and associated data.\n\n"
+						"description": "This endpoint retrieves detailed information about a specific interview session by its ID. This allows you to fetch all the information about a specific interview, including its status and associated data."
 					},
 					"response": []
 				},
@@ -599,7 +637,7 @@
 								}
 							]
 						},
-						"description": "Use the `/v2/interviews/{interviewId}/completions` endpoint to finalize an interview session. This endpoint completes the interview and generates the final document based on the provided answers."
+						"description": "Use this endpoint to complete an interview session. This endpoint completes the interview and generates the final document based on the provided answers."
 					},
 					"response": []
 				},
@@ -637,7 +675,53 @@
 								}
 							]
 						},
-						"description": "The `/v2/interviews/{interviewId}/tagged-answers` endpoint retrieves all the answers for tagged fields from the specified interview in the Tagged Answer Model (TAM) format. This endpoint allows you to fetch structured data for the interview, which includes the tagged answers aligned with the TAM structure."
+						"description": "This endpoint retrieves all the answers for tagged fields from the specified interview in the Tagged Answer Model (TAM) format. This endpoint allows you to fetch structured data for the interview, which includes the tagged answers aligned with the TAM structure."
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Interview",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{generalAccessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"inputData\": {\r\n    \"name\": \"<string>\",\r\n    \"entities\": [\r\n      {\r\n        \"name\": \"<string>\",\r\n        \"class\": \"Person\",\r\n        \"roles\": [\r\n          \"<string>\",\r\n          \"<string>\"\r\n        ],\r\n        \"isCyclical\": false\r\n      },\r\n      {\r\n        \"name\": \"<string>\",\r\n        \"class\": \"Person\",\r\n        \"roles\": [\r\n          \"<string>\",\r\n          \"<string>\"\r\n        ],\r\n        \"isCyclical\": false\r\n      }\r\n    ],\r\n    \"fields\": [\r\n      {\r\n        \"entity\": \"<string>\",\r\n        \"fieldClass\": \"<string>\",\r\n        \"type\": \"CURRENCY\",\r\n        \"value\": \"<string>\",\r\n        \"cycleId\": \"<string>\"\r\n      },\r\n      {\r\n        \"entity\": \"<string>\",\r\n        \"fieldClass\": \"<string>\",\r\n        \"type\": \"SSN\",\r\n        \"value\": \"<string>\",\r\n        \"cycleId\": \"<string>\"\r\n      }\r\n    ]\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{rocketDocApi}}/v2/interviews/:interviewId",
+							"host": [
+								"{{rocketDocApi}}"
+							],
+							"path": [
+								"v2",
+								"interviews",
+								":interviewId"
+							],
+							"variable": [
+								{
+									"key": "interviewId",
+									"value": "{{interviewId}}",
+									"description": "The unique identifier of the interview."
+								}
+							]
+						},
+						"description": "This endpoint updates an existing Interview with data in the Tagged Answer Model (TAM) format. It's important to note that data previously entered for this interview will be lost.\n\nThe request body should be in JSON format and needs to include the inputData parameter with the following TAM structure:\n\n| **Field** | **Description** |\n| --- | --- |\n| inputData | Object containing input data to be prefilled at the document. |\n| inputData.name | Name associated with the input data. |\n| inputData.entities | Array of entities related to the input data. |\n| inputData.entities\\[\\].name | Name of the entity. |\n| inputData.entities\\[\\].class | Class of the entity (e.g., \"Organization\"). |\n| inputData.entities\\[\\].roles | Roles associated with the entity. |\n| inputData.entities\\[\\].isCyclical | Indicates if the entity is cyclical (can receive multiple answers). |\n| inputData.fields | Array of fields associated with the input data. |\n| inputData.fields\\[\\].entity | Name of the entity related to the field. |\n| inputData.fields\\[\\].fieldClass | Class of the field. |\n| inputData.fields\\[\\].type | Type of data in the field (e.g. \"TEXT\" or \"RADIO\"). |\n| inputData.fields\\[\\].value | Value associated with the field. |\n| inputData.fields\\[\\].cycleId | Identifier for the cycle associated with the field. |"
 					},
 					"response": []
 				}
@@ -713,7 +797,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/interviews/{interviewId}/pages/first` endpoint is used to retrieve the first page of an interview session. This allows you to begin the interview process by presenting the initial set of questions to the user."
+						"description": "This endpoint is used to retrieve the first page of an interview session. This allows you to begin the interview process by presenting the initial set of questions to the user."
 					},
 					"response": []
 				},
@@ -787,7 +871,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/interviews/{interviewId}/pages/{pageId}` endpoint retrieves a specific page of an interview session by its page ID. This allows you to access and display any interview page to the user."
+						"description": "This endpoint retrieves a specific page of an interview session by its page ID. This allows you to access and display any interview page to the user."
 					},
 					"response": []
 				},
@@ -1108,7 +1192,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/documents/{documentId}` endpoint retrieves a persistent interview document by its ID. This allows you to access the final document generated from an interview session.\n\nThis endpoint requires adding the `rl-binder-id` header to the request. This is the ID of the Binder containing the document to retrieve."
+						"description": "This endpoint retrieves a persistent interview document by its ID. This allows you to access the final document generated from an interview session.\n\nThis endpoint requires adding the `rl-binder-id` header to the request. This is the ID of the Binder containing the document to retrieve."
 					},
 					"response": []
 				},
@@ -1180,7 +1264,7 @@
 								"documents"
 							]
 						},
-						"description": "The `/v2/documents` endpoint retrieves an ephemeral interview document. It processes the interview responses to generate the specified type of document.\n\nThe request body should be in JSON format and must include the following parameters:\n\n> As Rocket Lawyer doesn't store data from ephemeral interviews, you need to submit the `answerPayload` to this request. \n  \n\n| Parameter | Description |\n| --- | --- |\n| `interviewId` | The ID of the interview session. |\n| `answersPayload` | The payload containing the user's answers. |\n| `mimeType`          | The MIME type of the document.                      |"
+						"description": "This endpoint retrieves an ephemeral interview document. It processes the interview responses to generate the specified type of document.\n\nThe request body should be in JSON format and must include the following parameters:\n\n> As Rocket Lawyer doesn't store data from ephemeral interviews, you need to submit the `answerPayload` to this request. \n  \n\n| Parameter | Description |\n| --- | --- |\n| `interviewId` | The ID of the interview session. |\n| `answersPayload` | The payload containing the user's answers. |\n| `mimeType` | The MIME type of the document. |"
 					},
 					"response": []
 				}
@@ -1228,7 +1312,7 @@
 								}
 							]
 						},
-						"description": "The `/v2/entities` endpoint retrieves entity information based on input hints provided through query parameters."
+						"description": "This endpoint retrieves entity information based on input hints provided through query parameters."
 					},
 					"response": []
 				}
