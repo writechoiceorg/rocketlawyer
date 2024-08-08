@@ -8,7 +8,7 @@ Ensure you have the following items ready to create and customize a Rocket Lawye
      Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).
 
 2. **templateId**
-     This is the unique ID for the template used to initialize the interview. For this guide, we'll use the lease agreement, with the templateID `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
+     This is the unique ID for the template used to initialize the interview. For this guide, we'll use the lease agreement with the templateID `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
 
 3. **partnerEndUserId**
      An ID that identifies the end user in your system.
