@@ -29,8 +29,6 @@ In this section, we provide definitions for terms related to RocketSign:
 
 - **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
 
-- **Binders:** Binders are digital containers that store information about documents and track related activities.
-
 - **Party:** An individual or entity involved in the legal document, either as a signer or participant.
 
 - **Binder:** Similar to a three-ring binder, it organizes and holds the document, details about each party, the status of the legal process, and all associated signatures.
