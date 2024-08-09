@@ -1,6 +1,6 @@
 ## Concepts and Definitions
 
-Understanding some foundational concepts about Rocket Lawyer's architecture is crucial for effectively integrating with its services. This section will outline the essential elements you need to know as you begin the integration process.
+Understanding some foundational concepts about Rocket Lawyer's architecture is crucial for effectively integrating with its services. This page presents the essential concept definitions you need to know as you begin the integration process.
 
 ### Table of Contents
 
@@ -33,7 +33,9 @@ In this section, we provide definitions for terms related to RocketSign and Bind
 
 - **Event:** Any activity that occurs during the lifecycle of the legal process, such as sending an invitation to sign, a party viewing the document, or an owner modifying the document.
 
-### Authentication API
+- **Client Credentials**: Essential authentication details obtained through the onboarding process, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
+
+### Authentication Tokens
 
 In this section, we provide definitions for terms related to Authentication API:
 
@@ -42,6 +44,8 @@ In this section, we provide definitions for terms related to Authentication API:
 - **Access Token:** Your backend systems use an Access Token to enable deep integrations with Rocket Lawyer services, such as requesting lists of interviews or binders and obtaining access tokens for specific binders.
 
 - **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents.
+
+- **UPID (Universal Party ID)**: A unique identifier for a party in a document. It is used to specify the party in requests related to service tokens.
 
 ### **Identifiers**
 
@@ -54,3 +58,5 @@ In this section, we provide definitions for terms related to Identifiers:
 - **interviewId:** A unique identifier for a specific interview session, representing a legal document customization process based on the user’s responses.
 
 - **partyEmailAddress:** The end user's email address for document notifications.
+
+- **binderId**: A unique identifier for a binder, used to display and manage documents. It can be obtained by following the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux).
