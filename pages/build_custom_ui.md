@@ -2,10 +2,21 @@
 
 This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting and resuming interviews, iterating through question pages, and completing interviews to retrieve documents.
 
-## Authentication
+You will go through the following steps:
+
+[Step 1: Authentication](#step-1-authentication)
+[Step 2: Choosing a Template](#step-2-choosing-a-template)
+[Step 3: Start an Interview](#step-3-start-an-interview)
+[Step 4: Resume an Interview](#step-4-resume-an-interview)
+[Step 5: Iterate Through Question Pages](#step-5-iterate-through-question-pages)
+[Step 6: Complete the Interview and Get the Document](#step-6-complete-the-interview-and-get-the-document)
+
+## Step 1: Authentication
+
+To begin interacting with the RocketDocument API, you must obtain a general access token. This token is used to authenticate most of the API requests, ensuring secure communication between your backend systems and the RocketDocument API.
 
 ### Create General Access Token
-To interact with the RocketDocument API, you'll first need to obtain a general access token. This token will be used to authenticate subsequent API requests.
+To interact with the RocketDocument API, you'll first need to obtain a general access token. This token will be used to authenticate most subsequent API requests.
 
 **Endpoint:**
 ```
@@ -13,12 +24,14 @@ POST /v1/auth/accesstoken
 ```
 
 **Request Body:**
-```json
-{
-  "grant_type": "client_credentials",
-  "client_id": "{{partnerClientId}}",
-  "client_secret": "{{partnerClientSecret}}"
-}
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken' \
+--header 'Content-Type: application/json' \
+--data '{
+	"grant_type": "client_credentials",
+	"client_id": "{{partnerClientId}}",
+	"client_secret": "{{partnerClientSecret}}"
+}'
 ```
 
 **Response:**
@@ -37,7 +50,7 @@ POST /v1/auth/accesstoken
     "token_type": "BearerToken",
     "issued_at": "1723146278357",
     "client_id": "ZEAURAIq2q7ngQMBxRdvGFOQmy7q57xWxVW2nVP4EGzLy68H",
-    "access_token": "your-general-access-token",
+    "access_token": "{{generalAccessToken}}",
     "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
     "scope": "",
     "expires_in": "35999",
@@ -47,9 +60,11 @@ POST /v1/auth/accesstoken
 ```
 
 ### Store Token
-Store this token securely in your backend for use in subsequent requests.
+Store this token securely in your backend for use in the next requests.
 
-## Choosing a Template
+## Step 2: Choosing a Template
+
+In this step, you will retrieve a list of available document templates from the RocketDocument API. You can also obtain a thumbnail image and an HTML preview for a specific template, allowing you to display template options within your custom UI.
 
 ### Get List of Templates
 Retrieve a list of available document templates.
@@ -110,8 +125,8 @@ Authorization: Bearer {{generalAccessToken}}
 **Response:**
 HTML content
 
-## Starting an Interview
-You can create a persistent or ephemeral interview. The difference between the two is....
+## Step 3: Start an Interview
+Initiate an interview session by selecting a document template and creating either a persistent or ephemeral interview. This session will guide users through a series of questions, collecting the necessary information to complete the document.
 
 ### Create Persistent Interview
 Initiate a persistent interview session with a selected template.
@@ -212,9 +227,9 @@ curl --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstok
 }
 ```
 
-## Resuming an Interview
+## Step 4: Resume an Interview
 
-When using a persistent interview, the end user can resume a previous Interview.
+For persistent interviews, users can resume a previously started session. This step involves retrieving the saved state of the interview and continuing from where the user left off, using a scoped access token for secure interaction.
 
 ### Resume Interview
 Resume an existing interview using the scoped access token and saved answers.
@@ -259,7 +274,9 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/43
 }
 ```
 
-## Iterating Through Question Pages
+## Step 5: Iterate Through Question Pages
+
+As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process.
 
 ### Get First Page
 Retrieve the first page of the interview session.
@@ -491,7 +508,9 @@ curl --location --request PATCH 'https://api-sandbox.rocketlawyer.com/rocketdoc/
 }
 ```
 
-## Completing the Interview and Getting the Document
+## Step 6: Complete the Interview and Get the Document
+
+Once all questions are answered, the interview session is completed, and the final document is generated. You can then retrieve the completed document, either as a persistent document linked to the session or as an ephemeral document based on the session's data.
 
 ### Complete Interview
 Complete the interview session and generate the final document.
