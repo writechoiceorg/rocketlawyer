@@ -180,17 +180,38 @@ Initiate an ephemeral interview session with a selected template.
 
 **Endpoint:**
 ```
-
+POST /v2/interviews
 ```
 
 **Request:**
 ```curl
-
+{
+    "templateId": "{{templateId}}",
+    "partnerEndUserId": "{{upid}}",
+    "partyEmailAddress": "someone@something.com",
+    "storageType": "ephemeral"
+}
 ```
 
 **Response:**
 ```json
-
+{
+    "interviewName": "Lease Agreement (8)",
+    "pageId": "first",
+    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "storageType": "ephemeral",
+    "interviewStatus": "created",
+    "createdAt": "2024-08-09T21:16:45.573Z",
+    "updatedAt": "2024-08-09T21:16:45.573Z",
+    "answersPayload": {
+        "Fkrqobtz86esyj": "false",
+        "Fkro0blo0rqrgk": "",
+        ...
+    },
+    "interviewId": "b5ac7079-7543-4870-92c3-172c9d2d7928",
+    "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
+    "templateVersionId": "9f0fd7b2-b53c-49a7-aedb-1d5f01d41ced"
+}
 ```
 
 ### Get Scoped Access Token
@@ -580,7 +601,6 @@ POST /v2/documents
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{generalAccessToken}}' \
---header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI=' \
 --data '{
   "interviewId": "43b02054-85ba-4282-89e3-650be4e34fd3",
   "mimeType": "text/html",
