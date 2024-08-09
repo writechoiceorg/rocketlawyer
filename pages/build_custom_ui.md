@@ -4,14 +4,14 @@ This guide will help partners integrate their own UX with RocketDocument v2 API,
 
 You will go through the following steps:
 
-- [Step 1: Authentication](#step-1-authentication)
-- [Step 2: Choosing a Template](#step-2-choosing-a-template)
+- [Step 1: Authenticate](#step-1-authenticate)
+- [Step 2: Choose a Template](#step-2-choose-a-template)
 - [Step 3: Start an Interview](#step-3-start-an-interview)
 - [Step 4: Resume an Interview](#step-4-resume-an-interview)
 - [Step 5: Iterate Through Question Pages](#step-5-iterate-through-question-pages)
 - [Step 6: Complete the Interview and Get the Document](#step-6-complete-the-interview-and-get-the-document)
 
-## Step 1: Authentication
+## Step 1: Authenticate
 
 To begin interacting with the RocketDocument API, you must obtain a general access token. This token is used to authenticate most of the API requests, ensuring secure communication between your backend systems and the RocketDocument API.
 
@@ -62,7 +62,7 @@ curl --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstok
 ### Store Token
 Store this token securely in your backend for use in the next requests.
 
-## Step 2: Choosing a Template
+## Step 2: Choose a Template
 
 In this step, you will retrieve a list of available document templates from the RocketDocument API. You can also obtain a thumbnail image and an HTML preview for a specific template, allowing you to display template options within your custom UI.
 
@@ -74,9 +74,10 @@ Retrieve a list of available document templates.
 GET /v2/templates
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{generalAccessToken}}
+**Request:**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/templates' \
+--header 'Authorization: Bearer {{generalAccessToken}}'
 ```
 
 **Response:**
@@ -101,9 +102,9 @@ Get a thumbnail image for a specific template.
 GET /v2/templates/{{templateId}}/thumbnail
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{generalAccessToken}}
+**Request:**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/templates/{{templateId}}/thumbnail'
 ```
 
 **Response:**
@@ -117,15 +118,16 @@ Retrieve a preview of a specific template.
 GET /v2/templates/{{templateId}}/preview
 ```
 
-**Headers:**
-```http
-Authorization: Bearer {{generalAccessToken}}
+**Request:**
+```curl
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/templates/{{templateId}}/preview'
 ```
 
 **Response:**
 HTML content
 
 ## Step 3: Start an Interview
+
 Initiate an interview session by selecting a document template and creating either a persistent or ephemeral interview. This session will guide users through a series of questions, collecting the necessary information to complete the document.
 
 ### Create Persistent Interview
@@ -136,11 +138,11 @@ Initiate a persistent interview session with a selected template.
 POST /v2/interviews
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews' \
 --header 'Content-Type: application/json' \
---header 'Authorization: [[Authorization-masked-secret]]' \
+--header 'Authorization: Bearer {{generalAccessToken}}' \
 --data-raw '{
     "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
     "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
@@ -176,11 +178,20 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews' \
 ### Create Ephemeral Interview
 Initiate an ephemeral interview session with a selected template.
 
+**Endpoint:**
+```
 
+```
 
+**Request:**
+```curl
 
+```
 
+**Response:**
+```json
 
+```
 
 ### Get Scoped Access Token
 Obtain a scoped access token for the interview session.
@@ -190,7 +201,7 @@ Obtain a scoped access token for the interview session.
 POST /v1/auth/accesstoken
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken' \
 --header 'Content-Type: application/json' \
@@ -202,7 +213,7 @@ curl --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstok
 }'
 ```
 
-**Response**
+**Response:**
 ```json
 {
     "refresh_token_expires_in": "0",
@@ -239,14 +250,14 @@ Resume an existing interview using the scoped access token and saved answers.
 PATCH /v2/interviews/{{interviewId}}
 ```
 
-**Request**
+**Request:**
 ```curl
-curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/43b02054-85ba-4282-89e3-650be4e34fd3' \
+curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: [[Authorization-masked-secret]]'
 ```
 
-**Response**
+**Response:**
 ```json
 {
     "interviewName": "Lease Agreement (6)",
@@ -286,13 +297,13 @@ Retrieve the first page of the interview session.
 GET /v2/interviews/{{interviewId}}/pages/first
 ```
 
-**Request**
-```http
+**Request:**
+```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/first' \
 --header 'Authorization: Bearer {{scopedAccessToken}}'
 ```
 
-**Response**
+**Response:**
 ```json
 {
     "answersPayload": {
@@ -356,19 +367,19 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{
 ### Get Page by ID
 Retrieve a specific page of the interview session by its page ID.
 
-**Endpoint**
+**Endpoint:**
 ```
 GET /v2/interviews/{{interviewId}}/pages/{{pageId}}
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/{{pageId}}' \
 --header 'Authorization: Bearer {{scopedAccessToken}}' \
 --header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI='
 ```
 
-**Response**
+**Response:**
 ```json
 {
     "answersPayload": {
@@ -426,12 +437,12 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{
 ### Submit Page and Display Next
 Submit the current page and retrieve the next page preview.
 
-**Endpoint**
+**Endpoint:**
 ```
 PATCH /v2/interviews/{{interviewId}}/pages/{{pageId}}
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location --request PATCH 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/{{pageId}}' \
 --header 'Content-Type: application/json' \
@@ -453,7 +464,7 @@ curl --location --request PATCH 'https://api-sandbox.rocketlawyer.com/rocketdoc/
 }'
 ```
 
-**Response**
+**Response:**
 ```json
 {
     "answersPayload": {
@@ -520,13 +531,13 @@ Complete the interview session and generate the final document.
 POST /v2/interviews/{{interviewId}}/completions
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location --request POST 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/completions' \
 --header 'Authorization: Bearer {{generalAccessToken}}'
 ```
 
-**Response**
+**Response:**
 ```json
 {
     "binder": {
@@ -539,12 +550,12 @@ curl --location --request POST 'https://api-sandbox.rocketlawyer.com/rocketdoc/v
 ### Get Persistent Document
 Retrieve the completed persistent document.
 
-**Endpoint**
+**Endpoint:**
 ```
-POST /v2/documents/{{documentID}}
+GET /v2/documents/{{documentID}}
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents/{{documentID}}' \
 --header 'rl-binder-id: 1dfb6084-e1f3-4229-9155-18f5a4a7b335' \
@@ -553,22 +564,23 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents/{{d
 --header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI='
 ```
 
-**Response**
+**Response:**
 Document data
 
 ### Get Ephemeral Document
 Retrieve the completed ephemeral document.
 
-**Endpoint**
+**Endpoint:**
 ```
 POST /v2/documents
 ```
 
-**Request**
+**Request:**
 ```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{generalAccessToken}}' \
+--header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI=' \
 --data '{
   "interviewId": "43b02054-85ba-4282-89e3-650be4e34fd3",
   "mimeType": "text/html",
@@ -576,7 +588,7 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents' \
 }'
 ```
 
-**Response**
+**Response:**
 ```json
 
 ```
