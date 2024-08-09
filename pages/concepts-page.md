@@ -2,8 +2,6 @@
 
 Understanding some foundational concepts about Rocket Lawyer's architecture is crucial for effectively integrating with its services. This section will outline the essential elements you need to know as you begin the integration process.
 
-Here is a suggested Table of Contents for the markdown text:
-
 ## Table of Contents
 
 1. [**RocketDocument™**](#rocketdocument)   
