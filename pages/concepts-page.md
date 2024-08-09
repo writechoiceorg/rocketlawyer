@@ -2,6 +2,30 @@
 
 Understanding some foundational concepts about Rocket Lawyer's architecture is crucial for effectively integrating with its services. This section will outline the essential elements you need to know as you begin the integration process.
 
+Here is a suggested Table of Contents for the markdown text:
+
+## Table of Contents
+
+1. [**RocketDocument™**](#rocketdocument)
+   - [RocketDocument™ Overview](#rocketdocument-overview)
+   - [Interview](#interview)
+   - [Document Template](#document-template)
+   - [Document](#document)
+2. [**RocketSign and Binders**](#rocketsign-and-binders)
+   - [RocketSign and Binders Overview](#rocketsign-and-binders-overview)
+   - [Party](#party)
+   - [Binder](#binder)
+   - [Event](#event)
+3. [**Authentication API**](#authentication-api)
+   - [Authentication API Overview](#authentication-api-overview)
+   - [Access Token](#access-token)
+   - [Service Token](#service-token)
+4. [**Identifiers**](#identifiers)
+   - [templateId](#templateid)
+   - [partnerEndUserId](#partnerenduserid)
+   - [interviewId](#interviewid)
+   - [partyEmailAddress](#partymailaddress)
+
 ### RocketDocument™
 
 In this section, we provide definitions for terms related to RocketDocument™:
@@ -42,7 +66,7 @@ In this section, we provide definitions for terms related to Identifiers:
 
 - **templateId:** A unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.
 
-**partnerEndUserId:** A unique identifier used within your system to represent the end user who interacts with the Rocket Lawyer platform.
+- **partnerEndUserId:** A unique identifier used within your system to represent the end user who interacts with the Rocket Lawyer platform.
 
 - **interviewId:** A unique identifier for a specific interview session, representing a legal document customization process based on the user’s responses.
 
