@@ -16,7 +16,7 @@ In this section, we provide definitions for terms related to RocketDocument™:
 
 ### RocketSign and Binders
 
-In this section, we define key terms related to RocketSign and Binders:
+In this section, we provide definitions for terms related to RocketSign and Binders:
 
 - **RocketSign and Binders:** This service enables customers to sign documents and invite others to do the same. A binder is a digital container that stores information about the document and tracks all related activities.
 
@@ -28,7 +28,7 @@ In this section, we define key terms related to RocketSign and Binders:
 
 ### Authentication API
 
-In this section, we define key terms related to Authentication API:
+In this section, we provide definitions for terms related to Authentication API:
 
 - **Authentication API:** The Authentication API manages access to resources across Rocket Lawyer’s APIs, ensuring secure and controlled interactions.
 
