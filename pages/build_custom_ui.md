@@ -4,12 +4,12 @@ This guide will help partners integrate their own UX with RocketDocument v2 API,
 
 You will go through the following steps:
 
-[Step 1: Authentication](#step-1-authentication)
-[Step 2: Choosing a Template](#step-2-choosing-a-template)
-[Step 3: Start an Interview](#step-3-start-an-interview)
-[Step 4: Resume an Interview](#step-4-resume-an-interview)
-[Step 5: Iterate Through Question Pages](#step-5-iterate-through-question-pages)
-[Step 6: Complete the Interview and Get the Document](#step-6-complete-the-interview-and-get-the-document)
+- [Step 1: Authentication](#step-1-authentication)
+- [Step 2: Choosing a Template](#step-2-choosing-a-template)
+- [Step 3: Start an Interview](#step-3-start-an-interview)
+- [Step 4: Resume an Interview](#step-4-resume-an-interview)
+- [Step 5: Iterate Through Question Pages](#step-5-iterate-through-question-pages)
+- [Step 6: Complete the Interview and Get the Document](#step-6-complete-the-interview-and-get-the-document)
 
 ## Step 1: Authentication
 
