@@ -2,7 +2,7 @@
 
 Understanding some foundational concepts about Rocket Lawyer's architecture is crucial for effectively integrating with its services. This section will outline the essential elements you need to know as you begin the integration process.
 
-## Table of Contents
+### Table of Contents
 
 1. [**RocketDocument™**](#rocketdocument)   
 2. [**RocketSign and Binders**](#rocketsign-and-binders)   
