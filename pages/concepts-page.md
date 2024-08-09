@@ -5,8 +5,8 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 ### Table of Contents
 
 1. [**RocketDocument™**](#rocketdocument)   
-2. [**RocketSign and Binders**](#rocketsign-and-binders)   
-3. [**Authentication API**](#authentication-api)  
+2. [**RocketSign**](#rocketsign)   
+3. [**Authentication**](#authentication)  
 4. [**Identifiers**](#identifiers)
 
 ### RocketDocument™
@@ -21,11 +21,15 @@ In this section, we provide definitions for terms related to RocketDocument™:
 
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user's answers.
 
-### RocketSign and Binders
+### RocketSign
 
-In this section, we provide definitions for terms related to RocketSign and Binders:
+In this section, we provide definitions for terms related to RocketSign:
 
-- **RocketSign and Binders:** This service enables customers to sign documents and invite others to do the same. A binder is a digital container that stores information about the document and tracks all related activities.
+- **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. It enables document preparation, signing, and management through an embedded user interface.
+
+- **RocketSign & Binders API**: An API for managing document signing processes and binder-related tasks, including preparing and signing documents.
+
+- **Binders:** A binder is a digital container that stores information about the document and tracks all related activities.
 
 - **Party:** An individual or entity involved in the legal document, either as a signer or participant.
 
@@ -35,9 +39,11 @@ In this section, we provide definitions for terms related to RocketSign and Bind
 
 - **Client Credentials**: Essential authentication details obtained through the onboarding process, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
 
-### Authentication Tokens
+- **iFrame**: An HTML element used to embed RocketSign Embedded UX into a webpage. It displays the RocketSign interface and allows users to interact with it directly within your platform.
 
-In this section, we provide definitions for terms related to Authentication API:
+### Authentication
+
+In this section, we provide definitions for terms related to Authentication:
 
 - **Authentication API:** The Authentication API manages access to resources across Rocket Lawyer's APIs, ensuring secure and controlled interactions.
 
