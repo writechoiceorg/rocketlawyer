@@ -45,11 +45,11 @@ In this section, we provide definitions for terms related to Authentication:
 
 - **Authentication API:** The Authentication API manages access to resources across Rocket Lawyer's APIs, ensuring secure and controlled interactions.
 
-- **Access Token:** Your backend systems use an Access Token to enable deep integrations with Rocket Lawyer services, such as requesting lists of interviews or binders and obtaining access tokens for specific binders.
+- **Access Token:** Your backend systems use an Access Token to enable deep integrations with Rocket Lawyer services, such as requesting lists of interviews or binders and obtaining access tokens for specific binders. You use the `AccessTokenRequest` endpoint to get the Access Token. For more information on how to work with an Access Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
-- **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents.
+- **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents. You use the `ServiceTokenRequest` endpoint to get the Service Token. For more information on how to work with Service Token, refer to [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
-- **UPID (Universal Party ID)**: This is a unique identifier for a party in a document. It is used to specify the party in requests related to service tokens.
+- **UPID (Universal Party ID)**: UPID stands for Universally Unique IDentifier of the Party viewing the document. It is used to specify the party in requests related to service tokens. For more information on how to work with UPID, please refer to the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketsign-embedded-ux).
 
 ### **Identifiers**
 
