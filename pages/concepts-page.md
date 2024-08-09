@@ -11,7 +11,7 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 
 ### RocketDocument™
 
-In this section, we provide definitions for terms related to RocketDocument™:
+In this section, we provide definitions for terms related to **RocketDocument™**:
 
 - **RocketDocument™:** This tool enables customers to create and customize legal documents through a dynamic, interactive interview process. RocketDocument™ is designed to smooth the document creation process by guiding users through an interactive interview to collect specific details for the document.
 
@@ -23,7 +23,7 @@ In this section, we provide definitions for terms related to RocketDocument™:
 
 ### RocketSign
 
-In this section, we provide definitions for terms related to RocketSign:
+In this section, we provide definitions for terms related to **RocketSign**:
 
 - **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. An embedded user interface enables document preparation, signing, and management.
 
@@ -41,7 +41,7 @@ In this section, we provide definitions for terms related to RocketSign:
 
 ### Authentication
 
-In this section, we provide definitions for terms related to Authentication:
+In this section, we provide definitions for terms related to **Authentication**:
 
 - **Authentication API:** The Authentication API manages access to resources across Rocket Lawyer's APIs, ensuring secure and controlled interactions. For more information about the Authentication API, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
@@ -49,11 +49,13 @@ In this section, we provide definitions for terms related to Authentication:
 
 - **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents. You use the `ServiceTokenRequest` endpoint to get the Service Token. For more information on how to work with Service Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
+- **Backend Access Token:** This token is intended for use by your backend systems and allows deep integration with Rocket Lawyer data. It is obtained through a POST request to the Authentication API and authorizes backend API calls.
+
 - **UPID (Universal Party ID)**: UPID stands for Universally Unique IDentifier of the Party viewing the document. It is used to specify the party in requests related to service tokens. For more information about the UPID, refer to the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketsign-embedded-ux).
 
 ### **Identifiers**
 
-In this section, we provide definitions for terms related to Identifiers:
+In this section, we provide definitions for terms related to **Identifiers**:
 
 - **templateId:** This is a unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.
 
