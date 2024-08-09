@@ -25,11 +25,11 @@ In this section, we provide definitions for terms related to RocketDocument™:
 
 In this section, we provide definitions for terms related to RocketSign:
 
-- **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. It enables document preparation, signing, and management through an embedded user interface.
+- **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. An embedded user interface enables document preparation, signing, and management.
 
-- **RocketSign & Binders API**: An API for managing document signing processes and binder-related tasks, including preparing and signing documents.
+- **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
 
-- **Binders:** A binder is a digital container that stores information about the document and tracks all related activities.
+- **Binders:** Binders are digital containers that store information about documents and track related activities.
 
 - **Party:** An individual or entity involved in the legal document, either as a signer or participant.
 
@@ -51,18 +51,18 @@ In this section, we provide definitions for terms related to Authentication:
 
 - **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents.
 
-- **UPID (Universal Party ID)**: A unique identifier for a party in a document. It is used to specify the party in requests related to service tokens.
+- **UPID (Universal Party ID)**: This is a unique identifier for a party in a document. It is used to specify the party in requests related to service tokens.
 
 ### **Identifiers**
 
 In this section, we provide definitions for terms related to Identifiers:
 
-- **templateId:** A unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.
+- **templateId:** This is a unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.
 
-- **partnerEndUserId:** A unique identifier used within your system to represent the end user who interacts with the Rocket Lawyer platform.
+- **partnerEndUserId:** This is a unique identifier used within your system to represent the end-user interacting with the Rocket Lawyer platform.
 
-- **interviewId:** A unique identifier for a specific interview session, representing a legal document customization process based on the user’s responses.
+- **interviewId:** This is a unique identifier for a specific interview session, representing a legal document customization process based on the user's responses.
 
 - **partyEmailAddress:** The end user's email address for document notifications.
 
-- **binderId**: A unique identifier for a binder, used to display and manage documents. It can be obtained by following the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux).
+- **binderId**: This is a unique identifier for a binder used to display and manage documents. It can be obtained by following the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux).
