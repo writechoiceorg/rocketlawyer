@@ -36,3 +36,14 @@ In this section, we provide definitions for terms related to Authentication API:
 
 - **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents.
 
+### **Identifiers**
+
+In this section, we provide definitions for terms related to Identifiers:
+
+- **templateId:** A unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.
+
+**partnerEndUserId:** A unique identifier used within your system to represent the end user who interacts with the Rocket Lawyer platform.
+
+- **interviewId:** A unique identifier for a specific interview session, representing a legal document customization process based on the user’s responses.
+
+- **partyEmailAddress:** The end user's email address for document notifications.
