@@ -6,25 +6,10 @@ Here is a suggested Table of Contents for the markdown text:
 
 ## Table of Contents
 
-1. [**RocketDocument™**](#rocketdocument)
-   - [RocketDocument™ Overview](#rocketdocument-overview)
-   - [Interview](#interview)
-   - [Document Template](#document-template)
-   - [Document](#document)
-2. [**RocketSign and Binders**](#rocketsign-and-binders)
-   - [RocketSign and Binders Overview](#rocketsign-and-binders-overview)
-   - [Party](#party)
-   - [Binder](#binder)
-   - [Event](#event)
-3. [**Authentication API**](#authentication-api)
-   - [Authentication API Overview](#authentication-api-overview)
-   - [Access Token](#access-token)
-   - [Service Token](#service-token)
+1. [**RocketDocument™**](#rocketdocument)   
+2. [**RocketSign and Binders**](#rocketsign-and-binders)   
+3. [**Authentication API**](#authentication-api)  
 4. [**Identifiers**](#identifiers)
-   - [templateId](#templateid)
-   - [partnerEndUserId](#partnerenduserid)
-   - [interviewId](#interviewid)
-   - [partyEmailAddress](#partymailaddress)
 
 ### RocketDocument™
 
