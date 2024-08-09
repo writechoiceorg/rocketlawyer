@@ -14,7 +14,6 @@ In this section, we provide definitions for terms related to RocketDocument™:
 
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user’s answers.
 
-
 ### RocketSign and Binders
 
 In this section, we define key terms related to RocketSign and Binders:
@@ -27,4 +26,13 @@ In this section, we define key terms related to RocketSign and Binders:
 
 - **Event:** Any activity that occurs during the lifecycle of the legal process, such as sending an invitation to sign, a party viewing the document, or an owner modifying the document.
 
+### Authentication API
+
+In this section, we define key terms related to Authentication API:
+
+- **Authentication API:** The Authentication API manages access to resources across Rocket Lawyer’s APIs, ensuring secure and controlled interactions.
+
+- **Access Token:** Your backend systems use an Access Token to enable deep integrations with Rocket Lawyer services, such as requesting lists of interviews or binders and obtaining access tokens for specific binders.
+
+- **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents.
 
