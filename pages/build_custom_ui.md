@@ -397,7 +397,6 @@ GET /v2/interviews/{{interviewId}}/pages/{{pageId}}
 ```curl
 curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/{{pageId}}' \
 --header 'Authorization: Bearer {{scopedAccessToken}}' \
---header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI='
 ```
 
 **Response:**
@@ -582,7 +581,6 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents/{{d
 --header 'rl-binder-id: 1dfb6084-e1f3-4229-9155-18f5a4a7b335' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer {{generalAccessToken}}'
---header 'Cookie: _pxhd=xj5E0ayjUYJIzrDGYVLh6P6xUWtN8weR0Bk8gq8i7XPTkiVTH2TJXqWfA/lCQN0gmeU8LhnPX-pwdgUOR2pb7A==:WGyRNLXQcM9GDevBCpCKJm0H23RMzcKj0Pain3jxm6Y/6lEpBdgDs1Afk9g7B8f3eB5ZVmpZMvrxMPJP-1KjpmgcQuNEXrbg12rwKYO6JDI='
 ```
 
 **Response:**
@@ -610,5 +608,12 @@ curl --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents' \
 
 **Response:**
 ```json
-
+{
+  "interviewId": "76105b3e-ac8a-4202-8ed2-b991a02b8456",
+  "storageType": "persistent",
+  "document": {
+    "mimeType": "text/html",
+    "data": "PGh0bWw+CiAgPGJvZHk+CiAgICA8cD5Mb3JlbSBpcHN1bSBkb2xvciBzaXQgYW1ldCwgY29uc2VjdGV0dXIgYWRpcGlzY2luZyBlbGl0LjwvcD4KICA8L2JvZHk+CjwvaHRtbD4K"
+  }
+}
 ```
