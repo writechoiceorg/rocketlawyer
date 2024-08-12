@@ -5,15 +5,15 @@ This guide will help you quickly upgrade from RocketDocument v1 to v2, ensuring 
 ## Step 1: Update API Endpoints
 Update all your RocketDocument API endpoints from v1 to v2. Here are some key examples:
 
-- **Create an interview:**
+- **[Create an interview](create_an_interview_reference):**
   - **Old:** `POST /rocketdoc/v1/interviews`
   - **New:** `POST /rocketdoc/v2/interviews`
   
-- **Get a document:**
+- **[Get a document](get_a_document_reference):**
   - **Old:** `GET /rocketdoc/v1/documents/:documentId`
   - **New:** `GET /rocketdoc/v2/documents/:documentId`
   
-- **Get interviews:**
+- **[Get interviews](get_interviews_reference):**
   - **Old:** `GET /rocketdoc/v1/interviews`
   - **New:** `GET /rocketdoc/v2/interviews`
 
