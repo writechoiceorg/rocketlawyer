@@ -4,6 +4,18 @@ When integrating with Rocket Lawyer's services, you have two primary options: **
 
 ---
 
+### Table of Contents
+
+1. [**Introduction**](#introduction)
+2. [**Choosing Your Integration Path**](#choosing-your-integration-path)
+3. [**Embedded UX**](#embedded-ux)
+4. [**Build Your Own UX**](#build-your-own-ux)
+5. [**Feature Comparison**](#feature-comparison)
+6. [**Making Your Decision**](#making-your-decision)
+7. [**Get Started**](#get-started)
+
+---
+
 ### **Choosing Your Integration Path**
 
 Rocket Lawyer offers two main paths for integrating its services into your platform:
@@ -11,6 +23,8 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 - **Embedded UX:** This option allows you to quickly embed Rocket Lawyer’s user interface within your application, providing a seamless experience with minimal development effort.
   
 - **Build Your Own UX:** This path gives you the flexibility to create a fully customized user interface that interacts directly with Rocket Lawyer’s APIs, offering complete control over the user experience.
+
+> **Pro Tip:** If speed of integration and ease of maintenance are your top priorities, **Embedded UX** might be the best choice. 
 
 ---
 
@@ -21,6 +35,8 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 - **Quick Integration:** Ideal for partners looking for a fast and efficient integration process.
 - **Consistency:** Ensures a consistent user experience that aligns with Rocket Lawyer’s existing platform.
 - **Low Maintenance:** Minimal ongoing maintenance is required, as updates to the UX are managed by Rocket Lawyer.
+
+> **Best For:** Businesses looking for a plug-and-play solution with minimal development overhead.
 
 **Use Cases:**
 
@@ -41,6 +57,8 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 - **Full Customization:** Offers complete control over the user interface design and interaction flow.
 - **API-Driven:** Allows you to leverage Rocket Lawyer’s APIs to create a tailored experience that aligns with your brand.
 - **Flexible Integration:** Suitable for complex scenarios where a fully customized user experience is required.
+
+> **Best For:** Businesses that require deep customization and have the development resources to support it.
 
 **Use Cases:**
 
@@ -75,8 +93,12 @@ The best integration path depends on your business’s specific needs, resources
 - Choose **Embedded UX** if you need a quick, low-maintenance integration that leverages Rocket Lawyer's existing interface.
 - Choose **Build Your Own UX** if you require a fully customized user experience and have the development resources to support a more complex integration.
 
+> **Tip:** Evaluate your team’s development resources and long-term maintenance capacity when choosing your integration approach.
+
 ---
 
 ### **Get Started**
 
 Whether you opt for Embedded UX or Building Your Own UX, Rocket Lawyer provides comprehensive documentation and support to guide you through the process. Visit the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/) for more information and to begin your integration journey.
+
+> **Need Help?** Contact our support team for assistance in deciding which integration approach is right for your business.
