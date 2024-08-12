@@ -1,6 +1,6 @@
 ## Comparing Integration Options: Embedded UX vs. Build Your Own UX
 
-When integrating with Rocket Lawyer's services, you have two primary options: **Embedded UX** and **Building Your Own UX**. This guide provides a comprehensive comparison between these two approaches to help you determine which is the best fit for your business needs.
+When integrating Rocket Lawyer's services into your platform, you have two primary options: **Embedded UX** and **Build Your Own UX**. This guide is designed for developers and product managers who are evaluating these integration approaches. It provides a detailed comparison of each option to help you determine the best fit for your business needs, considering factors like development resources, desired level of customization, and long-term maintenance.
 
 ---
 
@@ -10,7 +10,7 @@ When integrating with Rocket Lawyer's services, you have two primary options: **
     - [**Embedded UX**](#embedded-ux)
     - [**Build Your Own UX**](#build-your-own-ux)
 - [**Feature Comparison**](#feature-comparison)
-- [**Making Your Decision**](#making-your-decision)
+- [**Decide Your Path**](#decide-your-path)
 - [**Get Started**](#get-started)
 
 ---
@@ -85,7 +85,7 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 
 ---
 
-### **Making Your Decision**
+### **Decide Your Path**
 
 The best integration path depends on your business’s specific needs, resources, and desired level of control over the user experience.
 
@@ -93,6 +93,8 @@ The best integration path depends on your business’s specific needs, resources
 - Choose **Build Your Own UX** if you require a fully customized user experience and have the development resources to support a more complex integration.
 
 > **Tip:** Evaluate your team’s development resources and long-term maintenance capacity when choosing your integration approach.
+
+![Decide Your Path](media/decide-your-path.png)
 
 ---
 
