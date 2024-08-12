@@ -2,8 +2,6 @@
 
 When integrating Rocket Lawyer's services into your platform, you have two primary options: **Embedded UX** and **Build Your Own UX**. This guide is designed for developers and product managers who are evaluating these integration approaches. It provides a detailed comparison of each option to help you determine the best fit for your business needs, considering factors like development resources, desired level of customization, and long-term maintenance.
 
----
-
 ### Table of Contents
 
 - [**Choosing Your Integration Path**](#choosing-your-integration-path)
@@ -12,8 +10,6 @@ When integrating Rocket Lawyer's services into your platform, you have two prima
 - [**Feature Comparison**](#feature-comparison)
 - [**Decide Your Path**](#decide-your-path)
 - [**Get Started**](#get-started)
-
----
 
 ### **Choosing Your Integration Path**
 
@@ -24,8 +20,6 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 - **Build Your Own UX:** This path gives you the flexibility to create a fully customized user interface that interacts directly with Rocket Lawyer’s APIs, offering complete control over the user experience.
 
 > **Pro Tip:** If speed of integration and ease of maintenance are your top priorities, **Embedded UX** might be the best choice. 
-
----
 
 #### **Embedded UX**
 
@@ -46,8 +40,6 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 
 1. **Read the Documentation:** Learn how to set up and customize the [RocketDocument Embedded UX](https://developer.rocketlawyer.com/rocketdocument-embedded-ux) in your platform.
 2. **Start Implementing:** Follow the [Quick Start Guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux) to get your integration up and running.
-
----
 
 #### **Build Your Own UX**
 
@@ -70,8 +62,6 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 2. **Design Your UX:** Plan and design the user interface that best suits your business needs.
 3. **Begin Development:** Use the [API documentation](https://developer.rocketlawyer.com/apis) to start building your custom integration.
 
----
-
 ### **Feature Comparison**
 
 This table highlights the strengths of each approach, making it easier for you to decide based on your specific business needs and resources. Use the **Best For** row as a quick reference to determine which option suits your integration goals.
@@ -86,8 +76,6 @@ This table highlights the strengths of each approach, making it easier for you t
 | **API Access**                          | Limited         | Full                  |
 | **Best For**                            | Quick Integration, Low Maintenance | Full Customization, Complete Control |
 
----
-
 ### **Decide Your Path**
 
 The best integration path depends on your business’s specific needs, resources, and desired level of control over the user experience.
@@ -98,8 +86,6 @@ The best integration path depends on your business’s specific needs, resources
 > **Tip:** Evaluate your team’s development resources and long-term maintenance capacity when choosing your integration approach.
 
 ![Decide Your Path](/media/decide-your-path.png)
-
----
 
 ### **Get Started**
 
