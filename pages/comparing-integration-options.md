@@ -103,6 +103,6 @@ The best integration path depends on your business’s specific needs, resources
 
 ### **Get Started**
 
-Whether you opt for Embedded UX or Building Your Own UX, Rocket Lawyer provides comprehensive documentation and support to guide you through the process. Visit the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/) for more information and to begin your integration journey.
+Whether you opt for **Embedded UX** or **Build Your Own UX**, Rocket Lawyer provides comprehensive documentation and support to guide you through the process. Visit the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/) for more information and to begin your integration journey.
 
 > **Need Help?** Contact our support team for assistance in deciding which integration approach is right for your business.
