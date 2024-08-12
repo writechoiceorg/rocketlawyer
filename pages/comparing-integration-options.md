@@ -45,7 +45,7 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 **Next Steps:**
 
 1. **Read the Documentation:** Learn how to set up and customize the [RocketDocument Embedded UX](https://developer.rocketlawyer.com/rocketdocument-embedded-ux) in your platform.
-2. **Start Implementing:** Follow this quick start guide to get your integration up and running.
+2. **Start Implementing:** Follow the [Quick Start Guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux) to get your integration up and running.
 
 ---
 
@@ -66,7 +66,7 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 
 **Next Steps:**
 
-1. **Explore the API Documentation:** Understand the full range of API endpoints available for creating a custom UX.
+1. [**Explore the API Documentation:**](https://developer.rocketlawyer.com/apis) Understand the full range of API endpoints available for creating a custom UX.
 2. **Design Your UX:** Plan and design the user interface that best suits your business needs.
 3. **Begin Development:** Use the [API documentation](https://developer.rocketlawyer.com/apis) to start building your custom integration.
 
@@ -74,7 +74,7 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 
 ### **Feature Comparison**
 
-This table highlights the strengths of each approach, making it easier for you to decide based on your specific business needs and resources. Use the "Best For" row as a quick reference to determine which option suits your integration goals.
+This table highlights the strengths of each approach, making it easier for you to decide based on your specific business needs and resources. Use the **Best For** row as a quick reference to determine which option suits your integration goals.
 
 | **Feature**                             | **Embedded UX** | **Build Your Own UX** |
 |-----------------------------------------|-----------------|-----------------------|
