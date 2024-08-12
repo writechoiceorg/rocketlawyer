@@ -1,10 +1,10 @@
-### Integrating with Rocket Lawyer: Choosing Your Approach
+# Comparing Integration Options: Embedded UX vs. Build Your Own UX
 
 When integrating with Rocket Lawyer's services, you have two primary options: **Embedded UX** and **Building Your Own UX**. This guide provides a comprehensive comparison between these two approaches to help you determine which is the best fit for your business needs.
 
 ---
 
-### **Choosing Your Integration Path**
+## **Choosing Your Integration Path**
 
 Rocket Lawyer offers two main paths for integrating its services into your platform:
 
@@ -55,7 +55,7 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 
 ---
 
-### **Feature Comparison**
+## **Feature Comparison**
 
 | **Feature**                             | **Embedded UX** | **Build Your Own UX** |
 |-----------------------------------------|-----------------|-----------------------|
@@ -68,7 +68,7 @@ Rocket Lawyer offers two main paths for integrating its services into your platf
 
 ---
 
-### **Making Your Decision**
+## **Making Your Decision**
 
 The best integration path depends on your business’s specific needs, resources, and desired level of control over the user experience.
 
@@ -77,6 +77,6 @@ The best integration path depends on your business’s specific needs, resources
 
 ---
 
-### **Get Started**
+## **Get Started**
 
 Whether you opt for Embedded UX or Building Your Own UX, Rocket Lawyer provides comprehensive documentation and support to guide you through the process. Visit the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/) for more information and to begin your integration journey.
