@@ -1,3 +1,57 @@
+# RocketDoc UI and Web Component API Documentation
+
+Welcome to the RocketDoc UI and Web Component API Documentation. This guide is designed to provide you with a comprehensive understanding of the RocketDoc UI embeddable component and its integration into your web applications. Whether you're a developer or a technical lead working with Rocket Lawyer's services, this documentation will walk you through the key events triggered during an interview process, explain how to manage these events effectively, and offer guidance on customizing the user interface to fit your specific needs.
+
+This documentation is divided into two main sections:
+
+1. **RocketDoc UI - Events and Interview Size**: In this section, you'll learn about the sequence of events that occur during an interview, how to listen for these events, and the error handling mechanisms in place. Additionally, it covers how to control the size of the RocketDoc UI component through CSS to ensure a smooth user experience within your application.
+
+2. **RocketDoc V2 Web Component API Specification**: This section provides a detailed overview of the RocketDoc V2 Web Component, including setup instructions, component attributes, custom events, and CSS customization options. You'll also find examples of how to integrate and use the RocketDoc component within your web applications, along with recent updates and decisions that may impact your implementation.
+
+By the end of this guide, you should have a clear understanding of how to integrate the RocketDoc UI into your application, customize its appearance and behavior, and handle the various events that it triggers. Whether you're setting up a new interview process or maintaining an existing integration, this documentation will serve as a valuable resource for ensuring a seamless and efficient user experience.
+
+## **Table of Contents**
+
+1. **RocketDoc UI - Events and Interview Size**
+   - [Summary](#summary)
+   - [Event Sequence](#event-sequence)
+     - [1. Provide `serviceToken` & `interviewId`](#1-provide-servicetoken--interviewid)
+     - [2. Fire `interview-loading` event](#2-fire-interview-loading-event)
+     - [3. API Call to Get Interview & Template Information (`GET /interviews/{interviewId}`)](#3-api-call-to-get-interview--template-information-get-interviewsinterviewid)
+     - [4. Fire `interview-started` event](#4-fire-interview-started-event)
+     - [5. Render Interview](#5-render-interview)
+     - [6. Fire `interview-loaded` event](#6-fire-interview-loaded-event)
+     - [7. Display First Question](#7-display-first-question)
+     - [8. Loop: User Answers Questions (for all but the last question)](#8-loop-user-answers-questions-for-all-but-the-last-question)
+     - [9. Fire `interview-completing` event (after the last question is answered)](#9-fire-interview-completing-event-after-the-last-question-is-answered)
+     - [10. API Call to Complete the Interview (`POST /interviews/{interviewId}/completions`)](#10-api-call-to-complete-the-interview-post-interviewsinterviewidcompletions)
+     - [11. Fire `interview-completed` event](#11-fire-interview-completed-event)
+   - [Error Handling with `rocketdocumenterror` / `interview-error`](#error-handling-with-rocketdocumenterror--interview-error)
+   - [Listening to Events](#listening-to-events)
+   - [Controlling the Interview Size](#controlling-the-interview-size)
+
+2. **RocketDoc V2 Web Component API Specification**
+   - [Overview](#overview)
+   - [Package Overview](#package-overview)
+     - [Hosts](#hosts)
+     - [Target Audience](#target-audience)
+     - [Authors and Reviewers](#authors-and-reviewers)
+   - [Component Details](#component-details)
+     - [`<rocket-document>` Component](#rocket-document-component)
+   - [Attributes](#attributes)
+   - [Example Usage](#example-usage)
+   - [Custom Events](#custom-events)
+     - [Key Events](#key-events)
+   - [Event Listening Example](#event-listening-example)
+   - [CSS Customization](#css-customization)
+     - [CSS Variables](#css-variables)
+     - [Example Customization](#example-customization)
+     - [Additional Resources](#additional-resources)
+   - [Updates and Decisions](#updates-and-decisions)
+     - [Recent Changes](#recent-changes)
+
+---
+
 ## RocketDoc UI - Events and Interview Size
 
 ### Summary
