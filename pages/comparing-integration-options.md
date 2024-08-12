@@ -94,7 +94,7 @@ The best integration path depends on your business’s specific needs, resources
 
 > **Tip:** Evaluate your team’s development resources and long-term maintenance capacity when choosing your integration approach.
 
-![Decide Your Path](media/decide-your-path.png)
+![Decide Your Path](/media/decide-your-path.png)
 
 ---
 
