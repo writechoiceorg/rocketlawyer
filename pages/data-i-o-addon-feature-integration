@@ -1,0 +1,60 @@
+# Quick Start Guide: Data I/O Addon Feature for RocketDocument v2
+
+## Overview
+The Data I/O addon feature in RocketDocument v2 enhances the flexibility of your interview sessions by allowing partners to prefill interview answers (Data In) and retrieve user responses (Data Out) using the Tagged Answer Model (TAM) structure. This guide will walk you through how to utilize this feature effectively.
+
+## Structure and Usage
+
+### Tagged Answer Model (TAM)
+The TAM structure is a standardized format for handling data within RocketDocument interviews. It allows you to input answers that will appear prefilled for users and retrieve the responses after the interview is completed.
+
+### Understanding TAM Structure
+Each field in the interview corresponds to a unique identifier within the TAM structure. When using Data In, you provide these identifiers with prefilled values. For Data Out, the API returns the user's responses using the same identifiers.
+
+### Data In: Prefilling Interview Answers
+
+**Endpoint:** `POST /rocketdoc/v2/interviews`
+
+When creating an interview, you can prefill some of the fields with known data. This is especially useful for reducing user input effort and ensuring data consistency.
+
+**Request Example:**
+
+```json
+{
+  "templateId": "{{templateId}}",
+  "partnerEndUserId": "{{partnerEndUserId}}",
+  "partyEmailAddress": "user@example.com",
+  "answersPayload": {
+    "Flfmu8ta21l9eh": "Pre-filled Name",
+    "Flfmuapr3merom": "Pre-filled Address"
+  }
+}
+```
+
+**Explanation:**
+- `answersPayload`: This object contains the TAM structure where each key is a field ID, and the corresponding value is the prefilled data.
+
+### Data Out: Retrieving Interview Answers
+
+**Endpoint:** `GET /rocketdoc/v2/interviews/:interviewId/tagged-answers`
+
+After an interview is completed, you can retrieve the answers using the TAM structure. This allows you to access user responses programmatically and integrate them into your system.
+
+**Response Example:**
+
+```json
+{
+  "interviewId": "{{interviewId}}",
+  "answersPayload": {
+    "Flfmu8ta21l9eh": "User's Name",
+    "Flfmuapr3merom": "User's Address"
+  }
+}
+```
+
+**Explanation:**
+- `answersPayload`: The object will include all the answers provided by the user, structured according to the TAM.
+
+### Key Points:
+- **Consistency:** The TAM structure ensures that both prefilled data and user responses are handled consistently across your application.
+- **Flexibility:** You can selectively prefill only certain fields, leaving others for the user to complete, which enhances the user experience.
