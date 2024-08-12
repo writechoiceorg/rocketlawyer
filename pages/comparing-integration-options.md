@@ -6,13 +6,12 @@ When integrating with Rocket Lawyer's services, you have two primary options: **
 
 ### Table of Contents
 
-1. [**Introduction**](#introduction)
-2. [**Choosing Your Integration Path**](#choosing-your-integration-path)
-3. [**Embedded UX**](#embedded-ux)
-4. [**Build Your Own UX**](#build-your-own-ux)
-5. [**Feature Comparison**](#feature-comparison)
-6. [**Making Your Decision**](#making-your-decision)
-7. [**Get Started**](#get-started)
+- [**Choosing Your Integration Path**](#choosing-your-integration-path)
+    - [**Embedded UX**](#embedded-ux)
+    - [**Build Your Own UX**](#build-your-own-ux)
+- [**Feature Comparison**](#feature-comparison)
+- [**Making Your Decision**](#making-your-decision)
+- [**Get Started**](#get-started)
 
 ---
 
