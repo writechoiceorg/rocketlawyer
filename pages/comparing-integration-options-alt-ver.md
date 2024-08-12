@@ -1,11 +1,11 @@
-### Comparing Integration Options: Embedded UX vs. Build Your Own UX
+## Comparing Integration Options: Embedded UX vs. Build Your Own UX
 
-#### Introduction
+### Introduction
 When integrating with Rocket Lawyer's platform, there are two primary options: **Embedded UX** and **Building Your Own UX**. This page compares these options and outlines the features available for each, helping you choose the best approach for your needs.
 
 ---
 
-#### **Integration Options Overview**
+### **Integration Options Overview**
 
 - **Embedded UX:**
   - **Description:** Provides a ready-to-use interface that can be embedded directly into your application. This option is ideal for those who want a quick, out-of-the-box solution with minimal development effort.
@@ -19,7 +19,7 @@ When integrating with Rocket Lawyer's platform, there are two primary options: *
 
 ---
 
-#### **Feature Comparison**
+### **Feature Comparison**
 
 | **Feature**                             | **Embedded UX** | **Build Your Own UX** |
 |-----------------------------------------|-----------------|-----------------------|
@@ -32,7 +32,7 @@ When integrating with Rocket Lawyer's platform, there are two primary options: *
 
 ---
 
-#### **Key Considerations**
+### **Key Considerations**
 
 1. **Development Resources:**
    - **Embedded UX:** Requires fewer development resources, making it a quicker and more efficient option for integration.
@@ -48,7 +48,7 @@ When integrating with Rocket Lawyer's platform, there are two primary options: *
 
 ---
 
-#### Conclusion
+### Conclusion
 
 Both integration options offer distinct advantages depending on your business needs and technical resources. The **Embedded UX** is ideal for partners seeking a quick, efficient, and low-maintenance integration, while **Building Your Own UX** is perfect for those who require a fully customized and controlled user experience. Assess your resources, time, and customization needs to select the integration path that best suits your goals.
 
