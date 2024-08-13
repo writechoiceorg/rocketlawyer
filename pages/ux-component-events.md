@@ -1,8 +1,8 @@
-This guide is designed to help Rocket Lawyer partners easily integrate the RocketDoc interview process into their web applications. This guide provides detailed instructions on configuring the component, handling custom events during the interview process, and customizing the UI with CSS. By following this documentation, developers can seamlessly embed and manage the RocketDoc UI, ensuring a smooth user experience while aligning with their brand's look and feel.
+This guide is designed to help Rocket Lawyer partners easily integrate the RocketDocument Embedded UX interview process into their web applications. This guide provides detailed instructions on configuring the component, handling custom events during the interview process, and customizing the UI with CSS. By following this documentation, developers can seamlessly embed and manage the RocketDocument UI, ensuring a smooth user experience while aligning with their brand's look and feel.
 
 ## Package Overview
 
-The RocketDoc package provides a streamlined solution for integrating the RocketDoc interview process into partner websites with minimal effort. By including a single JavaScript file, partners can easily embed the RocketDoc UI component into their web pages, allowing users to seamlessly conduct interviews.
+The RocketDocument package provides a streamlined solution for integrating the RocketDocument interview process into partner websites with minimal effort. By including a single JavaScript file, partners can easily embed the RocketDocument UI component into their web pages, allowing users to seamlessly conduct interviews.
 
 Here is how to implement the integration:
 
@@ -327,23 +327,25 @@ Since the component fires several events, the ParentUI should listen for any of 
     });
 </script>
 ```
+The component's important element is the `rocket-document` tag. This tag defines the `RocketDocEUI` and all the elements inside the interview. In the example above, for the element `rocket-document,` a listener was added for the `interview-loading` event. When that event is fired, the code will be executed using the `addEventListener` method.
+
 ## Glossary
 
 This glossary defines key terms used throughout this guide to help you better understand the concepts and components involved.
 
 | Term          | Description                                                                                                              |
 |---------------|--------------------------------------------------------------------------------------------------------------------------|
-| **ParentUI**  | The web application that embeds the RocketDoc embeddable UI, usually an application developed by a Rocket Lawyer partner. |
-| **RocketDocEUI** | The RocketDoc embeddable UI.                                                                                            |
+| **ParentUI**  | The web application that embeds the RocketDocument embeddable UI, usually an application developed by a Rocket Lawyer partner. |
+| **RocketDocEUI** | The RocketDocument embeddable UI.                                                                                            |
 | **RLBE**      | Refers to any RocketLawyer backend service. 
 
 ## Globals
 
-This section covers global settings and configurations that apply across the RocketDoc UI component. These settings allow partners to customize and control the behavior and appearance of the component to better align with their branding and user experience requirements.
+This section covers global settings and configurations that apply across the RocketDocument UI component. These settings allow partners to customize and control the behavior and appearance of the component to better align with their branding and user experience requirements.
 
 ### CSS Variables
 
-The RocketDoc UI component supports a variety of CSS variables that allow for extensive customization of the interface's look and feel. Detailed documentation of all available CSS variables can be found in the [RocketDoc Embedded UI stylesheet spec](https://enterprise.resources.sandbox.rocketlawyer.com/groups/8802d520-da9f-4c48-995c-395017315cd1/configs/brand).
+The RocketDocument UI component supports a variety of CSS variables that allow for extensive customization of the interface's look and feel. Detailed documentation of all available CSS variables can be found in the [RocketDocument Embedded UI Stylesheet Spec](https://enterprise.resources.sandbox.rocketlawyer.com/groups/8802d520-da9f-4c48-995c-395017315cd1/configs/brand).
 
 CSS variables can be sourced by the partner in two ways:
 
@@ -352,9 +354,9 @@ CSS variables can be sourced by the partner in two ways:
 
 ## Discussions, Decisions, and Action Items from the Council Review
 
-Here, we summarize key discussions and decisions made during the council review process regarding the RocketDoc V2 platform.
+Here, we summarize key discussions and decisions made during the council review process regarding the RocketDocument V2 platform.
 
-- The `pageNumber` parameter inside events has been renamed to `pageId` for consistency across the RocketDoc V2 platform.
+- The `pageNumber` parameter inside events has been renamed to `pageId` for consistency across the RocketDocument V2 platform.
 - Add scoping of tokens to the interview itself for Rocket Lawyer's access, speeding up page load times.
 - Add the ability for partners to modify the config via attributes.
 - Document that the component will not submit events to Rocket Lawyer servers to track activity.
