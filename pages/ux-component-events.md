@@ -165,7 +165,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
      
-- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocument is aware of the user asking to go to the next page and before calling the RLBE.
+- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the `ParentUI` that the RocketDocument is aware of the user asking to go to the next page and before calling the RLBE.
 
 #### Event: loading-previous-page
 
@@ -180,7 +180,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the ParentUI that the RocketDocument is aware of the user asking to go to the previous page and before calling the RLBE.
+- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the `ParentUI` that the RocketDocument is aware of the user asking to go to the previous page and before calling the RLBE.
 
 #### Event: question-answered
 
@@ -239,7 +239,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is the last event fired by the RocketDocument Embedded UX. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the RocketDocument only fires the event.
+- **Description:** This event is the last event fired by the RocketDocument Embedded UX. It means that the interview is completed and filled with all the info provided by the user. It will also tell the `ParentUI` that no further processes are running or yet remain to be completed. It is up to the `ParentUI` to take the user to the next screen since the RocketDocument only fires the event.
 
 #### Event: rocketdocumenterror
 
@@ -316,7 +316,7 @@ These are custom events fired by the RocketDocument component to the embedding U
                  
 ## Listening to an Event
 
-Since the component fires several events, the ParentUI should listen for any of those. To accomplish that, the ParentUI needs to add a JavaScript code section to the page in which the RocketDocument Embedded UX was embedded. It will be something like the following:
+Since the component fires several events, the `ParentUI` should listen for any of those. To accomplish that, the `ParentUI` needs to add a JavaScript code section to the page in which the RocketDocument Embedded UX was embedded. It will be something like the following:
 
 ```javascript
 <script>
