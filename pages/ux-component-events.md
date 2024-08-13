@@ -11,7 +11,7 @@ Here’s how to implement the integration:
   </script>
 ```
 
-Once the JavaScript file is included, simply add the RocketDocEUI tag within the HTML body, like this:
+Once the JavaScript file is included, simply add the RocketDocEUI tag within the HTML body like this:
 
 ```javascript
   <rocket-document
@@ -87,7 +87,6 @@ This section outlines the key events in the sequence diagram that occur when loa
     - **Action:** The `RocketDocEUI` fires the `rocket-document-error` event.
     - **Purpose:** This event informs the `ParentUI` that an error occurred while attempting to load the interview. The UI can then display an appropriate error message to the user, indicating that the interview could not be found.
 
-
 ## Component Details
 
 ### `<rocket-document>` Component
@@ -98,7 +97,7 @@ This is the only component that this package officially supports.
 
 | Attribute       | Description                                                                                                                                                                  |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `serviceToken`  | This is the access or service token that delegates access to perform actions over a specific interview. It is required to have brand information so the UI can load specifics for each Partner. The RocketDocument API supports two service token purposes that may be used here: `api.rocketlawyer.com/binder-party-access` for partners using RocketSign, and `api.rocketlawyer.com/rocketdoc` for partners using RocketDocument. |
+| `serviceToken`  | This is the access or service token that delegates access to perform actions over a specific interview. It is required to have brand information so the UI can load specifics for each partner. The RocketDocument API supports two service token purposes that may be used here: `api.rocketlawyer.com/binder-party-access` for partners using RocketSign, and `api.rocketlawyer.com/rocketdoc` for partners using RocketDocument. |
 | `accessToken`   | Can be used instead of `serviceToken`. This should be a scoped access token specific to this interview. See the row above for the scoped access information.                                                      |
 | `interviewId`   | This is the interview UUID needed so the `RocketDocEUI` can show all the questions and fields.                                                                                   |
 | `pageId`        | An optional attribute; allows the caller to indicate an interview page that the `RocketDocEUI` will open. Options: `first`, `last`, or `$pageId` (a UUID page id of a page in an interview). |
@@ -273,7 +272,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-> **Code Values**:
+> **Possible Error Codes:**
 > 
 >   `<code>` can be one of the following values:
 >   - COMPLETION_CONNECTION_ERROR
@@ -308,6 +307,12 @@ These are custom events fired by the RocketDocument component to the embedding U
      ```
 
 - **Description:** Related to the lifecycle method `disconnectedCallback()` which will be implemented by this component and called by Stencil when disconnected from the DOM.
+
+> **Deprecated Events Notice:**
+> 
+> - The `interview-started` event has been deprecated in favor of the `interview-loaded` event. 
+> - The `rocketdocumenterror` event has been deprecated in favor of `interview-error` to better describe the nature of errors.
+
                  
 ## Listening to an Event
 
@@ -336,8 +341,6 @@ This glossary defines key terms used throughout this guide to help you better un
 
 This section covers global settings and configurations that apply across the RocketDoc UI component. These settings allow partners to customize and control the behavior and appearance of the component to better align with their branding and user experience requirements.
 
-
-
 ### CSS Variables
 
 The RocketDoc UI component supports a variety of CSS variables that allow for extensive customization of the interface's look and feel. Detailed documentation of all available CSS variables can be found in the [RocketDoc Embedded UI stylesheet spec](https://enterprise.resources.sandbox.rocketlawyer.com/groups/8802d520-da9f-4c48-995c-395017315cd1/configs/brand).
@@ -355,10 +358,3 @@ Here, we summarize key discussions and decisions made during the council review 
 - Add scoping of tokens to the interview itself for Rocket Lawyer's access, speeding up page load times.
 - Add the ability for partners to modify the config via attributes.
 - Document that the component will not submit events to Rocket Lawyer servers to track activity.
-
-## Recent Changes
-
-This section outlines the latest updates and modifications to the RocketDoc V2 platform.
-
-- The `pageNumber` parameter inside events has been renamed to `pageId` to maintain consistency across the RocketDoc V2 platform.
-- The `rocketdocumenterror` event has been deprecated in favor of `interview-error` to better describe the nature of errors.
