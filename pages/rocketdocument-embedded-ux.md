@@ -119,7 +119,7 @@ Now that the interview is set up, you need to embed the RocketDocument UX into y
 
 > **JavaScript Event Notification:** JavaScript events will notify your front end of critical updates and let you know when it is safe to deactivate the module.
 
-Add this script tag in the header:
+Add the script tag presented in the following code block in the page header:
 
 ```javascript
 <script
