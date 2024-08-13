@@ -4,7 +4,7 @@ This guide is designed to help Rocket Lawyer partners easily integrate the Rocke
 
 The RocketDoc package provides a streamlined solution for integrating the RocketDoc interview process into partner websites with minimal effort. By including a single JavaScript file, partners can easily embed the RocketDoc UI component into their web pages, allowing users to seamlessly conduct interviews.
 
-Here’s how to implement the integration:
+Here is how to implement the integration:
 
 ```javascript
   <script src="https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js">
@@ -34,7 +34,7 @@ Once the JavaScript file is included, simply add the RocketDocEUI tag within the
 
 This is an embeddable web component that partners can use to run an interview without the need to actually code everything themselves. The benefits are as follows:
 - A UI that shows every page with all the questions and fields that a user has to answer to get the final document.
-- Events being fired by the component so the parent UI can react to each one.
+- Events are being fired by the component so the parent UI can react to each one.
 - All the logic is implemented to go from one page to the next one.
 
 ## Sequence Diagram
@@ -53,7 +53,7 @@ This section outlines the key events in the sequence diagram that occur when loa
 
 2. **interview-loading**
    - **Action:** Once the `RocketDocEUI` component is loaded, it immediately fires the `interview-loading` event.
-   - **Purpose:** This event informs the `ParentUI` that the interview is in the process of being loaded. It’s a signal to possibly show a loading indicator or perform other preparatory actions in the UI.
+   - **Purpose:** This event informs the `ParentUI` that the interview is in the process of being loaded. It is a signal to possibly show a loading indicator or perform other preparatory actions in the UI.
 
 3. **Load Partner Specific Configuration**
    - **Action:** The `RocketDocEUI` requests partner-specific configurations from the RLBE.
