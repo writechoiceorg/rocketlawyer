@@ -121,8 +121,11 @@ Now that the interview is set up, you need to embed the RocketDocument UX into y
 
 Add this script tag in the header:
 
-```html
-<script src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js"></script>
+```javascript
+<script
+  type="module"
+  src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
+</script>
 ```
 
 Insert this web component tag in the body:
