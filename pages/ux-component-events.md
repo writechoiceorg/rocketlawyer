@@ -1,5 +1,25 @@
 This guide is designed to help Rocket Lawyer partners easily integrate the RocketDoc interview process into their web applications. This guide provides detailed instructions on configuring the component, handling custom events during the interview process, and customizing the UI with CSS. By following this documentation, developers can seamlessly embed and manage the RocketDoc UI, ensuring a smooth user experience while aligning with their brand's look and feel.
 
+## Package Overview
+
+The main purpose is to have a single JavaScript file that partners can include on their sites to run an interview.
+
+This is an example about how to achieve that:
+
+```javascript
+  <script src="https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js">
+  </script>
+```
+After including the main Javascript file, the Partners will need to add the RocketDocEUI tag somewhere in the body of their html like this:
+
+```javascript
+  <rocket-document
+    serviceToken={rl-rdoc-servicetoken}
+    interviewId={interview-id}
+    pageId={page-ref}>
+  </rocket-document>
+```
+
 ## Component Overview
 
 ### Package Name
@@ -44,27 +64,7 @@ This is an embeddable web component that partners can use to run an interview wi
 |---------------|--------------------------------------------------------------------------------------------------------------------------|
 | **ParentUI**  | The web application that embeds the RocketDoc embeddable UI, usually an application developed by a Rocket Lawyer partner. |
 | **RocketDocEUI** | The RocketDoc embeddable UI.                                                                                            |
-| **RLBE**      | Refers to any RocketLawyer backend service.                                                                               |
-
-## Package Overview
-
-The main purpose is to have a single JavaScript file that partners can include on their sites to run an interview.
-
-This is an example about how to achieve that:
-
-```javascript
-  <script src="https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js">
-  </script>
-```
-After including the main Javascript file, the Partners will need to add the RocketDocEUI tag somewhere in the body of their html like this:
-
-```javascript
-  <rocket-document
-    serviceToken={rl-rdoc-servicetoken}
-    interviewId={interview-id}
-    pageId={page-ref}>
-  </rocket-document>
-```
+| **RLBE**      | Refers to any RocketLawyer backend service. 
 
 ## Sequence Diagram
 
@@ -325,7 +325,6 @@ These are custom events fired by the RocketDocument component to the embedding U
      ```
 
 - **Description:** Related to the lifecycle method `connectedCallback()` which will be implemented by this component and called by Stencil when connected to the DOM.
-
 
 #### Event: component-disconnected
 
