@@ -48,23 +48,23 @@ Once the page loads, the RocketDocument Embedded UX component retrieves the inte
 This section outlines the key events in the sequence diagram that occur when loading the RocketDocument Embedded UX component and displaying the first interview page. Understanding these events is essential for effective integration and error handling, ensuring a smooth user experience.
 
 1. **Load Component (ID)**
-   - **Action:** The `ParentUI` initiates the process by loading the RocketDocument Embedded UX component. This is done by embedding the component on the webpage, usually identified by a unique ID.
-   - **Purpose:** This step starts the RocketDocument Embedded UX component, preparing it to interact with the Rocket Lawyer Backend (RLBE) to fetch the necessary interview data.
+   - **Action:** The `ParentUI` initiates the process by loading the RocketDocument component. This is done by embedding the component on the webpage, usually identified by a unique ID.
+   - **Purpose:** This step starts the RocketDocument component, preparing it to interact with the Rocket Lawyer Backend (RLBE) to fetch the necessary interview data.
 
 2. **interview-loading**
-   - **Action:** Once the RocketDocument Embedded UX component is loaded, it immediately fires the `interview-loading` event.
+   - **Action:** Once the RocketDocument component is loaded, it immediately fires the `interview-loading` event.
    - **Purpose:** This event informs the `ParentUI` that the interview is in the process of being loaded. It is a signal to possibly show a loading indicator or perform other preparatory actions in the UI.
 
 3. **Load Partner Specific Configuration**
-   - **Action:** The RocketDocument Embedded UX requests partner-specific configurations from the RLBE.
+   - **Action:** The RocketDocument requests partner-specific configurations from the RLBE.
    - **Purpose:** This ensures that the UI loads with all the necessary customizations and branding specific to the partner implementing the interview.
 
 4. **Load Brand/Rocket-Doc Information**
    - **Action:** The RLBE responds with the requested partner-specific configurations and branding information.
-   - **Purpose:** This data is essential for personalizing the RocketDocument Embedded UX according to the partner's requirements.
+   - **Purpose:** This data is essential for personalizing the RocketDocument according to the partner's requirements.
 
 5. **Get Interview (ID)**
-   - **Action:** The RocketDocument Embedded UX makes a request to the RLBE to fetch the interview data associated with the provided ID.
+   - **Action:** The RocketDocument makes a request to the RLBE to fetch the interview data associated with the provided ID.
    - **Purpose:** This step retrieves the content and structure of the interview that needs to be displayed to the user.
 
 6. **Interview Info (Found)**
@@ -72,11 +72,11 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Purpose:** This data includes all the questions and fields required for the interview, which will be displayed to the user.
 
 7. **Interview Info (Received)**
-   - **Action:** The RocketDocument Embedded UX receives the interview information from the RLBE.
+   - **Action:** The RocketDocument receives the interview information from the RLBE.
    - **Purpose:** This marks the successful retrieval of the interview data, and the component is ready to render the first page of the interview.
 
 8. **interview-loaded**
-   - **Action:** The RocketDocument Embedded UX fires the `interview-loaded` event.
+   - **Action:** The RocketDocument fires the `interview-loaded` event.
    - **Purpose:** This event informs the `ParentUI` that the interview has been successfully loaded and is ready to be displayed. The UI can now proceed to show the first page of the interview to the user.
 
 9. **Interview Not Found**
@@ -84,16 +84,16 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Purpose:** This handles cases where the interview ID provided is incorrect or the interview has been deleted.
 
 10. **rocket-document-error**
-    - **Action:** The RocketDocument Embedded UX fires the `rocket-document-error` event.
+    - **Action:** The RocketDocument fires the `rocket-document-error` event.
     - **Purpose:** This event informs the `ParentUI` that an error occurred while attempting to load the interview. The UI can then display an appropriate error message to the user, indicating that the interview could not be found.
 
 ## Component Details
 
-### `<rocket-document>` Component
-
-This is the only component that this package officially supports.
+This section provides an overview of the `<rocket-document>` component, detailing its attributes and how it integrates with partner applications.
 
 ### Attributes
+
+The `<rocket-document>` component uses several attributes that allow for precise control over how the interview is displayed and managed.
 
 | Attribute       | Description                                                                                                                                                                  |
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -150,7 +150,7 @@ These are custom events fired by the RocketDocument component to the embedding U
        }
      ```
      
-- **Description:** This is the second event that the RocketDocument Embedded UX fires. This means that the RocketDocument Embedded UX got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background.
+- **Description:** This is the second event that the RocketDocument Embedded UX fires. This means that the RocketDocument got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background.
 
 #### Event: loading-next-page
 
@@ -165,7 +165,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
      
-- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocument Embedded UX is aware of the user asking to go to the next page and before calling the RLBE.
+- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocument is aware of the user asking to go to the next page and before calling the RLBE.
 
 #### Event: loading-previous-page
 
@@ -180,7 +180,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the ParentUI that the RocketDocument Embedded UX is aware of the user asking to go to the previous page and before calling the RLBE.
+- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the ParentUI that the RocketDocument is aware of the user asking to go to the previous page and before calling the RLBE.
 
 #### Event: question-answered
 
@@ -212,7 +212,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is fired by the RocketDocument Embedded UX once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocument Embedded UX is going to show a success message. It is also fired at the last question of the interview since the RocketDocument Embedded UX will receive a response from the RLBE indicating that all answers were saved.
+- **Description:** This event is fired by the RocketDocument Embedded UX once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocument is going to show a success message. It is also fired at the last question of the interview since the RocketDocument will receive a response from the RLBE indicating that all answers were saved.
 
 #### Event: interview-completing
 
@@ -239,7 +239,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is the last event fired by the RocketDocument Embedded UX. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the RocketDocument Embedded UX only fires the event.
+- **Description:** This event is the last event fired by the RocketDocument Embedded UX. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the RocketDocument only fires the event.
 
 #### Event: rocketdocumenterror
 
