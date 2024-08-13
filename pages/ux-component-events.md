@@ -80,7 +80,7 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Action:** The `ParentUI` initiates the process by loading the RocketDocEUI component. This is done by embedding the component on the webpage, usually identified by a unique ID.
    - **Purpose:** This step starts the RocketDoc UI component, preparing it to interact with the Rocket Lawyer Backend (RLBE) to fetch the necessary interview data.
 
-2. **`interview-loading`**
+2. **interview-loading**
    - **Action:** Once the RocketDocEUI component is loaded, it immediately fires the `interview-loading` event.
    - **Purpose:** This event informs the `ParentUI` that the interview is in the process of being loaded. It’s a signal to possibly show a loading indicator or perform other preparatory actions in the UI.
 
@@ -104,7 +104,7 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Action:** The RocketDocEUI receives the interview information from the RLBE.
    - **Purpose:** This marks the successful retrieval of the interview data, and the component is ready to render the first page of the interview.
 
-8. **`interview-loaded`**
+8. **interview-loaded**
    - **Action:** The RocketDocEUI fires the `interview-loaded` event.
    - **Purpose:** This event informs the `ParentUI` that the interview has been successfully loaded and is ready to be displayed. The UI can now proceed to show the first page of the interview to the user.
 
@@ -112,7 +112,7 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Action:** If the interview with the specified ID is not found, the RLBE returns an error indicating that the interview was not found.
    - **Purpose:** This handles cases where the interview ID provided is incorrect or the interview has been deleted.
 
-10. **`rocket-document-error`**
+10. **rocket-document-error**
     - **Action:** The RocketDocEUI fires the `rocket-document-error` event.
     - **Purpose:** This event informs the `ParentUI` that an error occurred while attempting to load the interview. The UI can then display an appropriate error message to the user, indicating that the interview could not be found.
 
@@ -169,7 +169,7 @@ These are custom events fired by the RocketDocument component to the embedding U
 #### Event: interview-loaded
 
 - **Name:** `interview-loaded`
-- **State:** Existing
+- **State:** Updated
 - **CustomEvent Schema:**
     
      ```javascript
@@ -185,7 +185,7 @@ These are custom events fired by the RocketDocument component to the embedding U
 #### Event: loading-next-page
 
 - **Name:** `loading-next-page`
-- **State:** Existing
+- **State:** New
 - **CustomEvent Schema:**
     
      ```javascript
@@ -197,67 +197,147 @@ These are custom events fired by the RocketDocument component to the embedding U
      
 - **Description:** This event is fired by the RocketDocEUI once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocEUI is aware of the user asking to go to the next page and before calling the RLBE.
 
----
+#### Event: loading-previous-page
 
-5. **`loading-previous-page`**
-   - **CustomEvent Schema:**
-     - `type: "loading-previous-page"`
-     - `detail: { "pageId": "<previous page uuid>" }`
-   - **Description:**
-     - This event is fired by the RocketDocEUI once the user clicks the "Back" button. This tells the ParentUI that the RocketDocEUI is aware of the user asking to go to the previous page and before calling the RLBE.
+- **Name:** `loading-previous-page`
+- **State:** New
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "loading-previous-page"
+          detail: {
+          "pageId": "<previous page uuid>"
+        }
+     ```
 
-6. **`question-answered`**
-   - **CustomEvent Schema:**
-     - `type: "question-answered"`
-     - `detail: { "pageId": "<page uuid>", "pageTitle": "<page title when available>" }`
-   - **Description:**
-     - This event is fired every 10 seconds if changes in answers are detected, ensuring nothing is lost in case the user abandons the interview.
+- **Description:** This event is fired by the RocketDocEUI once the user clicks the "Back" button. This tells the ParentUI that the RocketDocEUI is aware of the user asking to go to the previous page and before calling the RLBE.
 
-7. **`page-changed`**
-   - **CustomEvent Schema:**
-     - `type: "page-changed"`
-     - `detail: { "pageId": "<page uuid>", "pageTitle": "<page title when available>" }`
-   - **Description:**
-     - This event is fired by the RocketDocEUI once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocEUI is going to show a success message. It is also fired at the last question of the interview since the RocketDocEUI will receive a response from the RLBE indicating that all answers were saved.
+#### Event: question-answered
 
-8. **`interview-completing`**
-   - **CustomEvent Schema:**
-     - `type: "interview-completing"`
-   - **Description:**
-     - This event indicates that the completion of the interview has started. At this point, the user is at the end of the interview, and the "Continue" button is disabled since there are no more questions to answer.
+- **Name:** `question-answered`
+- **State:** Updated
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "question-answered"
+        detail: {
+          "pageId": "<page uuid>",
+          "pageTitle": "<page title when available>"
+        }
+     ```
 
-9. **`interview-completed`**
-   - **CustomEvent Schema:**
-     - `type: "interview-completed"`
-     - `detail: { "binderId": "<binder uuid>" }`
-   - **Description:**
-     - This event is the last event fired by the RocketDocEUI. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the RocketDocEUI only fires the event.
+- **Description:** This event is fired every 10 seconds if changes in answers are detected, ensuring nothing is lost in case the user abandons the interview.
 
-10. **`rocketdocumenterror`** (Deprecated)
-    - **CustomEvent Schema:**
-      - `type: "rocketdocumenterror"`
-      - `detail: { "code": "<code>", "message": "<string with the error msg>", "deprecated": true }`
-    - **Description:**
-      - Deprecated but retained for backward compatibility. The new event is `interview-error`. This event is fired when something bad happens while performing certain actions, especially when calling the RLBE.
+#### Event: page-changed
 
-11. **`interview-error`**
-    - **CustomEvent Schema:**
-      - `type: "interview-error"`
-      - `detail: { "code": "<code>", "message": "<string with the error msg>" }`
-    - **Description:**
-      - This event is fired when something bad happens while performing certain actions, especially when calling the RLBE. The `code` attribute can have values like `COMPLETION_CONNECTION_ERROR`, `COMPLETION_ERROR`, `LOAD_INTERVIEW_ERROR`, `LOAD_QUESTION_ERROR`, `LOAD_QUESTION_CONNECTION_ERROR`, or `SAVE_ERROR`.
+- **Name:** `page-changed`
+- **State:** New
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "page-changed"
+        detail: {
+          "pageId": "<page uuid>",
+          "pageTitle": "<page title when available>"
+        }
+     ```
 
-12. **`component-connected`**
-    - **CustomEvent Schema:**
-      - `type: "component-connected"`
-    - **Description:**
-      - Related to the lifecycle method `connectedCallback()` which will be implemented by this component and called by Stencil when connected to the DOM.
+- **Description:** This event is fired by the RocketDocEUI once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocEUI is going to show a success message. It is also fired at the last question of the interview since the RocketDocEUI will receive a response from the RLBE indicating that all answers were saved.
 
-13. **`component-disconnected`**
-    - **CustomEvent Schema:**
-      - `type: "component-disconnected"`
-    - **Description:**
-      - Related to the lifecycle method `disconnectedCallback()` which will be implemented by this component and called by Stencil when disconnected from the DOM.
+#### Event: interview-completing
+
+- **Name:** `interview-completing`
+- **State:** Existing
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "interview-completing"
+     ```
+
+- **Description:** This event indicates that the completion of the interview has started. At this point, the user is at the end of the interview, and the "Continue" button is disabled since there are no more questions to answer.
+
+#### Event: interview-completed
+
+- **Name:** `interview-completed`
+- **State:** Existing
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "interview-completed"
+        detail: {
+          "binderId": "<binder uuid>"
+        }
+     ```
+
+- **Description:** This event is the last event fired by the RocketDocEUI. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the RocketDocEUI only fires the event.
+
+#### Event: rocketdocumenterror
+
+- **Name:** `rocketdocumenterror`
+- **State:** Deprecated
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "interview-error"
+        detail: {
+          "code": "<code>",
+          "message": "<string with the error msg>",
+          "deprecated": true
+        }
+     ```
+
+- **Description:** Deprecated but retained for backward compatibility. The new event is `interview-error`. This event is fired when something bad happens while performing certain actions, especially when calling the RLBE.
+
+#### Event: interview-error
+
+- **Name:** `interview-error`
+- **State:** New
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "interview-error"
+        detail: {
+          "code": "<code>",
+          "message": "<string with the error msg>"
+        }
+     ```
+
+> **Code Values**:
+> 
+>   `<code>` can be one of the following values:
+>   - COMPLETION_CONNECTION_ERROR
+>   - COMPLETION_ERROR
+>   - LOAD_INTERVIEW_ERROR
+>   - LOAD_QUESTION_ERROR
+>   - LOAD_QUESTION_CONNECTION_ERROR
+>   - SAVE_ERROR
+
+- **Description:** This event is fired when something bad happens while performing certain actions, especially when calling the RLBE.
+
+#### Event: component-connected
+
+- **Name:** `component-connected`
+- **State:** New
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "component-connected"
+     ```
+
+- **Description:** Related to the lifecycle method `connectedCallback()` which will be implemented by this component and called by Stencil when connected to the DOM.
+
+
+#### Event: component-disconnected
+
+- **Name:** `component-disconnected`
+- **State:** New
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "component-disconnected"
+     ```
+
+- **Description:** Related to the lifecycle method `disconnectedCallback()` which will be implemented by this component and called by Stencil when disconnected from the DOM.
                  
 ## Listening to an Event
 
