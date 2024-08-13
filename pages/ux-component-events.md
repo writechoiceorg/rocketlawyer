@@ -74,6 +74,8 @@ Once the page loads, the existing interview as identified by its id will be retr
 
 ### **Event Sequence: Load Component and Show First Interview Page**
 
+This section outlines the key events in the sequence diagram that occur when loading the RocketDoc UI component and displaying the first interview page. Understanding these events is essential for effective integration and error handling, ensuring a smooth user experience.
+
 1. **Load Component (ID)**
    - **Action:** The `ParentUI` initiates the process by loading the RocketDocEUI component. This is done by embedding the component on the webpage, usually identified by a unique ID.
    - **Purpose:** This step starts the RocketDoc UI component, preparing it to interact with the Rocket Lawyer Backend (RLBE) to fetch the necessary interview data.
@@ -136,49 +138,66 @@ These are custom events fired by the RocketDocument component to the embedding U
 
 ### Event List
 
-| Event                   | Description                                                                                                                                                 |
-|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `interview-loading`      | The first event that the RocketDocEUI fires. It is fired just before the call to the RLBE to get the interview.                                              |
-| `interview-started`      | Deprecated in favor of `interview-loaded` but retained for backward compatibility. Indicates that the RocketDocEUI got a response from the RLBE and is now rendering the interview in the background. |
-| `interview-loaded`       | The second event that the RocketDocEUI fires, signifying that the interview is being rendered.                                                               |
-| `loading-next-page`      | Fired when the user clicks the "Continue" button, indicating the RocketDocEUI is aware of the user asking to go to the next page and before calling the RLBE.|
-| `loading-previous-page`  | Fired when the user clicks the "Back" button, indicating the RocketDocEUI is aware of the user asking to go to the previous page and before calling the RLBE.|
-| `question-answered`      | Fired every 10 seconds if answers have changed to prevent data loss if the user abandons the interview.                                                     |
-| `page-changed`           | Fired after a successful response from the RLBE, confirming that answers were saved. Also fired at the last question of the interview.                      |
-| `interview-completing`   | Indicates that the interview completion process has started.                                                                                                |
-| `interview-completed`    | The last event fired by the RocketDocEUI, indicating the interview is complete and no further processes are running.                                        |
-| `rocketdocumenterror`    | Deprecated but retained for backward compatibility. New event is `interview-error`.                                                                         |
-| `interview-error`        | Fired when something bad happens during certain actions, especially when calling the RLBE.                                                                  |
-| `component-connected`    | Related to the lifecycle method `connectedCallback()` which is called by Stencil when connected to the DOM.                                                |
-| `component-disconnected` | Related to the lifecycle method `disconnectedCallback()` which is called by Stencil when disconnected from the DOM.  
+#### Event: interview-loading
 
+- **Name:** `interview-loading`
+- **State:** Existing
+- **CustomEvent Schema:**
+    
+     ```javascript
+       type: "interview-loading"
+     ```
 
-1. **`interview-loading`**
-   - **CustomEvent Schema:**
-     - `type: "interview-loading"`
-   - **Description:**
-     - This is the first event that the RocketDocEUI fires. It is fired just before the call to the RLBE to get the interview.
+- **Description:** This is the first event that the RocketDocEUI fires. It is fired just before the call to the RLBE to get the interview.
 
-2. **`interview-started`** (Deprecated)
-   - **CustomEvent Schema:**
-     - `type: "interview-started"`
-     - `detail: { "interviewId": "<interview uuid>", "deprecated": true }`
-   - **Description:**
-     - This is the second event fired. It has been deprecated in favor of the more appropriately named `interview-loaded` but is retained for backward compatibility. The event name does not accurately reflect what it signifies because the backend is actually starting the event. It is also confusing because of the partner event `INTERVIEW_STARTED`.
+#### Event: interview-started
 
-3. **`interview-loaded`**
-   - **CustomEvent Schema:**
-     - `type: "interview-loaded"`
-     - `detail: { "interviewId": "<interview uuid>", "pageId": "<page uuid>" }`
-   - **Description:**
-     - This is the second event that the RocketDocEUI fires. This means that the RocketDocEUI got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background.
+- **Name:** `interview-started`
+- **State:** Deprecated
+- **CustomEvent Schema:**
+    
+     ```javascript
+       type: "interview-started"
+       detail: {
+         "interviewId": "<interview uuid>",
+         "deprecated": true
+       }
+     ```
+     
+- **Description:** This is the second event fired. It has been deprecated in favor of the more appropriately named `interview-loaded` but is retained for backward compatibility. The event name does not accurately reflect what it signifies because the backend is actually starting the event. It is also confusing because of the partner event `INTERVIEW_STARTED`.
 
-4. **`loading-next-page`**
-   - **CustomEvent Schema:**
-     - `type: "loading-next-page"`
-     - `detail: { "pageId": "<next page uuid>" }`
-   - **Description:**
-     - This event is fired by the RocketDocEUI once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocEUI is aware of the user asking to go to the next page and before calling the RLBE.
+#### Event: interview-loaded
+
+- **Name:** `interview-loaded`
+- **State:** Existing
+- **CustomEvent Schema:**
+    
+     ```javascript
+       type: "interview-loaded"
+       detail: {
+         "interviewId": "<interview uuid>",
+         "pageId": "<page uuid>"
+       }
+     ```
+     
+- **Description:** This is the second event that the RocketDocEUI fires. This means that the RocketDocEUI got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background.
+
+#### Event: loading-next-page
+
+- **Name:** `loading-next-page`
+- **State:** Existing
+- **CustomEvent Schema:**
+    
+     ```javascript
+        type: "loading-next-page"
+        detail: {
+          "pageId": "<next page uuid>"
+        }
+     ```
+     
+- **Description:** This event is fired by the RocketDocEUI once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocEUI is aware of the user asking to go to the next page and before calling the RLBE.
+
+---
 
 5. **`loading-previous-page`**
    - **CustomEvent Schema:**
