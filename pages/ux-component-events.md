@@ -11,7 +11,7 @@ Here is how to implement the integration:
   </script>
 ```
 
-Once the JavaScript file is included, simply add the RocketDocEUI tag within the HTML body like this:
+Once the JavaScript file is included, simply add the RocketDocument Embedded UX tag within the HTML body like this:
 
 ```javascript
   <rocket-document
@@ -39,32 +39,32 @@ This is an embeddable web component that partners can use to run an interview wi
 
 ## Sequence Diagram
 
-Once the page loads, the `RocketDocEUI` component retrieves the interview associated with the specified ID by calling the RLBE service. It then displays the first page of the interview, including all relevant questions and fields. Note that `InterviewIds` are auto-generated UUIDs, which are neither incremental nor predictable. The following diagram illustrates this process:
+Once the page loads, the RocketDocument Embedded UX component retrieves the interview associated with the specified ID by calling the RLBE service. It then displays the first page of the interview, including all relevant questions and fields. Note that `InterviewIds` are auto-generated UUIDs, which are neither incremental nor predictable. The following diagram illustrates this process:
 
 ![Sequence Diagram](/media/start-interview.png)
 
 ### **Event Sequence**
 
-This section outlines the key events in the sequence diagram that occur when loading the `RocketDocEUI` component and displaying the first interview page. Understanding these events is essential for effective integration and error handling, ensuring a smooth user experience.
+This section outlines the key events in the sequence diagram that occur when loading the RocketDocument Embedded UX component and displaying the first interview page. Understanding these events is essential for effective integration and error handling, ensuring a smooth user experience.
 
 1. **Load Component (ID)**
-   - **Action:** The `ParentUI` initiates the process by loading the `RocketDocEUI` component. This is done by embedding the component on the webpage, usually identified by a unique ID.
-   - **Purpose:** This step starts the `RocketDocEUI` component, preparing it to interact with the Rocket Lawyer Backend (RLBE) to fetch the necessary interview data.
+   - **Action:** The `ParentUI` initiates the process by loading the RocketDocument Embedded UX component. This is done by embedding the component on the webpage, usually identified by a unique ID.
+   - **Purpose:** This step starts the RocketDocument Embedded UX component, preparing it to interact with the Rocket Lawyer Backend (RLBE) to fetch the necessary interview data.
 
 2. **interview-loading**
-   - **Action:** Once the `RocketDocEUI` component is loaded, it immediately fires the `interview-loading` event.
+   - **Action:** Once the RocketDocument Embedded UX component is loaded, it immediately fires the `interview-loading` event.
    - **Purpose:** This event informs the `ParentUI` that the interview is in the process of being loaded. It is a signal to possibly show a loading indicator or perform other preparatory actions in the UI.
 
 3. **Load Partner Specific Configuration**
-   - **Action:** The `RocketDocEUI` requests partner-specific configurations from the RLBE.
+   - **Action:** The RocketDocument Embedded UX requests partner-specific configurations from the RLBE.
    - **Purpose:** This ensures that the UI loads with all the necessary customizations and branding specific to the partner implementing the interview.
 
 4. **Load Brand/Rocket-Doc Information**
    - **Action:** The RLBE responds with the requested partner-specific configurations and branding information.
-   - **Purpose:** This data is essential for personalizing the `RocketDocEUI` according to the partner's requirements.
+   - **Purpose:** This data is essential for personalizing the RocketDocument Embedded UX according to the partner's requirements.
 
 5. **Get Interview (ID)**
-   - **Action:** The `RocketDocEUI` makes a request to the RLBE to fetch the interview data associated with the provided ID.
+   - **Action:** The RocketDocument Embedded UX makes a request to the RLBE to fetch the interview data associated with the provided ID.
    - **Purpose:** This step retrieves the content and structure of the interview that needs to be displayed to the user.
 
 6. **Interview Info (Found)**
@@ -72,11 +72,11 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Purpose:** This data includes all the questions and fields required for the interview, which will be displayed to the user.
 
 7. **Interview Info (Received)**
-   - **Action:** The `RocketDocEUI` receives the interview information from the RLBE.
+   - **Action:** The RocketDocument Embedded UX receives the interview information from the RLBE.
    - **Purpose:** This marks the successful retrieval of the interview data, and the component is ready to render the first page of the interview.
 
 8. **interview-loaded**
-   - **Action:** The `RocketDocEUI` fires the `interview-loaded` event.
+   - **Action:** The RocketDocument Embedded UX fires the `interview-loaded` event.
    - **Purpose:** This event informs the `ParentUI` that the interview has been successfully loaded and is ready to be displayed. The UI can now proceed to show the first page of the interview to the user.
 
 9. **Interview Not Found**
@@ -84,7 +84,7 @@ This section outlines the key events in the sequence diagram that occur when loa
    - **Purpose:** This handles cases where the interview ID provided is incorrect or the interview has been deleted.
 
 10. **rocket-document-error**
-    - **Action:** The `RocketDocEUI` fires the `rocket-document-error` event.
+    - **Action:** The RocketDocument Embedded UX fires the `rocket-document-error` event.
     - **Purpose:** This event informs the `ParentUI` that an error occurred while attempting to load the interview. The UI can then display an appropriate error message to the user, indicating that the interview could not be found.
 
 ## Component Details
@@ -99,8 +99,8 @@ This is the only component that this package officially supports.
 |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `serviceToken`  | This is the access or service token that delegates access to perform actions over a specific interview. It is required to have brand information so the UI can load specifics for each partner. The RocketDocument API supports two service token purposes that may be used here: `api.rocketlawyer.com/binder-party-access` for partners using RocketSign, and `api.rocketlawyer.com/rocketdoc` for partners using RocketDocument. |
 | `accessToken`   | Can be used instead of `serviceToken`. This should be a scoped access token specific to this interview. See the row above for the scoped access information.                                                      |
-| `interviewId`   | This is the interview UUID needed so the `RocketDocEUI` can show all the questions and fields.                                                                                   |
-| `pageId`        | An optional attribute; allows the caller to indicate an interview page that the `RocketDocEUI` will open. Options: `first`, `last`, or `$pageId` (a UUID page id of a page in an interview). |
+| `interviewId`   | This is the interview UUID needed so the RocketDocument Embedded UX can show all the questions and fields.                                                                                   |
+| `pageId`        | An optional attribute; allows the caller to indicate an interview page that the RocketDocument Embedded UX will open. Options: `first`, `last`, or `$pageId` (a UUID page id of a page in an interview). |
 
 ## Custom Events
 
@@ -118,7 +118,7 @@ These are custom events fired by the RocketDocument component to the embedding U
        type: "interview-loading"
      ```
 
-- **Description:** This is the first event that the `RocketDocEUI` fires. It is fired just before the call to the RLBE to get the interview.
+- **Description:** This is the first event that the RocketDocument Embedded UX fires. It is fired just before the call to the RLBE to get the interview.
 
 #### Event: interview-started
 
@@ -150,7 +150,7 @@ These are custom events fired by the RocketDocument component to the embedding U
        }
      ```
      
-- **Description:** This is the second event that the `RocketDocEUI` fires. This means that the `RocketDocEUI` got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background.
+- **Description:** This is the second event that the RocketDocument Embedded UX fires. This means that the RocketDocument Embedded UX got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background.
 
 #### Event: loading-next-page
 
@@ -165,7 +165,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
      
-- **Description:** This event is fired by the `RocketDocEUI` once the user clicks the "Continue" button. This tells the ParentUI that the `RocketDocEUI` is aware of the user asking to go to the next page and before calling the RLBE.
+- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the ParentUI that the RocketDocument Embedded UX is aware of the user asking to go to the next page and before calling the RLBE.
 
 #### Event: loading-previous-page
 
@@ -180,7 +180,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is fired by the `RocketDocEUI` once the user clicks the "Back" button. This tells the ParentUI that the `RocketDocEUI` is aware of the user asking to go to the previous page and before calling the RLBE.
+- **Description:** This event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the ParentUI that the RocketDocument Embedded UX is aware of the user asking to go to the previous page and before calling the RLBE.
 
 #### Event: question-answered
 
@@ -212,7 +212,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is fired by the `RocketDocEUI` once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the `RocketDocEUI` is going to show a success message. It is also fired at the last question of the interview since the `RocketDocEUI` will receive a response from the RLBE indicating that all answers were saved.
+- **Description:** This event is fired by the RocketDocument Embedded UX once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocument Embedded UX is going to show a success message. It is also fired at the last question of the interview since the RocketDocument Embedded UX will receive a response from the RLBE indicating that all answers were saved.
 
 #### Event: interview-completing
 
@@ -239,7 +239,7 @@ These are custom events fired by the RocketDocument component to the embedding U
         }
      ```
 
-- **Description:** This event is the last event fired by the `RocketDocEUI`. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the `RocketDocEUI` only fires the event.
+- **Description:** This event is the last event fired by the RocketDocument Embedded UX. It means that the interview is completed and filled with all the info provided by the user. It will also tell the ParentUI that no further processes are running or yet remain to be completed. It is up to the ParentUI to take the user to the next screen since the RocketDocument Embedded UX only fires the event.
 
 #### Event: rocketdocumenterror
 
@@ -316,7 +316,7 @@ These are custom events fired by the RocketDocument component to the embedding U
                  
 ## Listening to an Event
 
-Since the component fires several events, the ParentUI should listen for any of those. To accomplish that, the ParentUI needs to add a JavaScript code section to the page in which the `RocketDocEUI` was embedded. It will be something like the following:
+Since the component fires several events, the ParentUI should listen for any of those. To accomplish that, the ParentUI needs to add a JavaScript code section to the page in which the RocketDocument Embedded UX was embedded. It will be something like the following:
 
 ```javascript
 <script>
@@ -327,7 +327,7 @@ Since the component fires several events, the ParentUI should listen for any of 
     });
 </script>
 ```
-The component's important element is the `rocket-document` tag. This tag defines the `RocketDocEUI` and all the elements inside the interview. In the example above, for the element `rocket-document,` a listener was added for the `interview-loading` event. When that event is fired, the code will be executed using the `addEventListener` method.
+The component's important element is the `rocket-document` tag. This tag defines the RocketDocument Embedded UX and all the elements inside the interview. In the example above, for the element `rocket-document,` a listener was added for the `interview-loading` event. When that event is fired, the code will be executed using the `addEventListener` method.
 
 ## Glossary
 
@@ -336,7 +336,7 @@ This glossary defines key terms used throughout this guide to help you better un
 | Term          | Description                                                                                                              |
 |---------------|--------------------------------------------------------------------------------------------------------------------------|
 | **ParentUI**  | The web application that embeds the RocketDocument embeddable UI, usually an application developed by a Rocket Lawyer partner. |
-| **RocketDocEUI** | The RocketDocument embeddable UI.                                                                                            |
+| **RocketDocument Embedded UX** | The RocketDocument embeddable UI.                                                                                            |
 | **RLBE**      | Refers to any RocketLawyer backend service. 
 
 ## Globals
