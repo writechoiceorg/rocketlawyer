@@ -1,4 +1,4 @@
-When integrating Rocket Lawyer's services into your platform, you have two primary options: **Embedded UX** and **Build Your Own UX**. This guide is designed for developers and product managers who are evaluating these integration approaches. It provides a detailed comparison of each option to help you determine the best fit for your business needs, considering factors like development resources, desired level of customization, and long-term maintenance.
+When integrating Rocket Lawyer's services into your platform, you have two primary options: **Embedded UX** and **Build Your Own UX**. This guide is designed for developers and product managers evaluating these integration approaches. It provides a detailed comparison of each option to help you determine the best fit for your business needs, considering factors like development resources, desired level of customization, and long-term maintenance.
 
 ## Table of Contents
 
@@ -13,15 +13,15 @@ When integrating Rocket Lawyer's services into your platform, you have two prima
 
 Rocket Lawyer offers two main paths for integrating its services into your platform:
 
-- **Embedded UX:** This option allows you to quickly embed Rocket Lawyer’s user interface within your application, providing a seamless experience with minimal development effort.
+- **Embedded UX:** This option lets you quickly embed Rocket Lawyer’s user interface within your application, providing a seamless experience with minimal development effort.
   
-- **Build Your Own UX:** This path gives you the flexibility to create a fully customized user interface that interacts directly with Rocket Lawyer’s APIs, offering complete control over the user experience.
+Build Your Own UX:** This path allows you to create a fully customized user interface that interacts directly with Rocket Lawyer’s APIs, offering complete control over the user experience.
 
-> **Pro Tip:** If speed of integration and ease of maintenance are your top priorities, **Embedded UX** might be the best choice. 
+> **Pro Tip:** If the speed of integration and ease of maintenance are your top priorities, **Embedded UX** might be the best choice. 
 
 ### Embedded UX
 
-When you choose the Embedded UX you have the following features and benefits
+When you choose the Embedded UX, you have the following features and benefits:
 
 - **Quick Integration:** Ideal for partners looking for a fast and efficient integration process.
 - **Consistency:** Ensures a consistent user experience that aligns with Rocket Lawyer’s existing platform.
@@ -34,27 +34,27 @@ The Embbeded option is best suited for the following use cases:
 - Ideal for businesses that need to integrate quickly without extensive development resources.
 - Suitable for scenarios where a consistent, out-of-the-box solution meets the business needs.
 
-If the Embedded UX fulfill your needs, follow the steps below to learn more about its use and integration:
+If the Embedded UX fulfills your needs, follow the steps below to learn more about its use and integration:
 
 1. **Read the Documentation:** Learn how to set up and customize the [RocketDocument Embedded UX](https://developer.rocketlawyer.com/rocketdocument-embedded-ux) in your platform.
 2. **Start Implementing:** Follow the [Quick Start Guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux) to get your integration up and running.
 
 ### Build Your Own UX (API)
 
-When you choose to use the Rocket Lawyer API to build your own UX, you have the following features and benefits
+When you choose to use the Rocket Lawyer API to build your own UX, you have the following features and benefits:
 
 - **Full Customization:** Offers complete control over the user interface design and interaction flow.
 - **API-Driven:** Allows you to leverage Rocket Lawyer’s APIs to create a tailored experience that aligns with your brand.
-- **Flexible Integration:** Suitable for complex scenarios where a fully customized user experience is required.
+- **Flexible Integration:** Suitable for complex scenarios requiring a fully customized user experience.
 
 > **Best For:** Businesses that require deep customization and have the development resources to support it.
 
-The API based option is best suited for the following use cases:
+The API-based option is best suited for the following use cases:
 
 - Ideal for businesses with the resources to develop a custom user interface.
 - Best suited for scenarios where a tailored experience is critical to the business model.
 
-If the API-based option fulfill your needs, follow the steps below to learn more about its use and integration:
+If the API-based option fulfills your needs, follow the steps below to learn more about its use and integration:
 
 1. [**Explore the API Documentation:**](https://developer.rocketlawyer.com/apis) Understand the full range of API endpoints available for creating a custom UX.
 2. **Design Your UX:** Plan and design the user interface that best suits your business needs.
@@ -81,7 +81,7 @@ The best integration path depends on your business’s specific needs, resources
 - Choose **Embedded UX** if you need a quick, low-maintenance integration that leverages Rocket Lawyer's existing interface.
 - Choose **Build Your Own UX** if you require a fully customized user experience and have the development resources to support a more complex integration.
 
-> **Tip:** Evaluate your team’s development resources and long-term maintenance capacity when choosing your integration approach.
+> **Tip:** When choosing your integration approach, evaluate your team’s development resources and long-term maintenance capacity.
 
 ![Decide Your Path](/media/decide-your-path.png)
 
