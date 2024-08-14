@@ -124,6 +124,4 @@ Further customize the UI with these CSS variables:
   - Question description (hint): `If you'd like to add another form of payment, enter it in the space provided below`
   - Label for all the fields: `Other Form of Payments`
 
-## Implementing Custom Styles
 
-To apply custom styles to the **RocketDocument Embedded UX** component, define the desired CSS variables in your stylesheet. These variables will override the default styles provided by the component.
