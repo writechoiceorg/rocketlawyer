@@ -42,23 +42,23 @@ Once the page loads, the RocketDocument Embedded UX component retrieves the inte
 
 Below is the outline of the key events in the sequence diagram that occur when loading the RocketDocument Embedded UX component and displaying the first interview page. Understanding these events is essential for effective integration and error handling, ensuring a smooth user experience.
 
-1. **Load Component (ID)**: The process begins when the `ParentUI` initiates the loading of the RocketDocument component, which is accomplished by embedding the component on the webpage. This step is required to activate the RocketDocument component, enabling it to interact with the Rocket Lawyer Backend (RLBE) to retrieve the necessary interview data.
+1. **load component (id)**: The process begins when the `ParentUI` initiates the loading of the RocketDocument component, which is accomplished by embedding the component on the webpage. This step is required to activate the RocketDocument component, enabling it to interact with the Rocket Lawyer Backend (RLBE) to retrieve the necessary interview data.
 
 2. **interview-loading**: Once the RocketDocument component is loaded, it immediately fires the `interview-loading` event. This event informs the `ParentUI` that the interview is in the process of being loaded, signaling that a loading indicator or other preparatory actions may need to be displayed in the UI.
 
-3. **Load Partner Specific Configuration**: The RocketDocument component requests partner-specific configurations from the RLBE. This ensures that the UI is loaded with all necessary customizations and branding specific to the partner implementing the interview.
+3. **load Partner specific conf**: The RocketDocument component requests partner-specific configurations from the RLBE. This ensures that the UI is loaded with all necessary customizations and branding specific to the partner implementing the interview.
 
-4. **Load Brand/Rocket-Doc Information**: The RLBE responds with the requested partner-specific configurations and branding information. This data is essential for personalizing the RocketDocument component according to the partner's requirements.
+4. **brand/rocket-doc info**: The RLBE responds with the requested partner-specific configurations and branding information. This data is essential for personalizing the RocketDocument component according to the partner's requirements.
 
-5. **Get Interview (ID)**: The RocketDocument component makes a request to the RLBE to fetch the interview data associated with the provided ID. This step retrieves the content and structure of the interview that needs to be displayed to the user.
+5. **getInterview (id)**: The RocketDocument component makes a request to the RLBE to fetch the interview data associated with the provided ID. This step retrieves the content and structure of the interview that needs to be displayed to the user.
 
-6. **Interview Info (Found)**: If the interview with the specified ID is found, the RLBE returns the interview information. This data includes all the questions and fields required for the interview, which will be displayed to the user.
+6. **interview info (Found)**: If the interview with the specified ID is found, the RLBE returns the interview information. This data includes all the questions and fields required for the interview, which will be displayed to the user.
 
-7. **Interview Info (Received)**: The RocketDocument component receives the interview information from the RLBE. This marks the successful retrieval of the interview data, and the component is now ready to render the first page of the interview.
+7. **interview info (Received)**: The RocketDocument component receives the interview information from the RLBE. This marks the successful retrieval of the interview data, and the component is now ready to render the first page of the interview.
 
 8. **interview-loaded**: The RocketDocument component fires the `interview-loaded` event. This event informs the `ParentUI` that the interview has been successfully loaded and is ready to be displayed, allowing the UI to proceed with showing the first page of the interview to the user.
 
-9. **Interview Not Found**: If the interview with the specified ID is not found, the RLBE returns an error indicating that the interview could not be located. This handles cases where the provided interview ID is incorrect or the interview has been deleted.
+9. **interview not found**: If the interview with the specified ID is not found, the RLBE returns an error indicating that the interview could not be located. This handles cases where the provided interview ID is incorrect or the interview has been deleted.
 
 10. **rocket-document-error**: The RocketDocument component fires the `rocket-document-error` event. This event informs the `ParentUI` that an error occurred while attempting to load the interview, prompting the UI to display an appropriate error message to the user, indicating that the interview could not be found.
 
