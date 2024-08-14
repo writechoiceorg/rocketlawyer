@@ -2,16 +2,25 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 
 ## Table of Contents
 
-1. [**RocketDocument™**](#rocketdocument)   
-2. [**RocketSign**](#rocketsign)   
-3. [**Authentication**](#authentication)  
-4. [**Identifiers**](#identifiers)
+1. [**General Terms**](#general-terms)   
+2. [**RocketDocument™**](#rocketdocument)   
+3. [**RocketSign™**](#rocketsign)   
+4. [**Authentication**](#authentication)  
+5. [**Identifiers**](#identifiers)
+
+## General Terms
+
+- **API Endpoints**: Specific paths in Rocket Lawyer's API that allow developers to integrate legal services into their applications.
+
+- **Embedded UX**: A user interface integrated into a partner’s web application, allowing seamless access to Rocket Lawyer’s services.
+
+- **iFrame**: An HTML element used to embed RocketSign Embedded UX into a webpage. It displays the RocketSign interface and allows users to interact with it directly within your platform.
 
 ## RocketDocument™
 
 In this section, we provide definitions for terms related to **RocketDocument™**:
 
-- **RocketDocument™:** This tool enables customers to create and customize legal documents through a dynamic, interactive interview process. RocketDocument™ is designed to smooth the document creation process by guiding users through an interactive interview to collect specific details for the document.
+- **RocketDocument™:** This product enables customers to create and customize legal documents through a dynamic, interactive interview process. The product consists in both an Embedded UX and the API endpoints. RocketDocument™ is designed to smooth the document creation process by guiding users through an interactive interview to collect specific details for the document.
 
 - **Interview:** A guided interview is a question-and-answer session that adjusts based on the user's answers, providing a tailor-made document creation experience.
 
@@ -19,13 +28,21 @@ In this section, we provide definitions for terms related to **RocketDocument™
 
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user's answers.
 
-## RocketSign
+## RocketSign™
 
-In this section, we provide definitions for terms related to **RocketSign**:
+**RocketSign** is Rocket Lawyer’s digital signing solution, comprising two main components:
+
+- **RocketSign Embedded UX**: An embedded user interface that allows users to interact with and sign documents directly within your platform. This feature enables document preparation, signing, and management seamlessly within your application.
+
+- **RocketSign API Endpoints**: A set of APIs that manage the document signing process and binder-related tasks programmatically, including preparing documents, managing parties, and tracking the status of the legal process.
+
+Below we provide definitions for terms related to the **RocketSign Embedded UX** and the **RocketSign API Endpoints**:
+
+### RocketSign Embedded UX
+
+Below is the list of definitions for terms related to the  **RocketSign Embedded UX**:
 
 - **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. An embedded user interface enables document preparation, signing, and management.
-
-- **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
 
 - **Party:** An individual or entity involved in the legal document, either as a signer or participant.
 
@@ -33,9 +50,13 @@ In this section, we provide definitions for terms related to **RocketSign**:
 
 - **Event:** Any activity that occurs during the lifecycle of the legal process, such as sending an invitation to sign, a party viewing the document, or an owner modifying the document.
 
-- **Client Credentials**: Essential authentication details obtained through the onboarding process, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
+### RocketSign API Endpoints
 
-- **iFrame**: An HTML element used to embed RocketSign Embedded UX into a webpage. It displays the RocketSign interface and allows users to interact with it directly within your platform.
+Below is the list of definitions for terms related to the  **RocketSign API Endpoints**:
+
+- **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
+
+- **Client Credentials**: Essential authentication details obtained through the onboarding process, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
 
 ## Authentication
 
