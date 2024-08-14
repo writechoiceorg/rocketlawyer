@@ -219,3 +219,4 @@ You’ve successfully created, displayed, and interacted with a document intervi
 - [Quick Start: RocketSign Embedded UX](rocketsign-embedded-ux)
 - [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview)
 - [RocketDocument API Documentation](/docs/rocketdoc-api-product-sandbox/1/overview)
+- [Customizing the embedded UX Component Styles](/pages/customizing-embedded-ux-styles.md)
