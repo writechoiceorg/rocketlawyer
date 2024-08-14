@@ -10,6 +10,15 @@ The appearance of action buttons can be customized by adjusting the following CS
 
 - **--rl-action-primary-default**: Defines the primary color for action buttons.
   - Default: `#1473E6`
+  - **Properties:**
+    - `Tell me more`: font color
+    - `Checkboxes`: fill for all of them
+    - `RadioButtons`: fill for all of them
+    - `Add Another`: font color and fill for the plus sign
+    - `Input fields`: border color when focused
+    - `Primary buttons`: background color
+    - `Secondary buttons`: font and border color
+
 - **--rl-action-primary-disabled**: Defines the color for disabled action buttons.
   - Default: `#B3B3B3`
 - **--rl-action-primary-hover**: Defines the hover color for action buttons.
