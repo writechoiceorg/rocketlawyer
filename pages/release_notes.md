@@ -1,71 +1,34 @@
-# Release Notes: RocketDoc API v2
+RocketDoc API v2 brings significant improvements and new features to enhance the experience for both API partners and end users. This document provides an overview of the key updates, focusing on enhancements in the embedded user experience, new functionalities like Data I/O for pre-filling and retrieving interview data, and additional features designed to streamline and optimize the document creation process.
 
-## Overview
+## New Features
 
-RocketDoc API v2 brings significant improvements and new features to enhance the experience for API partners and end users. This document outlines the key updates, new functionalities, and benefits introduced in this version.
+### Custom User Experience
 
-## What's Changing for API Partners
+API partners can now create a [custom user experience directly through the API](pages/build_custom_ui.md). This feature allows full customization, enabling partners to reflect their brand identity and visual preferences seamlessly within the user experience.
+
+### Data I/O
+
+The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners to import data to and extract data from interviews using Tagged Answer Models (TAM).
+
+#### Benefits
+
+- **Structured Data Retrieval:** Retrieve the Tagged Answer Model (TAM) for any interview, enabling seamless data integration by mapping customer data directly.
+- **Pre-filled Interviews:** Improve user experience by pre-filling interview fields with existing customer data, saving time and reducing redundancy.
+- **Data Accessibility:** Easily access and retrieve user-provided data to further customize and enhance the document creation process.
+
+## Additional Enhancements
 
 ### Embedded User Experience
+The embedded user experience remains largely similar to the previous version, with only minor [adjustments to endpoints](pages/upgrading_to_rocketdocument_v2.md) and [events](pages/ux-component-events.md).
 
-- **Consistency**: The embedded user experience remains similar, with some minor changes.
-- **Security**: Enhanced security with the latest frameworks.
+### List Templates
+Easily retrieve a list of templates through the [Get Templates List](link) endpoint.
 
-### New Features
+### Median Time to Complete
+Access data regarding the median time to complete each template, helping partners optimize the interview process.
 
-1. **Interview UX**:
+### State-Specific Documents
+Partners can now identify and filter documents specific to certain states, ensuring compliance and relevance.
 
-   - **Custom Embedded UX**: Create a custom embedded UX through the API, allowing full customization to reflect your brand and visuals.
-
-2. **Data I/O**:
-
-   - **Retrieve TAM**: API partners can retrieve the Tagged Answer Model (TAM) from templates, allowing them to see which fields can be pre-filled in the interview.
-   - **Write to TAM**: Partners can provide existing customer information to pre-fill interview fields, reducing redundant data entry.
-   - **Retrieve Customer Answers**: Partners can access customer data provided in response to interview questions.
-
-3. **Additional Enhancements**:
-   - **List Templates**: Retrieve accessible templates.
-   - **Median Time to Complete**: Access median completion times for each template.
-   - **State-Specific Documents**: Identify and filter state-specific documents.
-
-## What's Changing from an End User Perspective
-
-- **Resume Interviews**: Customers can resume interviews from where they left off (TBD).
-
-## Data I/O Features and Benefits
-
-### Key Features
-
-1. **Fetch TAM for a Template**:
-
-   - **Endpoint**: `/rocketdoc/v2/templates/id/tagged-answer-model`
-   - **Input**: `templateId`
-   - **Response**: TAM
-
-2. **Map Customer Data to TAM**:
-
-   - **Endpoint**: `/rocketdoc/v2/interviews`
-   - **Input**: POST body with customer data
-   - **Response**: Success (customer data associated with `interviewId`)
-
-3. **Retrieve Customer Data**:
-   - **Endpoint**: `/v2/interviews/{{interviewId}}/tagged-answers`
-   - **Input**: `interviewId`
-   - **Response**: TAM/Customer data
-
-### Benefits
-
-- **Structured Data Retrieval**: Retrieve the Tagged Answer Model (TAM) for any interview to map customer data directly, enabling seamless data integration.
-- **Pre-filled Interviews**: Enhance the user experience by pre-filling interview fields with existing customer data, saving time and reducing redundancy.
-- **Data Accessibility**: Access and retrieve user-provided data to further customize and improve the document creation process.
-
-### Example Use Case - Lease Agreement
-
-- **Origin TAM**: Initial structure.
-- **Input TAM**: Data mapping.
-- **Output TAM** (Individual Landlord): Customized for individual landlords.
-- **Output TAM** (Company Landlord): Customized for company landlords.
-
----
-
-Please refer to the [RocketDoc v2 API Documentation](#) for detailed API documentation and integration guidelines.
+### Resume Interviews
+By using the [Retrieve Interview by ID](link) endpoint, partners can allow end users to resume their interviews from where they left off.
