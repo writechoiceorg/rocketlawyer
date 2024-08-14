@@ -2,7 +2,7 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 
 ## Table of Contents
 
-1. [**General Terms**](#general terms)   
+1. [**General Terms**](#general-terms)   
 2. [**RocketDocument™**](#rocketdocument)   
 3. [**RocketSign™**](#rocketsign)   
 4. [**Authentication**](#authentication)  
@@ -30,11 +30,19 @@ In this section, we provide definitions for terms related to **RocketDocument™
 
 ## RocketSign™
 
-In this section, we provide definitions for terms related to **RocketSign**:
+**RocketSign** is Rocket Lawyer’s digital signing solution, comprising two main components:
+
+1. **RocketSign Embedded UX**: An embedded user interface that allows users to interact with and sign documents directly within your platform. This feature enables document preparation, signing, and management seamlessly within your application.
+
+2. **RocketSign API Endpoints**: A set of APIs that manage the document signing process and binder-related tasks programmatically, including preparing documents, managing parties, and tracking the status of the legal process.
+
+Below we provide definitions for terms related to the **RocketSign Embedded UX** and the **RocketSign API Endpoints**:
+
+### RocketSign Embedded UX
+
+Below is the list of definitions for terms related to the  **RocketSign Embedded UX**:
 
 - **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. An embedded user interface enables document preparation, signing, and management.
-
-- **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
 
 - **Party:** An individual or entity involved in the legal document, either as a signer or participant.
 
@@ -42,9 +50,13 @@ In this section, we provide definitions for terms related to **RocketSign**:
 
 - **Event:** Any activity that occurs during the lifecycle of the legal process, such as sending an invitation to sign, a party viewing the document, or an owner modifying the document.
 
+### RocketSign API Endpoints
+
+Below is the list of definitions for terms related to the  **RocketSign API Endpoints**:
+
+- **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
+
 - **Client Credentials**: Essential authentication details obtained through the onboarding process, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
-
-
 
 ## Authentication
 
