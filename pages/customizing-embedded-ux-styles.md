@@ -115,3 +115,15 @@ Further customize the UI with these CSS variables:
 ## Implementing Custom Styles
 
 To apply custom styles to the **RocketDoc Embedded UX** component, define the desired CSS variables in your stylesheet. These variables will override the default styles provided by the component.
+
+## Customizing the Embedded UX Component
+
+To tailor the **RocketDoc Embedded UX** Component to match your brand's look and feel, follow the steps below:
+
+1. **Submit Your Style Preferences**:
+   - Fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSddJPPg0onclKYf2IIyRehCYwlTtlcogXXXxo0ZlwtZLd3ZZQ/viewform?fbzx=5836941555539130795) with your desired styles, including colors, logos, and button corner radius.
+
+2. **Create a Request in the Partner Portal**:
+   - Once your style preferences are ready, submit a customization request through the [partner portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10).
+
+These steps will ensure that the **RocketDoc Embedded UX** reflects your brand’s identity and provides a consistent user experience across your platform.
