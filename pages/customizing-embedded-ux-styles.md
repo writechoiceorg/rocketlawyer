@@ -4,39 +4,37 @@ This documentation page provides guidance on customizing the **RocketDoc Embedde
 
 The **RocketDoc Embedded UX** component supports a range of CSS properties that can be customized. These properties control various aspects of the user interface, including colors, fonts, and spacing. Below is a list of customizable CSS variables along with their default values.
 
-### Action Button Styles
+### Interview Form Styles
 
-The appearance of action buttons can be customized by adjusting the following CSS variables:
+The following properties allow you to customize the color and appearance of action buttons and related interactive elements within the interview form:
 
-- **--rl-action-primary-default**: Defines the primary color for action buttons.
-  - Default: `#D68021`
-  - Properties:
-    - `Tell me more`: font color
-    - `Checkboxes`: fill for all of them
-    - `RadioButtons`: fill for all of them
-    - `Add Another`: font color and fill for the plus sign
-    - `Input fields`: border color when focused
-    - `Primary buttons`: background color
-    - `Secondary buttons`: font and border color
+- `--rl-action-primary-default` sets the primary color for interactive elements within the interview form. The default color is `#D68021`, and it is applied to the following components:
 
-- **--rl-action-primary-disabled**: Defines the color for disabled action buttons.
-  - Default: `#EFCCA6`
-  - Properties:
-    - `Primary buttons`: background color when disabled
-    - `Secondary buttons`: font and border color when disabled
+  - **Tell me more**: Text font color
+  - **Checkboxes**: Fill color for all checkboxes
+  - **RadioButtons**: Fill color for all radio buttons
+  - **Add Another**: Font color and plus sign color
+  - **Input fields**: Border color when focused
+  - **Primary buttons**: Background color
+  - **Secondary buttons**: Font and border color
 
-- **--rl-action-primary-hover**: Defines the hover color for action buttons.
-  - Default: `#BA6102`
-  - Properties:
-    - `Primary buttons`: background color when hovering
-    - `Secondary buttons`: border and font color when hovering
+- `--rl-action-primary-disabled` sets the color for action buttons when they are disabled. The default color is `#EFCCA6`, and it is applied to the following components:
 
-- **--rl-action-primary-pressed**: Defines the pressed color for action buttons.
-  - Default: `#E89338`
-  - Properties:
-    - `Tell me more link`: changes the font color
-    - `Primary buttons`: background color when active
-    - `Add Another link`: changes the font color
+  - **Primary buttons**: Background color when disabled
+  - **Secondary buttons**: Font and border color when disabled
+
+- `--rl-action-primary-hover` defines the color for action buttons when hovered over. The default color is `#BA6102`, and it is applied to the following components:
+
+  - **Primary buttons**: Background color when hovering
+  - **Secondary buttons**: Border and font color when hovering
+
+- `--rl-action-primary-pressed` sets the primary color for interactive elements when they are pressed or active. The default color is `#E89338`, and it is applied to the following components:
+
+  - **Tell me more link**: Changes the font color
+  - **Primary buttons**: Background color when active
+  - **Add Another link**: Changes the font color
+
+
 
 ### Attribution Styles
 
