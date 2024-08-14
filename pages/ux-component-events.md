@@ -240,7 +240,7 @@ The `component-connected` event is related to the lifecycle method `connectedCal
 
 #### component-disconnected
 
-The `component-disconnected` event is related to the lifecycle method `disconnectedCallback()` which will be implemented by this component and called by Stencil when disconnected from the DOM. Below, you can find the `component-disconnected` schema:
+The `component-disconnected` event is related to the lifecycle method `disconnectedCallback()`, which will be implemented by this component and called by Stencil when disconnected from the DOM. Below, you can find the `component-disconnected` schema:
 
 ```javascript
    type: "component-disconnected"
