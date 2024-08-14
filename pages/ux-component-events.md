@@ -64,7 +64,7 @@ Below is the outline of the key events in the sequence diagram that occur when l
 
 ## Component Details
 
-Below we provide an overview of the `<rocket-document>` component, detailing its attributes and how it integrates with partner applications.
+Below, we provide an overview of the `<rocket-document>` component, detailing its attributes and how it integrates with partner applications.
 
 ### Attributes
 
@@ -100,7 +100,7 @@ These are custom events fired by the RocketDocument component to the embedding U
 
 #### interview-loading
 
-The `interview-loading` is the first event that the RocketDocument Embedded UX fires. It is fired just before the call to the RLBE to get the interview. Below you can find the `interview-loading` schema: 
+The `interview-loading` is the first event that the RocketDocument Embedded UX fires. It is fired just before the call to the RLBE to get the interview. Below, you can find the `interview-loading` schema: 
     
 ```javascript
    type: "interview-loading"
@@ -108,7 +108,7 @@ The `interview-loading` is the first event that the RocketDocument Embedded UX f
 
 ####  interview-started
 
-The `interview-started` is the second event fired. It has been deprecated in favor of the more appropriately named `interview-loaded` but is retained for backward compatibility. The event name does not accurately reflect what it signifies because the backend is actually starting the event. It is also confusing because of the partner event `INTERVIEW_STARTED`. Below you can find the `interview-started` schema: 
+The `interview-started` is the second event fired. It has been deprecated in favor of the more appropriately named `interview-loaded` but is retained for backward compatibility. The event name does not accurately reflect what it signifies because the backend is actually starting the event. It is also confusing because of the partner event `INTERVIEW_STARTED`. Below, you can find the `interview-started` schema: 
     
 ```javascript
    type: "interview-started"
@@ -120,7 +120,7 @@ The `interview-started` is the second event fired. It has been deprecated in fav
      
 #### interview-loaded
 
-The `interview-loaded` is the second event that the RocketDocument Embedded UX fires. This means that the RocketDocument got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background. Below you can find the `interview-loaded` schema: 
+The `interview-loaded` is the second event that the RocketDocument Embedded UX fires. This means that the RocketDocument got a response from the RLBE, received a valid interview from the API, and is now rendering the interview in the background. Below, you can find the `interview-loaded` schema: 
     
 ```javascript
    type: "interview-loaded"
@@ -132,7 +132,7 @@ The `interview-loaded` is the second event that the RocketDocument Embedded UX f
 
 #### loading-next-page
 
-The `loading-next-page` event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the `ParentUI` that the RocketDocument is aware of the user asking to go to the next page and before calling the RLBE. Below you can find the `loading-next-paged` schema: 
+The `loading-next-page` event is fired by the RocketDocument Embedded UX once the user clicks the "Continue" button. This tells the `ParentUI` that the RocketDocument is aware of the user asking to go to the next page and before calling the RLBE. Below, you can find the `loading-next-paged` schema: 
     
 ```javascript
    type: "loading-next-page"
@@ -143,7 +143,7 @@ The `loading-next-page` event is fired by the RocketDocument Embedded UX once th
 
 #### loading-previous-page
 
-The `loading-previous-page` event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the `ParentUI` that the RocketDocument is aware of the user asking to go to the previous page and before calling the RLBE.  Below you can find the `loading-previous-page` schema: 
+The `loading-previous-page` event is fired by the RocketDocument Embedded UX once the user clicks the "Back" button. This tells the `ParentUI` that the RocketDocument is aware of the user asking to go to the previous page and before calling the RLBE.  Below, you can find the `loading-previous-page` schema: 
 
 ```javascript
    type: "loading-previous-page"
@@ -154,7 +154,7 @@ The `loading-previous-page` event is fired by the RocketDocument Embedded UX onc
 
 #### question-answered
 
-The `question-answered` event is fired every 10 seconds if changes in answers are detected, ensuring nothing is lost in case the user abandons the interview. Below you can find the `question-answered` schema:
+The `question-answered` event is fired every 10 seconds if changes in answers are detected, ensuring nothing is lost in case the user abandons the interview. Below, you can find the `question-answered` schema:
 
 ```javascript
    type: "question-answered"
@@ -166,7 +166,7 @@ The `question-answered` event is fired every 10 seconds if changes in answers ar
 
 #### page-changed
 
-The `page-changed` event is fired by the RocketDocument Embedded UX once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocument is going to show a success message. It is also fired at the last question of the interview since the RocketDocument will receive a response from the RLBE indicating that all answers were saved. Below you can find the `page-changed` schema: 
+The `page-changed` event is fired by the RocketDocument Embedded UX once it receives a successful response from the RLBE, meaning that all answers were actually saved. This is useful if the RocketDocument is going to show a success message. It is also fired at the last question of the interview since the RocketDocument will receive a response from the RLBE indicating that all answers were saved. Below, you can find the `page-changed` schema: 
 
 ```javascript
    type: "page-changed"
@@ -178,7 +178,7 @@ The `page-changed` event is fired by the RocketDocument Embedded UX once it rece
 
 #### interview-completing
 
-The `interview-completing` event indicates that the completion of the interview has started. At this point, the user is at the end of the interview, and the "Continue" button is disabled since there are no more questions to answer. Below you can find the `interview-completing` schema: 
+The `interview-completing` event indicates that the completion of the interview has started. At this point, the user is at the end of the interview, and the "Continue" button is disabled since there are no more questions to answer. Below, you can find the `interview-completing` schema: 
 
 ```javascript
    type: "interview-completing"
@@ -186,7 +186,7 @@ The `interview-completing` event indicates that the completion of the interview 
 
 #### interview-completed 
 
-The `interview-completed` event is the last event fired by the RocketDocument Embedded UX. It means that the interview is completed and filled with all the info provided by the user. It will also tell the `ParentUI` that no further processes are running or yet remain to be completed. It is up to the `ParentUI` to take the user to the next screen since the RocketDocument only fires the event. Below you can find the `interview-completed` schema: 
+The `interview-completed` event is the last event fired by the RocketDocument Embedded UX. This means that the interview is completed and filled with all the info provided by the user. It will also tell the `ParentUI` that no further processes are running or yet remain to be completed. It is up to the `ParentUI` to take the user to the next screen since the RocketDocument only fires the event. Below, you can find the `interview-completed` schema: 
 
 ```javascript
    type: "interview-completed"
@@ -197,7 +197,7 @@ The `interview-completed` event is the last event fired by the RocketDocument Em
 
 #### rocketdocumenterror
 
-The `rocketdocumenterror` event is deprecated but retained for backward compatibility. The new event is `interview-error`. This event is fired when something bad happens while performing certain actions, especially when calling the RLBE. Below you can find the `rocketdocumenterror` schema:
+The `rocketdocumenterror` event is deprecated but retained for backward compatibility. The new event is `interview-error`. This event is fired when something bad happens while performing certain actions, especially when calling the RLBE. Below, you can find the `rocketdocumenterror` schema:
 
 ```javascript
    type: "interview-error"
@@ -210,7 +210,7 @@ The `rocketdocumenterror` event is deprecated but retained for backward compatib
 
 #### interview-error
 
-The `interview-error` event is fired when something bad happens while performing certain actions, especially when calling the RLBE. Below you can find the `interview-error` schema:
+The `interview-error` event is fired when something bad happens while performing certain actions, especially when calling the RLBE. Below, you can find the `interview-error` schema:
 
 ```javascript
    type: "interview-error"
@@ -232,7 +232,7 @@ The `interview-error` event is fired when something bad happens while performing
 
 #### component-connected
 
-The `component-connected` event is related to the lifecycle method `connectedCallback()` which will be implemented by this component and called by Stencil when connected to the DOM. Below you can find the `component-connected` schema:
+The `component-connected` event is related to the lifecycle method `connectedCallback()`, which will be implemented by this component and called by Stencil when connected to the DOM. Below, you can find the `component-connected` schema:
 
 ```javascript
    type: "component-connected"
@@ -240,7 +240,7 @@ The `component-connected` event is related to the lifecycle method `connectedCal
 
 #### component-disconnected
 
-The `component-disconnected` event is related to the lifecycle method `disconnectedCallback()` which will be implemented by this component and called by Stencil when disconnected from the DOM. Below you can find the `component-disconnected` schema:
+The `component-disconnected` event is related to the lifecycle method `disconnectedCallback()` which will be implemented by this component and called by Stencil when disconnected from the DOM. Below, you can find the `component-disconnected` schema:
 
 ```javascript
    type: "component-disconnected"
