@@ -32,11 +32,11 @@ In this section, we provide definitions for terms related to **RocketDocument™
 
 **RocketSign** is Rocket Lawyer’s digital signing solution, comprising two main components:
 
-- **RocketSign Embedded UX**: An embedded user interface that allows users to interact with and sign documents directly within your platform. This feature enables document preparation, signing, and management seamlessly within your application.
+- **RocketSign Embedded UX**: An embedded user interface that allows users to interact with and sign documents directly within your platform. This feature enables document preparation, signing, and management to be seamlessly integrated into your application.
 
 - **RocketSign API Endpoints**: A set of APIs that manage the document signing process and binder-related tasks programmatically, including preparing documents, managing parties, and tracking the status of the legal process.
 
-Below we provide definitions for terms related to the **RocketSign Embedded UX** and the **RocketSign API Endpoints**:
+Below, we provide definitions for terms related to the **RocketSign Embedded UX** and the **RocketSign API Endpoints**:
 
 ### RocketSign Embedded UX
 
