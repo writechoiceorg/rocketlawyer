@@ -1,10 +1,16 @@
-This guide outlines how to customize the RocketDoc Embedded UX component's styles using CSS variables. These variables provide flexibility for branding and user experience, allowing Rocket Lawyer partners to tailor the UI to match their brand's look and feel.
+
+This guide outlines how to customize the **RocketDoc Embedded UX** component's styles using CSS variables. These variables provide flexibility for branding and user experience, allowing Rocket Lawyer partners to tailor the UI to match their brand's look and feel.
+
+Customizing the **RocketDoc Embedded UX** component's styles is a straightforward process that enables partners to create a branded, cohesive user experience. Utilize the CSS variables listed in this document to tailor the component's appearance to your specific needs.
 
 ## Supported CSS Properties
 
-The RocketDoc Embedded UX component supports a variety of CSS properties that can be customized. These properties control different aspects of the UI, including colors, fonts, and spacing. Below is a list of customizable CSS variables and their default values:
+The **RocketDoc Embedded UX** component supports a variety of CSS properties that can be customized. These properties control different aspects of the UI, including colors, fonts, and spacing. Below is a list of customizable CSS variables and their default values:
 
 ### Action Button Styles
+
+Customize the appearance of action buttons by adjusting the following CSS variables:
+
 - **--rl-action-primary-default**: Defines the primary color for buttons.
   - Default: `#1473E6`
 - **--rl-action-primary-disabled**: Defines the color for disabled buttons.
@@ -102,7 +108,7 @@ The RocketDoc Embedded UX component supports a variety of CSS properties that ca
 
 ## Implementing Custom Styles
 
-To customize the RocketDoc Embedded UX component, define the desired CSS variables in your stylesheet. These variables will override the default styles applied by the component.
+To customize the **RocketDoc Embedded UX** component, define the desired CSS variables in your stylesheet. These variables will override the default styles applied by the component.
 
 ### Example
 ```css
@@ -114,8 +120,4 @@ To customize the RocketDoc Embedded UX component, define the desired CSS variabl
 }
 ```
 
-By applying these custom styles, you can ensure that the RocketDoc Embedded UX component aligns with your brand's visual identity while maintaining a consistent user experience.
-
-## Conclusion
-
-Customizing the RocketDoc Embedded UX component's styles is a straightforward process that enables partners to create a branded, cohesive user experience. Utilize the CSS variables listed in this document to tailor the component's appearance to your specific needs.
+By applying these custom styles, you can ensure that the **RocketDoc Embedded UX** component aligns with your brand's visual identity while maintaining a consistent user experience.
