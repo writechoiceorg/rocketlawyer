@@ -1,12 +1,12 @@
-This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting and resuming interviews, iterating through question pages, and completing interviews to retrieve documents.
+This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting interviews, going through question pages, and completing interviews to retrieve documents.
 
 You will go through the following steps:
 
 - [Step 1: Authenticate](#step-1-authenticate)
 - [Step 2: Choose a Template](#step-2-choose-a-template)
 - [Step 3: Start an Interview](#step-3-start-an-interview)
-- [Step 4: Iterate Through Question Pages](#step-5-iterate-through-question-pages)
-- [Step 5: Complete the Interview and Get the Document](#step-6-complete-the-interview-and-get-the-document)
+- [Step 4: Iterate Through Question Pages](#step-4-iterate-through-question-pages)
+- [Step 5: Complete the Interview and Get the Document](#step-5-complete-the-interview-and-get-the-document)
 
 ## Step 1: Authenticate
 
@@ -434,7 +434,7 @@ This request will get a response similar to the one below:
 
 ### Submit Page and Display Next
 
-Once a page is filled, you can submit the questions in the current page and move on to the next by submitting a request to the [Update an Interview Page's Answers](link).
+Once a page is filled, you can submit the questions on the current page and move on to the next by submitting a request to the [Update an Interview Page's Answers](link). With this endpoint, you can save and go to either the previous, same, or next page. In the following example, you see a request for the next page:
 
 **Request:**
 ```curl
@@ -460,6 +460,8 @@ curl --request PATCH \
 }
 '
 ```
+
+In this request, the page objects (`currentPageData`, `previousPageData`, and `nextPageData`) can be either `reference` or `display`. When sending `reference`, the response will return only the `pageId` to help with navigation. When using `display`, the response will return complete question information for that page, including all content necessary for the interview process, which you see in the example response below:
 
 **Response:**
 ```json
