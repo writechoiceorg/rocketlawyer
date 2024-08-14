@@ -2,15 +2,11 @@ When integrating with Rocket Lawyer's platform, there are two primary options: *
 
 ## **Integration Options Overview**
 
-- **Embedded UX:**
-  - **Description:** Provides a ready-to-use interface that can be embedded directly into your application. This option is ideal for those who want a quick, out-of-the-box solution with minimal development effort.
-  - **Customization:** Limited to modifying styles and some functionalities within the provided components.
-  - **Use Case:** Best suited for partners looking for a fast and straightforward integration process.
+Here is an overview of the integration options available for embedding or customizing the Rocket Lawyer user experience within your application, catering to different levels of control and customization based on your specific needs.
 
-- **Build Your Own UX:**
-  - **Description:** Allows full control over the user interface, enabling you to design a completely custom experience that integrates with Rocket Lawyer's APIs.
-  - **Customization:** Offers complete freedom to design and implement the user experience according to specific business needs.
-  - **Use Case:** Ideal for partners who require a highly customized user experience and are willing to invest in more extensive development.
+- The **Embedded UX** option offers a ready-to-use interface that can be directly embedded into your application, making it ideal for those seeking a quick, out-of-the-box solution with minimal development effort. Customization is limited to modifying styles and certain functionalities within the provided components, making it best suited for partners looking for a fast and straightforward integration process.
+
+- The **Build Your Own UX** option provides full control over the user interface, allowing you to design a completely custom experience that integrates with Rocket Lawyer's APIs. This option offers complete freedom to tailor the user experience to specific business needs, making it ideal for partners who require a highly customized interface and are willing to invest in more extensive development.
 
 ## **Feature Comparison**
 
@@ -27,6 +23,8 @@ This table highlights the strengths of each approach, making it easier for you t
 | **Best For**                            | Quick Integration, Low Maintenance | Full Customization, Complete Control |
 
 ## **Key Considerations**
+
+When deciding between the Embedded UX and Build Your Own UX options, it's crucial to consider development resources, user experience, and customization needs in order to make an informed decision.
 
 1. **Development Resources:**
    - **Embedded UX:** Requires fewer development resources, making it a quicker and more efficient option for integration.
