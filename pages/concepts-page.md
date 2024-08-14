@@ -10,6 +10,8 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 
 ## General Terms
 
+In this section, we provide some general terms:
+
 - **API Endpoints**: Specific paths in Rocket Lawyer's API that allow developers to integrate legal services into their applications.
 
 - **Embedded UX**: A user interface integrated into a partner’s web application, allowing seamless access to Rocket Lawyer’s services.
@@ -18,7 +20,7 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 
 ## RocketDocument™
 
-In this section, we provide definitions for terms related to **RocketDocument™**:
+Explore definitions for terms related to **RocketDocument™**:
 
 - **RocketDocument™:** This product enables customers to create and customize legal documents through a dynamic, interactive interview process. The product consists in both an Embedded UX and the API endpoints. RocketDocument™ is designed to smooth the document creation process by guiding users through an interactive interview to collect specific details for the document.
 
@@ -40,7 +42,7 @@ Below, we provide definitions for terms related to the **RocketSign Embedded UX*
 
 ### RocketSign Embedded UX
 
-Below is the list of definitions for terms related to the  **RocketSign Embedded UX**:
+Here, you can find a list of definitions for terms related to the  **RocketSign Embedded UX**:
 
 - **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. An embedded user interface enables document preparation, signing, and management.
 
@@ -52,7 +54,7 @@ Below is the list of definitions for terms related to the  **RocketSign Embedded
 
 ### RocketSign API Endpoints
 
-Below is the list of definitions for terms related to the  **RocketSign API Endpoints**:
+Here, you can find a list of definitions for terms related to the  **RocketSign API Endpoints**:
 
 - **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
 
@@ -60,7 +62,7 @@ Below is the list of definitions for terms related to the  **RocketSign API Endp
 
 ## Authentication
 
-In this section, we provide definitions for terms related to **Authentication**:
+Explore definitions for terms related to **Authentication**:
 
 - **Authentication API:** The Authentication API manages access to resources across Rocket Lawyer's APIs, ensuring secure and controlled interactions. For more information about the Authentication API, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
@@ -74,7 +76,7 @@ In this section, we provide definitions for terms related to **Authentication**:
 
 ## **Identifiers**
 
-In this section, we provide definitions for terms related to **Identifiers**:
+Explore definitions for terms related to **Identifiers**:
 
 - **templateId:** This is a unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.
 
