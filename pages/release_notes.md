@@ -18,8 +18,17 @@ The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners
 
 ## Additional Enhancements
 
-- **Embedded User Experience:** The embedded user experience remains largely similar to the previous version, with only minor [adjustments to endpoints](pages/upgrading_to_rocketdocument_v2.md) and [events](pages/ux-component-events.md).
-- **List Templates:** Easily retrieve a list of templates through the [Get Templates List](link) endpoint.
-- **Median Time to Complete:** Access data regarding the median time to complete each template, helping partners optimize the interview process.
-- **State-Specific Documents:** Partners can now identify and filter documents specific to certain states, ensuring compliance and relevance.
-- **Resume Interviews:** By using the [Retrieve Interview by ID](link) endpoint, partners can allow end users to resume their interviews from where they left off.
+### Embedded User Experience
+The embedded user experience remains largely similar to the previous version, with only minor [adjustments to endpoints](pages/upgrading_to_rocketdocument_v2.md) and [events](pages/ux-component-events.md).
+
+### List Templates
+Easily retrieve a list of templates through the [Get Templates List](link) endpoint.
+
+### Median Time to Complete
+Access data regarding the median time to complete each template, helping partners optimize the interview process.
+
+### State-Specific Documents
+Partners can now identify and filter documents specific to certain states, ensuring compliance and relevance.
+
+### Resume Interviews
+By using the [Retrieve Interview by ID](link) endpoint, partners can allow end users to resume their interviews from where they left off.
