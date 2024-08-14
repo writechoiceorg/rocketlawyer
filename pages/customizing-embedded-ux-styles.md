@@ -14,7 +14,7 @@ These steps will ensure that the **RocketDocument Embedded UX** reflects your br
 
 ## Supported CSS Properties
 
-The **RocketDocument Embedded UX** component supports a range of CSS properties that can be customized. These properties control various aspects of the user interface, including colors, fonts, and spacing. Below is a list of customizable CSS variables along with their default values.
+The **RocketDocument Embedded UX** component supports a range of CSS properties that can be customized. These properties control various aspects of the user interface, including colors, fonts, and spacing. Below is a list of customizable CSS variables, along with their default values.
 
 ### Interview Form Styles
 
@@ -22,29 +22,29 @@ The following variables allow you to customize the color and appearance of actio
 
 - `--rl-action-primary-default`: Sets the primary color for interactive elements within the interview form. The default color is `#D68021`, and it is applied to the following components:
 
-  - **Tell me more link**: Text font color
-  - **Checkboxes**: Fill color for all checkboxes
-  - **RadioButtons**: Fill color for all radio buttons
-  - **Add Another**: Font color and plus sign color
-  - **Input fields**: Border color when focused
-  - **Primary buttons**: Background color
-  - **Secondary buttons**: Font and border color
+  - **Tell me more link**: Text font color.
+  - **Checkboxes**: Fill color for all checkboxes.
+  - **RadioButtons**: Fill color for all radio buttons.
+  - **Add Another**: Font color and plus sign color.
+  - **Input fields**: Border color when focused.
+  - **Primary buttons**: Background color.
+  - **Secondary buttons**: Font and border color.
 
 - `--rl-action-primary-disabled`: Sets the color for action buttons when they are disabled. The default color is `#EFCCA6`, and it is applied to the following components:
 
-  - **Primary buttons**: Background color when disabled
-  - **Secondary buttons**: Font and border color when disabled
+  - **Primary buttons**: Background color when disabled.
+  - **Secondary buttons**: Font and border color when disabled.
 
 - `--rl-action-primary-hover`: Defines the color for action buttons when hovered over. The default color is `#BA6102`, and it is applied to the following components:
 
-  - **Primary buttons**: Background color when hovering
-  - **Secondary buttons**: Border and font color when hovering
+  - **Primary buttons**: Background color when hovering.
+  - **Secondary buttons**: Border and font color when hovering.
 
 - `--rl-action-primary-pressed`: Sets the primary color for interactive elements when they are pressed or active. The default color is `#E89338`, and it is applied to the following components:
 
-  - **Tell me more link**: Changes the font color
-  - **Primary buttons**: Background color when active
-  - **Add Another link**: Changes the font color
+  - **Tell me more link**: Changes the font color.
+  - **Primary buttons**: Background color when active.
+  - **Add Another link**: Changes the font color.
 
 ### Attribution Styles
 
@@ -120,8 +120,8 @@ Further customize the UI with these CSS variables:
 - `--rl-powered-by`: Defines the font color for the `Powered by` attribution at the end of the page.
 - `--rl-text-body-tertiary`: Defines the font color for the `Saved` text that shows up when the interview is saved.
 - `--rl-text-header`: This defines the font color for the following elements:
-  - Question title: `What payment methods will be accepted?`
-  - Question description (hint): `If you'd like to add another form of payment, enter it in the space provided below`
-  - Label for all the fields: `Other Form of Payments`
+  - Question title: `What payment methods will be accepted?`.
+  - Question description (hint): `If you'd like to add another form of payment, enter it in the space provided below`.
+  - Label for all the fields: `Other Form of Payments`.
 
 
