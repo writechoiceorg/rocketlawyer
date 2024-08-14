@@ -57,7 +57,35 @@ paths:
         '401':
           description: Unauthorized
       deprecated: false
-
+    get:
+      tags:
+        - Interviews
+      operationId: list-interviews
+      summary: List All Interviews
+      description: |
+        This endpoint retrieves a list of interviews linked to the partner. You can optionally filter the results by `partnerEndUserId` to narrow the list to a specific end user. The response includes the interview names, IDs, templates used, current statuses, and storage types.
+      parameters:
+        - name: partnerEndUserId
+          in: query
+          description: |
+            The unique identifier of the partner's end user used to filter the list of interviews. If provided, only interviews associated with this end user will be returned.
+          schema:
+            $ref: "#/components/schemas/partnerEndUserId"
+          required: false
+      responses:
+        "200":
+          description: |
+            Successfully returns the status of all interviews belonging to the partner.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/interviewsGetResponse"
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+      deprecated: false
+      
   /interviews/{interviewId}:
     get:
       tags:
@@ -695,6 +723,7 @@ components:
           $ref: "#/components/schemas/interviewId"
         storageType:
           $ref: "#/components/schemas/storageType"
+          example: ephemeral
         document:
           $ref: "#/components/schemas/document"
       required:
