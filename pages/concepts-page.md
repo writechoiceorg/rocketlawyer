@@ -1,15 +1,13 @@
-## Concepts and Definitions
-
 Understanding some foundational concepts about Rocket Lawyer's architecture is crucial for effectively integrating with its services. This page presents the essential concept definitions you need to know as you begin the integration process.
 
-### Table of Contents
+## Table of Contents
 
 1. [**RocketDocument™**](#rocketdocument)   
 2. [**RocketSign**](#rocketsign)   
 3. [**Authentication**](#authentication)  
 4. [**Identifiers**](#identifiers)
 
-### RocketDocument™
+## RocketDocument™
 
 In this section, we provide definitions for terms related to **RocketDocument™**:
 
@@ -21,7 +19,7 @@ In this section, we provide definitions for terms related to **RocketDocument™
 
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user's answers.
 
-### RocketSign
+## RocketSign
 
 In this section, we provide definitions for terms related to **RocketSign**:
 
@@ -39,7 +37,7 @@ In this section, we provide definitions for terms related to **RocketSign**:
 
 - **iFrame**: An HTML element used to embed RocketSign Embedded UX into a webpage. It displays the RocketSign interface and allows users to interact with it directly within your platform.
 
-### Authentication
+## Authentication
 
 In this section, we provide definitions for terms related to **Authentication**:
 
@@ -53,7 +51,7 @@ In this section, we provide definitions for terms related to **Authentication**:
 
 - **UPID (Universal Party ID)**: UPID stands for Universally Unique IDentifier of the Party viewing the document. It is used to specify the party in requests related to service tokens. For more information about the UPID, refer to the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketsign-embedded-ux).
 
-### **Identifiers**
+## **Identifiers**
 
 In this section, we provide definitions for terms related to **Identifiers**:
 
