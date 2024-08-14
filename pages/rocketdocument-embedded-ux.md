@@ -33,7 +33,7 @@ Before interacting with the RocketDocument API, you must authenticate your calls
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
 ```http
-POST https://api-sandbox.rocketlawyer.com/partners/v2/auth/accesstoken
+POST https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken
 ```
 
 Include the credentials (`client_id` and `client_secret`) and `grant_type`:
@@ -148,12 +148,15 @@ Simplified webpage example:
 <html lang="en">
   <head>
     <title>RocketDocument Demo</title>
-    <script src="https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js"></script>
+    <script
+         type="module"
+         src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
+    </script>
   </head>
   <body>
     <div class="content">
-      <rocket-document 
-        serviceToken="..." 
+      <rocket-document
+        serviceToken="..."
         interviewId="..."></rocket-document>
     </div>
   </body>
