@@ -161,7 +161,7 @@ Simplified webpage example:
 
 ## Step 4: Display Your Document
 
-After loading RocketDocument Embedded UX, your interview should be interactive. Make sure that the interview loads properly and offers a visual representation of the embedded interface, as shown in the image below.
+After loading **RocketDocument Embedded UX**, your interview should be interactive. Make sure to access the visual representation of the embedded interface, as shown in the image below. You can check the [UX Events](/pages/ux-component-events.md) page for additional information about checking the triggered events.
 
 ![RocketDocument Embedded UX](https://rl-cicdv2-apigee-public-prod.apigee.io/files/RocketDocument-Embedded-Mobile.png)
 
