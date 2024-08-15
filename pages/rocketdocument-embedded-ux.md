@@ -167,48 +167,6 @@ After loading RocketDocument Embedded UX, your interview should be interactive. 
 
 > **Success!** You've successfully displayed the document using **RocketDocument Embedded UX**.
 
-## Step 5 (Optional): Integrate with **RocketSign**
-
-For platforms that require digital signatures, integrating RocketSign with RocketDocument adds this capability. In this step, you will learn how to retrieve the interview JSON object, save the **binderId**, and reuse the service token for RocketSign. This optional step extends the functionality of your integrated solution to include electronic signatures.
-
-To integrate with **RocketSign**, retrieve the Interview JSON Object and save the **binderId**. Keep the service token (`rl-rdoc-servicetoken`) for reuse with RocketSign.
-
-**Request**
-
-```http
-GET https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}
-```
-
-**Example Response**
-
-```json
-{
-  "binder": {
-    "binderId": "0af17ba7-f332-5346-bb3f-00b7c9af7deb",
-    "documentId": "7d989647-ecf2-4673-9486-80c3b890ed3c"
-  },
-  "interview": {
-    "answersPayload": {
-      "version": 2,
-      "Fk8jctrn744ku5": true,
-      "Fk8jd1no93zprz": "My Business",
-      "Fk8jd4pfntjpvf": false,
-      "Fk8jdel8mfwiot": "415 9999999"
-    },
-    "createdAt": "2020-12-01T17:51:40.795Z",
-    "updatedAt": "2021-12-01T18:51:40.795Z",
-    "interviewName": "Employment contract",
-    "interviewId": "0af17ba7-f332-5346-bb3f-00b7c9af7deb",
-    "interviewStatus": "created",
-    "templateVersionId": "7d989647-ecf2-4673-9486-80c3b890ed3c"
-  },
-  "template": {
-    "name": "string",
-    "payload": "string"
-  }
-}
-```
-
 ## Next Steps
 
 You’ve successfully created, displayed, and interacted with a document interview. To further enhance your integration and explore additional capabilities, check out the following resources:
