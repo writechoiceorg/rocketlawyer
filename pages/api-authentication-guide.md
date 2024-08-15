@@ -11,15 +11,15 @@ Explore the different authentication tokens and their usage within Rocket Lawyer
 
 ## Access Token
 
-An Access Token is a secure, server-to-server token created using a client key and secret. It is essential for authenticating API requests and granting broad access to Rocket Lawyer’s APIs. This token is primarily used for server-side interactions, enabling applications to perform actions such as managing interviews, retrieving documents, and handling multiple user sessions.
+An Access Token is a secure, server-to-server token created using key & secret. It is essential for authenticating API requests and granting broad access to Rocket Lawyer’s APIs. This token is primarily used for server-side interactions, enabling applications to perform actions such as managing interviews, retrieving documents, and handling multiple user sessions.
 
 Access Tokens are used whenever an application needs to interact with Rocket Lawyer’s API services at a broad level. This includes starting new interviews, accessing all documents created by the app, or performing administrative tasks that involve multiple users.
 
-To use an Access Token, generate it by calling the Authentication API with your app’s client key and secret. Once obtained, include the Access Token in the Authorization header of your API requests to ensure secure communication with Rocket Lawyer’s services.
+To use an Access Token, generate it by calling the Authentication API with your app’s client key & secret. Once obtained, include the Access Token in the Authorization header of your API requests to ensure secure communication with Rocket Lawyer’s services.
 
 ## Service Token
 
-A Service Token is a temporary token created for specific purposes, such as securing interactions related to individual users or sessions. This token is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID). It is primarily used to generate Scoped Access Tokens, which provide more granular control over resource access.
+A Service Token is created for specific purposes, such as securing interactions related to individual users or sessions. This token is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID). It is primarily used to generate Scoped Access Tokens, which provide more granular control over resource access.
 
 Service Tokens are utilized when there’s a need to restrict access to specific documents or interviews. They ensure that only authorized users can interact with these resources by creating Scoped Access Tokens tied to individual users or specific sessions.
 
