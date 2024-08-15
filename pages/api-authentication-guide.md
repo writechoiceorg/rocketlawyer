@@ -1,6 +1,4 @@
-# Rocket Lawyer Authentication Tokens
-
-Authentication tokens play a critical role in ensuring secure access to Rocket Lawyer’s API services. This page provides a comprehensive overview of the three main types of tokens—Access Token, Service Token, and Scoped Access Token—along with guidance on how to use these tokens effectively during the document interview process.
+Authentication tokens are critical to secure access to Rocket Lawyer’s API services. This page provides a comprehensive overview of the three main types of tokens—Access Token, Service Token, and Scoped Access Token—along with guidance on using these tokens effectively during the document interview process.
 
 Explore the different authentication tokens and their usage within Rocket Lawyer's API ecosystem through the sections below:
 
@@ -11,25 +9,19 @@ Explore the different authentication tokens and their usage within Rocket Lawyer
 
 ## Access Token
 
-An Access Token is a secure, server-to-server token created using key & secret. It is essential for authenticating API requests and granting broad access to Rocket Lawyer’s APIs. This token is primarily used for server-side interactions, enabling applications to perform actions such as managing interviews, retrieving documents, and handling multiple user sessions.
-
 Access Tokens are used whenever an application needs to interact with Rocket Lawyer’s API services at a broad level. This includes starting new interviews, accessing all documents created by the app, or performing administrative tasks that involve multiple users.
 
-To use an Access Token, generate it by calling the Authentication API with your app’s client key & secret. Once obtained, include the Access Token in the Authorization header of your API requests to ensure secure communication with Rocket Lawyer’s services.
+To use an Access Token, generate it by calling the Authentication API with your app’s client key & secret, which you can obtain through [the RocketLawyer portal](https://developer.rocketlawyer.com/). Once received, include the Access Token in the Authorization header of your API requests to ensure secure communication with Rocket Lawyer’s services.
 
 ## Service Token
 
-A Service Token is created for specific purposes, such as securing interactions related to individual users or sessions. This token is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID). It is primarily used to generate Scoped Access Tokens, which provide more granular control over resource access.
-
-Service Tokens are utilized when there’s a need to restrict access to specific documents or interviews. They ensure that only authorized users can interact with these resources by creating Scoped Access Tokens tied to individual users or specific sessions.
+A Service Token is created for specific purposes. In this case, it is used to generate the Scoped Access Token. The Service Token is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID), ensuring it will only be used for its intended purpose.
 
 Generate a Service Token by sending a request to the authentication endpoint with the necessary parameters. Once generated, use the Service Token to create a Scoped Access Token, which enforces restricted access to designated resources.
 
 ## Scoped Access Token
 
-A Scoped Access Token is a secure token designed for frontend interactions where security is paramount. It grants restricted access to specific resources, such as documents or interviews linked to a particular user (identified by a UPID). This token is created using a Service Token, ensuring that access is carefully managed and limited to the intended user.
-
-Scoped Access Tokens are used in scenarios where frontend applications need to interact with specific documents or interviews securely. They ensure that only the authorized user can access these resources, making them ideal for frontend implementations that require strict access control.
+A Scoped Access Token is a secure token designed for frontend interactions where security is paramount. It grants restricted access to specific resources, such as documents or interviews linked to a particular user (identified by a UPID). This token is created using a Service Token, ensuring access is managed carefully and limited to the intended user.
 
 To obtain a Scoped Access Token, first, generate a Service Token. Then, use the Service Token to request the Scoped Access Token from the authentication API. This token should be included in the Authorization header of your frontend API requests to maintain secure, user-specific access to the necessary resources.
 
@@ -37,16 +29,128 @@ To obtain a Scoped Access Token, first, generate a Service Token. Then, use the 
 
 Authentication tokens are integral to managing the interview process securely and efficiently. Here’s how to use them:
 
-### Initializing the Interview
+### Creating an Access Token
 
-Begin by generating an Access Token to authenticate the initial API requests. This token is used to start a new interview and retrieve the necessary document templates, establishing a secure foundation for the session.
+Begin by generating an Access Token to authenticate the initial API requests. This token is used to start a new interview and retrieve the necessary document templates, establishing a secure foundation for the session. To generate the Access Token, you will send a request such as the one in the example below:
 
-### Securing the Interview Session
+**Request:**
+```curl
+curl --request POST \
+     --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken' \
+     --header 'Content-Type: application/json' \
+     --data '
+{
+    "grant_type": "client_credentials",
+    "client_id": "{{partnerClientId}}",
+    "client_secret": "{{partnerClientSecret}}"
+}
+'
+```
 
-Once the interview is initiated, create a Service Token to secure the session further. This token is then used to generate a Scoped Access Token, ensuring that access to the interview and associated documents is limited to the specific user.
+In this request, you will send the `client_id` and `client_secret` values, which you can obtain through [the RocketLawyer portal](https://developer.rocketlawyer.com/). After logging in with your credentials, click on your email address in the top right corner and access the **Apps** dashboard. Select your app, go to the **API Keys** section, and find the `cliend_id` under **Key** and the `client_secret` under **Secret**.
 
-### Completing the Interview
+**Response:**
+```json
+{
+    "refresh_token_expires_in": "0",
+    "api_product_list": "[partner-event-api-subscription-product-sandbox, rocketdoc-api-product-sandbox, partner-auth-service-product-sandbox, binders-product-document-manager-sandbox]",
+    "api_product_list_json": [
+        "partner-event-api-subscription-product-sandbox",
+        "rocketdoc-api-product-sandbox",
+        "partner-auth-service-product-sandbox",
+        "binders-product-document-manager-sandbox"
+    ],
+    "organization_name": "rocketlawyer",
+    "developer.email": "developer@rocketlawyer.com",
+    "token_type": "BearerToken",
+    "issued_at": "1723146278357",
+    "client_id": "ZEAURAIq2q7ngQMBxRdvGFOQmy7q57xWxVW2nVP4EGzLy68H",
+    "access_token": "{{generalAccessToken}}",
+    "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
+    "scope": "",
+    "expires_in": "35999",
+    "refresh_count": "0",
+    "status": "approved"
+}
+```
 
-As the interview progresses, use the Scoped Access Token to securely submit user responses and, ultimately, retrieve the final document. This ensures that each step of the interview process is securely managed, with appropriate access controls in place.
+Your Access Token will returned in the `access_token` object. You should securely store this token in your backend for use in future requests.
 
+### Creating a Service Token
 
+Once the interview is initiated, create a Service Token to secure the session further. This token is then used to generate a Scoped Access Token, ensuring that access to the interview and associated documents is limited to the specific user. Below, you will see an example request for creating a Service Token:
+
+**Request:**
+
+```curl
+curl --request POST \
+     --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/servicetoken' \
+     --header 'Content-Type: application/json' \
+     --header 'Authorization: Bearer {{generalAccessToken}}' \
+     --data '
+{
+   "purpose" : "api.rocketlawyer.com/rocketdoc",
+   "interviewId" : "42313c4d-11bb-414a-81a4-9fda067d1ae7",
+   "partnerEndUserId" : "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+   "expirationTime": 1753696695
+}
+'
+```
+
+This request will return a response with the service token string for the `token` object.
+
+**Response:**
+
+```json
+{
+    "purpose": "api.rocketlawyer.com/rocketdoc",
+    "expirationTime": "1753696695",
+    "token": "{{serviceToken}}"
+}
+```
+
+### Creating a Scoped Access Token
+
+As the interview progresses, use the Scoped Access Token to submit requests for each Interview Page. This token is used by the front-end application, which means it is visible to the browser. That is why you will not use the general Access Token, which allows access to all functionalities enabled for the partner. The Scoped Access Token allows access only to the informed `interviewId`. Create a Scoped Access Token using the Service Token as an authenticator for the request, as exemplified below:
+
+**Request:**
+```curl
+curl --request POST \
+     --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/accesstoken' \
+     --header 'Content-Type: application/json' \
+     --data '
+{
+    "grant_type": "authorization_code",
+	"client_id" : "{{partnerClientId}}",
+	"client_secret" : "{{partnerClientSecret}}",
+	"code" : "{{serviceToken}}"
+}
+'
+```
+
+The response will return the Scoped Access Token under the `access_token` object.
+
+**Response:**
+```json
+{
+    "refresh_token_expires_in": "0",
+    "api_product_list": "[partner-event-api-subscription-product-sandbox, rocketdoc-api-product-sandbox, partner-auth-service-product-sandbox, binders-product-document-manager-sandbox]",
+    "api_product_list_json": [
+        "partner-event-api-subscription-product-sandbox",
+        "rocketdoc-api-product-sandbox",
+        "partner-auth-service-product-sandbox",
+        "binders-product-document-manager-sandbox"
+    ],
+    "organization_name": "rocketlawyer",
+    "developer.email": "developer@rocketlawyer.com",
+    "token_type": "BearerToken",
+    "issued_at": "1723146287236",
+    "client_id": "{{partnerClientId}}",
+    "access_token": "{{scopedAccessToken}}",
+    "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
+    "scope": "",
+    "expires_in": "35999",
+    "refresh_count": "0",
+    "status": "approved"
+}
+```
