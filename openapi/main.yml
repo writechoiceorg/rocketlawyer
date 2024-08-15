@@ -22,7 +22,7 @@ paths:
         **Persistent Interviews**: 
         - Provide a reference to a Binder (`binderId`) or an owner email (`partyEmailAddress`).
         - If a `binderId` is provided, the new interview will be created within the context of this Binder.
-        - If a `partyEmailAddress` is used, a new Binder is created.
+        - If `binderId` isn't provided, a new binder will be created.
         - User-entered information will be stored by Rocker Lawyer.
 
         **Ephemeral Interviews**: 
@@ -30,7 +30,8 @@ paths:
         - No user-entered information will be stored.
 
         **Service Token**:
-        - A service token is provided in the response header, scoped to the interview resource for all requests except for persistent interviews when a Binder reference is provided.
+        - A service token is provided in the response header, scoped to the `partyId` for persistent interviews and scoped to the `interviewId` for ephemerals.
+
       requestBody:
         content:
           application/json:
