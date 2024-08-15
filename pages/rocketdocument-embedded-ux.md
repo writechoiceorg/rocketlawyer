@@ -183,6 +183,15 @@ Add the JavaScript code below in order to listen to the event:
 
 For additional information, see the [UX Events](/pages/ux-component-events.md) page.
 
+## Customizing the Embedded UX Component
+
+To customize the **RocketDocument Embedded UX** component to match your brand's look and feel, follow the steps below:
+
+1. **Submit Your Style Preferences**: Fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSddJPPg0onclKYf2IIyRehCYwlTtlcogXXXxo0ZlwtZLd3ZZQ/viewform?fbzx=5836941555539130795) with your desired styles, including colors, logos, and button corner radius.
+2. **Create a Request in the Partner Portal**: Once your style preferences are ready, submit a customization request through the [partner portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10). The Rocket Lawyer team will make the changes to the component appearance.
+   
+These steps will ensure that the **RocketDocument Embedded UX** reflects your brand’s identity and provides a consistent user experience across your platform.
+
 ## Next Steps
 
 You’ve successfully created, displayed, and interacted with a document interview. To further enhance your integration and explore additional capabilities, check out the following resources:
