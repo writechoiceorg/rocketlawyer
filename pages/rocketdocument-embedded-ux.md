@@ -167,7 +167,7 @@ After loading **RocketDocument Embedded UX**, your interview should be interacti
 
 ## Step 5: Handle Interview Completion
 
-After the interview process is complete, the **RocketDocument Embedded UX** component will fire an `interview-completed` event. It will also tell the `ParentUI` that no further processes are running or yet remain to be completed. It is up to the `ParentUI` to take the user to the next screen since the RocketDocument only fires the event.
+After completing the interview process, the **RocketDocument Embedded UX** component will fire an `interview-completed` event. This will also tell the `ParentUI` that no further processes are running or have yet to be completed. Since the RocketDocument only fires the event, it is up to the `ParentUI` to take the user to the next screen.
 
 Add the JavaScript code below in order to listen to the event:
 
