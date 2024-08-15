@@ -1,6 +1,6 @@
 # Rocket Lawyer Authentication Tokens
 
-Authentication tokens play a critical role in securing access to Rocket Lawyer’s API services, ensuring that only authorized users can interact with sensitive resources. This guide provides an overview of the Access Token, Service Token, and Scoped Access Token, detailing their use cases and instructions on how to implement them effectively during the document interview process.
+Authentication tokens play a critical role in ensuring secure access to Rocket Lawyer’s API services. This page provides a comprehensive overview of the three main types of tokens—Access Token, Service Token, and Scoped Access Token—along with guidance on how to use these tokens effectively during the document interview process.
 
 Explore the different authentication tokens and their usage within Rocket Lawyer's API ecosystem through the sections below:
 
@@ -11,25 +11,31 @@ Explore the different authentication tokens and their usage within Rocket Lawyer
 
 ## Access Token
 
-The Access Token is fundamental to API authentication within Rocket Lawyer’s ecosystem, facilitating secure communication between your application and Rocket Lawyer’s API services. This secure, time-sensitive token is generated using the client ID and client secret from an app registered on the Rocket Lawyer Developer Portal. It serves as both an authentication and authorization tool, providing your application with the necessary access to Rocket Lawyer’s extensive suite of services.
+An Access Token is a secure, server-to-server token created using a client key and secret. It is essential for authenticating API requests and granting broad access to Rocket Lawyer’s APIs. This token is primarily used for server-side interactions, enabling applications to perform actions such as managing interviews, retrieving documents, and handling multiple user sessions.
 
-You will rely on the Access Token whenever your application needs to perform tasks involving Rocket Lawyer’s API, such as starting new interviews, retrieving document templates, or managing documents across multiple users. To use the Access Token, generate it through the Authentication API using your app’s credentials. Once obtained, include the Access Token in the Authorization header of your API requests to ensure secure and authenticated interactions with Rocket Lawyer’s services.
+Access Tokens are used whenever an application needs to interact with Rocket Lawyer’s API services at a broad level. This includes starting new interviews, accessing all documents created by the app, or performing administrative tasks that involve multiple users.
+
+To use an Access Token, generate it by calling the Authentication API with your app’s client key and secret. Once obtained, include the Access Token in the Authorization header of your API requests to ensure secure communication with Rocket Lawyer’s services.
 
 ## Service Token
 
-The Service Token is a specialized token used to secure interactions related to specific users or sessions within Rocket Lawyer’s API ecosystem. This temporary token is generated for a particular user or session, using parameters such as the purpose, interview ID, and Unique Party Identifier (UPID). The primary function of a Service Token is to facilitate the creation of a Scoped Access Token, enabling more granular control over resource access.
+A Service Token is a temporary token created for specific purposes, such as securing interactions related to individual users or sessions. This token is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID). It is primarily used to generate Scoped Access Tokens, which provide more granular control over resource access.
 
-Use a Service Token when you need to restrict access to specific documents or interviews within the Rocket Lawyer platform, ensuring that only authorized users can interact with these resources. To generate a Service Token, make a request to the authentication endpoint with the necessary parameters. Once the Service Token is obtained, it can be used to create a Scoped Access Token, which enforces limited access to the designated resources.
+Service Tokens are utilized when there’s a need to restrict access to specific documents or interviews. They ensure that only authorized users can interact with these resources by creating Scoped Access Tokens tied to individual users or specific sessions.
+
+Generate a Service Token by sending a request to the authentication endpoint with the necessary parameters. Once generated, use the Service Token to create a Scoped Access Token, which enforces restricted access to designated resources.
 
 ## Scoped Access Token
 
-The Scoped Access Token is designed to provide secure, restricted access to specific resources, making it especially suitable for frontend interactions where maintaining security is paramount. This token grants controlled access to particular documents or interviews linked to a specific user, identified by their Unique Party Identifier (UPID). It is generated using a Service Token, ensuring that access is carefully managed and limited.
+A Scoped Access Token is a secure token designed for frontend interactions where security is paramount. It grants restricted access to specific resources, such as documents or interviews linked to a particular user (identified by a UPID). This token is created using a Service Token, ensuring that access is carefully managed and limited to the intended user.
 
-A Scoped Access Token should be used when frontend applications need to securely interact with specific documents or interviews, ensuring that only the authorized user can access these resources. To obtain a Scoped Access Token, first, generate a Service Token, and then use it to request the Scoped Access Token from the authentication API. This token should be included in the Authorization header of your frontend API requests to ensure secure, user-specific access to the required resources.
+Scoped Access Tokens are used in scenarios where frontend applications need to interact with specific documents or interviews securely. They ensure that only the authorized user can access these resources, making them ideal for frontend implementations that require strict access control.
+
+To obtain a Scoped Access Token, first, generate a Service Token. Then, use the Service Token to request the Scoped Access Token from the authentication API. This token should be included in the Authorization header of your frontend API requests to maintain secure, user-specific access to the necessary resources.
 
 ## Using Authentication Tokens During the Interview Process
 
-During the interview process, different authentication tokens are used to manage and secure the interaction from start to finish, ensuring that user data and documents are protected throughout.
+Authentication tokens are integral to managing the interview process securely and efficiently. Here’s how to use them:
 
 ### Initializing the Interview
 
@@ -42,4 +48,5 @@ Once the interview is initiated, create a Service Token to secure the session fu
 ### Completing the Interview
 
 As the interview progresses, use the Scoped Access Token to securely submit user responses and, ultimately, retrieve the final document. This ensures that each step of the interview process is securely managed, with appropriate access controls in place.
+
 
