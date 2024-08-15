@@ -24,11 +24,15 @@ Explore definitions for terms related to **RocketDocument™**:
 
 - **RocketDocument™:** This product enables customers to create and customize legal documents through a dynamic, interactive interview process. The product consists in both an Embedded UX and the API endpoints. RocketDocument™ is designed to smooth the document creation process by guiding users through an interactive interview to collect specific details for the document.
 
-- **Interview:** A guided interview is a question-and-answer session that adjusts based on the user's answers, providing a tailor-made document creation experience.
+- **Interview:** A guided interview is a question-and-answer session that adjusts based on the user's answers, providing a tailor-made document creation experience. It can have two different storage types:
+    - **Persistent Interview:** A persistent interview will send each answer the user fills to the RocketLawyer's servers. The data will be stored there and when the user finishes the interview, it will be returned to genarate the completed document.
+    - **Ephemeral Interview:** An ephemeral interview will not send data to RocketLawyer's servers. The data managing will be under the partner's discretion, and will need to be returned in its entirity when the user finishes the interview and requests the filled document.
 
 - **Document Template:** This serves as the blueprint for a legal document, containing static legal content, the layout for dynamic content, and control logic that dictates the flow and customization of questions during the interview.
 
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user's answers.
+
+- **Tagged Answer Model (TAM):** The TAM is a structure that represents the data that a specific Document Template contains. In the TAM, you can access the questions that the client will see, input answers that you already have, or retrieve data from already filled Interviews.
 
 ## RocketSign™
 
@@ -68,7 +72,9 @@ Explore definitions for terms related to **Authentication**:
 
 - **Access Token:** Your backend systems use an Access Token to enable deep integrations with Rocket Lawyer services, such as requesting lists of interviews or binders and obtaining access tokens for specific binders. You use the `AccessTokenRequest` endpoint to get the Access Token. For more information on how to work with Access Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
-- **Service Token:** Your client applications use a Service Token to activate Rocket Lawyer UX components, enabling users to interact with features such as creating and signing legal documents. You use the `ServiceTokenRequest` endpoint to get the Service Token. For more information on how to work with Service Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
+- **Service Token:** The Service Token is an intermediary for creating a Scoped Access Token. You will need to have an Access Token to create a Service Token and will need to use the Service Token to create a Scoped Access Token. For more information on how to work with Service Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
+
+- **Scoped Access Token:** When dealing with front-end matters, you will need a Scoped Access Token. In this situation, the tokens get exposed to the browser, which is why you need a token with a very specific use that cannot be used for purposes other than dealing with the pages displayed to the user.
 
 - **Backend Access Token:** This token is intended for use by your backend systems and allows deep integration with Rocket Lawyer data. It is obtained through a POST request to the Authentication API and authorizes backend API calls.
 
