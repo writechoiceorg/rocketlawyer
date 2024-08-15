@@ -1,14 +1,14 @@
-RocketDoc API v2 brings significant improvements and new features to enhance the experience for both API partners and end users. This document provides an overview of the key updates, focusing on enhancements in the embedded user experience, new functionalities like Data I/O for pre-filling and retrieving interview data, and additional features designed to streamline and optimize the document creation process.
+This page outlines the key changes in RocketDoc API v2, highlighting new features such as custom user experience options, enhanced data handling with Data I/O, and updates to embedded user experiences. It also details adjustments to API endpoints, additional response information, and improvements in event handling, providing a comprehensive overview for users familiar with v1 who are exploring the upgrades in v2.
 
 ## New Features
 
 ### Custom User Experience
 
-API partners can now create a [custom user experience directly through the API](pages/build_custom_ui.md). This feature allows full customization, enabling partners to reflect their brand identity and visual preferences seamlessly within the user experience.
+API partners can now create a [custom user experience directly through the API](pages/rocket-document-v2-build-your-own-ui). This feature allows full customization, enabling partners to seamlessly reflect their brand identity and visual preferences within the user experience. It offers the same utilities as the [RocketDocument Embedded UX](/pages/glossary), such as choosing the [template](/pages/glossary), persistent and ephemeral [interviews](/pages/glossary), and generating the finished [document](/pages/glossary), but with more customization options.
 
 ### Data I/O
 
-The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners to import data to and extract data from interviews using Tagged Answer Models (TAM).
+The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners to import data to and extract data from interviews using [Tagged Answer Models (TAM)](/pages/glossary). TAMs are the model of questions that a particular template uses.
 
 #### Benefits
 
@@ -19,16 +19,20 @@ The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners
 ## Additional Enhancements
 
 ### Embedded User Experience
-The embedded user experience remains largely similar to the previous version, with only minor [adjustments to endpoints](pages/upgrading_to_rocketdocument_v2.md) and [events](pages/ux-component-events.md).
+The user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
+- **Adjustments to Endpoints:** Endpoints have changed from the v1 format (/rocketdoc/v1/interviews) to the v2 format (/v2/interviews). Check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page for more information.
+- **More Information on Responses:** The v2 endpoints also return more information, such as the new `medianMinutesToComplete` object in the [Retrieve a Template by ID](link) endpoint that returns how many minutes an end user takes to complete an interview of that template.
+- **Changes to Events:** The list of events was updated. Check the [UX Component Events](pages/ux-component-events) page for more information.
 
-### List Templates
-Easily retrieve a list of templates through the [Get Templates List](link) endpoint.
-
-### Median Time to Complete
-Access data regarding the median time to complete each template, helping partners optimize the interview process.
+### Templates
+Easily retrieve a list of templates a partner can access through the [Get Templates List](link) endpoint. With the change to v2 endpoints, partners can now get HTML previews of documents, PDF thumbnails of a document's first page, short or long document descriptions, and the median time to complete an interview.
 
 ### State-Specific Documents
 Partners can now identify and filter documents specific to certain states, ensuring compliance and relevance.
 
 ### Resume Interviews
-By using the [Retrieve Interview by ID](link) endpoint, partners can allow end users to resume their interviews from where they left off.
+Partners can use the [Retrieve Interview by ID](link) endpoint to allow end users to resume their interviews from where they left off.
+
+## Further Information
+
+You can find more information on how to adapt your v1 setup for the new v2 endpoints in the [Quick Start Guide: Upgrading to RocketDocument v2](/upgrading_to_rocketdocument_v2). You can also test the new v2 API through our [v2 Postman collection](link).
