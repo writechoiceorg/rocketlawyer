@@ -1,16 +1,12 @@
-This page provides a step-by-step process for creating and customizing a Rocket Lawyer document using a simple interview-style experience. By following these steps, you'll be able to complete a document and display it using the **RocketSign® Embedded UX**.
+This page provides a step-by-step process for creating and customizing a Rocket Lawyer document using a simple interview-style experience. By following these steps, you'll be able to complete a document and display it using the **RocketDocument Embedded UX**.
 
 ## Items Required
 
 Ensure you have the following items ready to create and customize a Rocket Lawyer document:
 
-1. **Client Credentials**: Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).
+- **Client Credentials**: Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).
 
-2. **templateId**: This is the unique ID for the template used to initialize the interview. For this guide, we'll use the lease agreement with the templateID `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
-
-3. **partnerEndUserId**: An ID that identifies the end user in your system.
-
-4. **partyEmailAddress**: The email address of the end user for document notifications.
+- **templateId**: This is the unique ID for the template used to initialize the interview. For this guide, we'll use the lease agreement with the templateID `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
 
 > **Environment Setup:** Use `api-sandbox.rocketlawyer.com` for testing environments. When you're ready for production, switch to `api.rocketlawyer.com`. This applies to all interactions with the RocketDocument API.
 
@@ -139,7 +135,7 @@ The elements in this tag are:
 - `{rl-rdoc-servicetoken}`: The service token from Step 1. Learn more about it in the [Authentication API Documentation](/docs/partner-auth-service-product-sandbox/1/overview).
 - `{interview-id}`: From the response in Step 2.
 
-> **Important Distinction:** `{interview-id}` is the unique identifier for a specific interview session, while `templateId` refers to the ID of the document template used to initiate that interview. They are two different elements, so make sure you use the correct identifier for each step.
+> **Important Distinction:** `{interview-id}` is the unique identifier for a specific interview session, while `templateId` refers to the ID of the document template used to initiate that interview.
 
 Simplified webpage example:
 
