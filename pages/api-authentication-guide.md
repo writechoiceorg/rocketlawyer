@@ -1,4 +1,3 @@
-
 **Intro idea**
 
 This **API Authentication Guide** explains how to integrate with Rocket Lawyer APIs securely. It covers the different authentication tokens, roles, and security protocols. Whether you're a new partner or an experienced developer, this guide will help you understand API authentication and implement security measures in your applications.
@@ -6,6 +5,8 @@ This **API Authentication Guide** explains how to integrate with Rocket Lawyer A
 ## Introduction
 
 Authentication plays a critical role in Rocket Lawyer's API ecosystem. It ensures that only authorized users and systems can access sensitive legal data, providing a secure environment for all interactions. This guide will walk you through the key aspects of authentication, emphasizing the importance of security and access control in your integrations with Rocket Lawyer’s services.
+
+---
 
 **Ideas to improve the page** 
 
