@@ -1,20 +1,18 @@
-This documentation page provides guidance on customizing the **RocketDocument Embedded UX** component's styles using CSS variables. By leveraging these variables, Rocket Lawyer partners can align the user interface with their brand's visual identity, creating a consistent and cohesive user experience.
+This documentation page guides you on customizing the **RocketDocument Embedded UX** component's styles using CSS variables. By leveraging these variables, Rocket Lawyer partners can align the user interface with their brand's visual identity, creating a consistent and cohesive user experience.
 
 ## Customizing the Embedded UX Component
 
-To tailor the **RocketDocument Embedded UX** Component to match your brand's look and feel, follow the steps below:
+To tailor the **RocketDocument Embedded UX** component to match your brand's look and feel, follow the steps below:
 
-1. **Submit Your Style Preferences**:
-   - Fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSddJPPg0onclKYf2IIyRehCYwlTtlcogXXXxo0ZlwtZLd3ZZQ/viewform?fbzx=5836941555539130795) with your desired styles, including colors, logos, and button corner radius.
+1. **Submit Your Style Preferences**: Fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSddJPPg0onclKYf2IIyRehCYwlTtlcogXXXxo0ZlwtZLd3ZZQ/viewform?fbzx=5836941555539130795) with your desired styles, including colors, logos, and button corner radius.
 
-2. **Create a Request in the Partner Portal**:
-   - Once your style preferences are ready, submit a customization request through the [partner portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10).
+2. **Create a Request in the Partner Portal**: Once your style preferences are ready, submit a customization request through the [partner portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10).
 
-These steps will ensure that the **RocketDocument Embedded UX** reflects your brand’s identity and provides a consistent user experience across your platform.
+These steps will ensure that the **RocketDocument Embedded UX** reflects your brand’s identity and provides a consistent user experience across your platform. The following sections lists and explain all customization available.
 
 ## Supported CSS Properties
 
-The **RocketDocument Embedded UX** component supports a range of CSS properties that can be customized. These properties control various aspects of the user interface, including colors, fonts, and spacing. Below is a list of customizable CSS variables, along with their default values.
+The RocketDocument Embedded UX component supports a range of customizable CSS properties. These properties control several user interface aspects, including colors, fonts, and spacing. Below is a list of customizable CSS variables and their default values.
 
 ### Interview Form Styles
 
@@ -22,7 +20,7 @@ The following variables allow you to customize the color and appearance of actio
 
 - `--rl-action-primary-default`: Sets the primary color for interactive elements within the interview form. The default color is `#D68021`, and it is applied to the following components:
 
-  - **Tell me more link**: Text font color.
+  - **Tell me more**: Text font color of the link.
   - **Checkboxes**: Fill color for all checkboxes.
   - **RadioButtons**: Fill color for all radio buttons.
   - **Add Another**: Font color and plus sign color.
@@ -30,17 +28,17 @@ The following variables allow you to customize the color and appearance of actio
   - **Primary buttons**: Background color.
   - **Secondary buttons**: Font and border color.
 
-- `--rl-action-primary-disabled`: Sets the color for action buttons when they are disabled. The default color is `#EFCCA6`, and it is applied to the following components:
+- `--rl-action-primary-disabled`: Sets the color for action buttons when disabled. The default color is `#EFCCA6`, and it is applied to the following components:
 
-  - **Primary buttons**: Background color when disabled.
-  - **Secondary buttons**: Font and border color when disabled.
+  - **Primary buttons**: Background color.
+  - **Secondary buttons**: Font and border color.
 
 - `--rl-action-primary-hover`: Defines the color for action buttons when hovered over. The default color is `#BA6102`, and it is applied to the following components:
 
   - **Primary buttons**: Background color when hovering.
   - **Secondary buttons**: Border and font color when hovering.
 
-- `--rl-action-primary-pressed`: Sets the primary color for interactive elements when they are pressed or active. The default color is `#E89338`, and it is applied to the following components:
+- `--rl-action-primary-pressed`: Sets the primary color for interactive elements when pressed or active. The default color is `#E89338`, and it is applied to the following components:
 
   - **Tell me more link**: Changes the font color.
   - **Primary buttons**: Background color when active.
@@ -67,9 +65,9 @@ Customize the appearance of banners by adjusting the following CSS variables:
 
 Adjust the body text styles using the following CSS variables:
 
-- `--rl-body-default-font-size`: Defines the font size for the text that shows up below the interview question.
-- `--rl-body-default-font-weight`: Defines the font weight for the text that shows up below the interview question.
-- `--rl-body-default-line-height`: Defines the line height used for the text that shows up below the interview question (usually defined as the question hint).
+- `--rl-body-default-font-size`: Defines the font size for the text below the interview question.
+- `--rl-body-default-font-weight`: Defines the font weight for the text below the interview question.
+- `--rl-body-default-line-height`: Defines the line height used for the text below the interview question (usually defined as the question hint).
 - `--rl-body-medium-font-size`: Defines the font size of the document title present above the progress bar.
 - `--rl-body-medium-line-height`: Defines the line height of the text above the progress bar, including the document title and the `Saved` text that appears at some point.
 
@@ -77,9 +75,9 @@ Adjust the body text styles using the following CSS variables:
 
 The appearance of buttons can be customized using the following CSS variables:
 
-- `--rl-button-font-family`: Defines the font family for all the buttons present in the interview. For example, `Continue`, `Back`, `Preview document`, etc.
+- `--rl-button-font-family`: Defines the font family for all the buttons present in the interview, such as `Continue`, `Back`, `Preview document`, etc.
 - `--rl-button-border-radius`: Defines the border radius for all the buttons present in the interview.
-- `--rl-button-border-secondary`: Defines the border color for all the secondary buttons like the `Back` and `Continue answering` buttons.
+- `--rl-button-border-secondary`: Defines the border color for all the secondary buttons, such as the `Back` and `Continue answering` buttons.
 
 ### Font and Label Styles
 
@@ -98,10 +96,10 @@ To customize fonts and labels, use the following CSS variables:
 
 Customize input fields by modifying the following CSS variables:
 
-- `--rl-input-font-size`: Defines the font size for all the input fields like `dropdowns`, `textarea`, and `number` fields.
-- `--rl-input-font-weight`: Defines the font weight for all the input fields like `number`, `textarea` and `date` fields.
-- `--rl-input-padding`: Defines the padding for all the input fields like `number`, `textarea` and `date` fields.
-- `--rl-input-text`: defines the font color for all the input fields like `dropdowns`, `textarea` and `date` fields.
+- `--rl-input-font-size`: Defines the font size for all the input fields, such as `dropdowns`, `textarea`, and `number` fields.
+- `--rl-input-font-weight`: Defines the font weight for all the input fields, such as `number`, `textarea` and `date` fields.
+- `--rl-input-padding`: Defines the padding for all the input fields, such as `number`, `textarea` and `date` fields.
+- `--rl-input-text`: Defines the font color for all the input fields, such as `dropdowns`, `textarea` and `date` fields.
 
 ### Progress Bar Styles
 
@@ -111,14 +109,14 @@ Adjust the appearance of the progress bar using the following CSS variables:
 - `--rl-progress-bar-font-size`: Defines the font size of the text inside the progress bar.
 - `--rl-progress-bar-letter-spacing`: Defines the letter spacing of the text inside the progress bar.
 - `--rl-progress-bar-line-height`: Defines the line height of the text inside the progress bar.
-- `--rl-progress-bar-percentage-font-weight`: Defines the font weight of the text that shows the overall percentage inside the progress bar; it does not include the text `PROGRESS`.
+- `--rl-progress-bar-percentage-font-weight`: Defines the font weight of the text that shows the overall percentage inside the progress bar. It does not include the text `PROGRESS`.
 
 ### Additional Styles
 
 Further customize the UI with these CSS variables:
 
 - `--rl-powered-by`: Defines the font color for the `Powered by` attribution at the end of the page.
-- `--rl-text-body-tertiary`: Defines the font color for the `Saved` text that shows up when the interview is saved.
+- `--rl-text-body-tertiary`: Defines the font color for the `Saved` text that appears when the interview is saved.
 - `--rl-text-header`: This defines the font color for the following elements:
   - Question title: `What payment methods will be accepted?`.
   - Question description (hint): `If you'd like to add another form of payment, enter it in the space provided below`.
