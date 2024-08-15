@@ -2,6 +2,8 @@
 
 Authentication tokens play a critical role in securing access to Rocket Lawyer’s API services, ensuring that only authorized users can interact with sensitive resources. This guide provides an overview of the Access Token, Service Token, and Scoped Access Token, detailing their use cases and instructions on how to implement them effectively during the document interview process.
 
+Explore the different authentication tokens and their usage within Rocket Lawyer's API ecosystem through the sections below:
+
 - [Access Token](#access-token)
 - [Service Token](#service-token)
 - [Scoped Access Token](#scoped-access-token)
