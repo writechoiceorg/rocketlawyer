@@ -15,7 +15,7 @@ To use an Access Token, generate it by calling the Authentication API with your 
 
 ## Service Token
 
-A Service Token is created for specific purposes. In this case, it is used to generate the Scoped Access Token. The Service Token is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID), ensuring it will only be used for its intended purpose.
+A Service Token performs specific purposes, such as generating the Scoped Access Token. It is generated with parameters like the purpose, interview ID, and Unique Party Identifier (UPID), ensuring it will only be used for its intended purpose.
 
 Generate a Service Token by sending a request to the authentication endpoint with the necessary parameters. Once generated, use the Service Token to create a Scoped Access Token, which enforces restricted access to designated resources.
 
@@ -23,7 +23,7 @@ Generate a Service Token by sending a request to the authentication endpoint wit
 
 A Scoped Access Token is a secure token designed for frontend interactions where security is paramount. It grants restricted access to specific resources, such as documents or interviews linked to a particular user (identified by a UPID). This token is created using a Service Token, ensuring access is managed carefully and limited to the intended user.
 
-To obtain a Scoped Access Token, first, generate a Service Token. Then, use the Service Token to request the Scoped Access Token from the authentication API. This token should be included in the Authorization header of your frontend API requests to maintain secure, user-specific access to the necessary resources.
+To obtain a Scoped Access Token, you need to generate a Service Token first. Then, use the Service Token to request the Scoped Access Token from the authentication API. You should include this token in the Authorization header of your frontend API requests to maintain secure, user-specific access to the necessary resources.
 
 ## Using Authentication Tokens During the Interview Process
 
