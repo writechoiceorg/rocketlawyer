@@ -20,7 +20,7 @@ The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners
 
 ### Embedded User Experience
 The user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
-- **Adjustments to Endpoints:** Endpoints have changed from the v1 format (/rocketdoc/v1/interviews) to the v2 format (/v2/interviews). Check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page for more information.
+- **Adjustments to Endpoints:** Endpoints have changed from the v1 format (`/rocketdoc/v1/interviews`) to the v2 format (`/v2/interviews`). Check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page for more information.
 - **More Information on Responses:** The v2 endpoints also return more information, such as the new `medianMinutesToComplete` object in the [Retrieve a Template by ID](link) endpoint that returns how many minutes an end user takes to complete an interview of that template.
 - **Changes to Events:** The list of events was updated. Check the [UX Component Events](pages/ux-component-events) page for more information.
 
