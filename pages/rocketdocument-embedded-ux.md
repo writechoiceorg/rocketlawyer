@@ -4,7 +4,7 @@ This page provides a step-by-step process for creating and customizing a Rocket 
 
 Ensure you have the following items ready to create and customize a Rocket Lawyer document:
 
-- **Client Credentials**: Obtain these during the onboarding process, detailed in the [Welcome Guide](welcome-guide).
+- **Client Credentials**: Obtain these during the onboarding process, as detailed in the [Welcome Guide](welcome-guide).
 
 - **templateId**: This is the unique ID for the template used to initialize the interview. For this guide, we'll use the lease agreement with the templateID `04d9d0ba-3113-40d3-9a4e-e7b226a72154`.
 
@@ -12,19 +12,16 @@ Ensure you have the following items ready to create and customize a Rocket Lawye
 
 ## Overview
 
-Below, you find the links to all steps presented in this page. Use them to navigate to the desaried section.
+Below are the links to all the steps on this page. Use them to navigate to the desired section.
 
 1. [Generate an Access Token](#step-1-generate-an-access-token)
 2. [Create the Interview](#step-2-create-the-interview)
 3. [Access the RocketDocument UI](#step-3-access-the-rocketdocument-ui)
 4. [Display Your Document](#step-4-display-your-document)
-5. [Integrate with RocketSign (Optional)](#step-5-optional-integrate-with-rocketsign)
 
 ## Step 1: Generate an Access Token
 
 Before interacting with the RocketDocument API, you must authenticate your calls by obtaining an Access Token. You will use this token to authorize all subsequent API requests. In this step, you will learn how to generate an Access Token by calling the Authentication API.
-
-> **Token Usage Reminder:** The token you receive is tied to a specific binder but can be used across all Rocket Lawyer product APIs until it expires. Remember this to avoid unnecessary token requests.
 
 Authenticate each call to the **RocketDocument API** by obtaining an Access Token. Call the [Authentication API](/docs/partner-auth-service-product-sandbox/1/routes/accesstoken/post) as follows:
 
