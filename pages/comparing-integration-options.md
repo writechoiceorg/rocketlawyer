@@ -38,7 +38,7 @@ When deciding between the Embedded UX and Build Your Own UX options, it's crucia
    - **Embedded UX:** Limited to certain customizations like styles and configurations provided by Rocket Lawyer.
    - **Build Your Own UX:** Allows you to create a completely unique interface with full control over the design and interaction flow.
 
-## Get Started
+## Start the Integration
 
 Whether you opt for **Embedded UX** or **Build Your Own UX**, Rocket Lawyer provides comprehensive documentation and support to guide you through the process. Visit the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/) for more information and to begin your integration journey.
 
