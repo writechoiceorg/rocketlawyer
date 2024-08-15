@@ -1,58 +1,74 @@
-**Intro idea**
+In Rocket Lawyer’s API ecosystem, authentication tokens are crucial for ensuring secure access to services and resources. This guide provides detailed descriptions of the Access Token and Service Token, including their use cases, and explains how to use these tokens effectively during the interview process.
 
-This **API Authentication Guide** explains how to integrate with Rocket Lawyer APIs securely. It covers the different authentication tokens, roles, and security protocols. Whether you're a new partner or an experienced developer, this guide will help you understand API authentication and implement security measures in your applications.
+## Table of Contents
 
-## Introduction
+- [Access Token](#access-token)
+   - [What is an Access Token?](#what-is-an-access-token)
+   - [When to Use an Access Token](#when-to-use-an-access-token)
+   - [How to Use the Access Token](#how-to-use-the-access-token)
 
-Authentication plays a critical role in Rocket Lawyer's API ecosystem. It ensures that only authorized users and systems can access sensitive legal data, providing a secure environment for all interactions. This guide will walk you through the key aspects of authentication, emphasizing the importance of security and access control in your integrations with Rocket Lawyer’s services.
+- [Service Token](#service-token)
+   - [What is a Service Token?](#what-is-a-service-token)
+   - [When to Use a Service Token](#when-to-use-a-service-token)
+   - [How to Use the Service Token](#how-to-use-the-service-token)
 
----
+- [Using Authentication Tokens During the Interview Process](#using-authentication-tokens-during-the-interview-process)
+   - [Initializing the Interview](#initializing-the-interview)
+   - [Securing the Interview Session](#securing-the-interview-session)
+   - [Completing the Interview](#completing-the-interview)
 
-**Ideas to improve the page** 
+## Access Token
 
-**Example API Calls:** Include sample API calls that demonstrate the correct use of access tokens and scoped access tokens in various scenarios, such as server-to-server interactions and front-end requests. These examples will provide practical guidance for implementing authentication in your application.
+### What is an Access Token?
 
-**FAQs:** Address common questions that new partners may have, such as how to create tokens, when to use access tokens versus scoped access tokens, and best practices for securing API interactions.
+The Access Token is a secure string used to authenticate and authorize API requests. It is generated using the credentials (client ID and client secret) of an app registered on the Rocket Lawyer Developer Portal. This token is essential for server-to-server communication and provides broad access to various API services, such as creating interviews, retrieving document templates, and managing multiple users' documents.
 
-**Proposed Location for Documentation:** The enhanced authentication documentation should be placed in a dedicated section within the Rocket Lawyer Developer Portal, under a category like **"Authentication and Security"**. This section should be easily accessible from the main API documentation categories and cross-linked with related API guides, such as those for RocketDoc and RocketSign.
+### When to Use an Access Token
 
----
+The Access Token is used whenever you need to perform actions across the Rocket Lawyer APIs, such as:
 
-This **API Authentication Guide** provides a comprehensive overview of the authentication process within the Rocket Lawyer API ecosystem. It covers the various types of tokens used, their purposes, and the steps to implement secure authentication practices. The guide is designed for developers and partners integrating Rocket Lawyer services into their applications.
+- **Starting a new interview:** When initializing a new interview session for a document.
+- **Retrieving templates:** When obtaining a list of document templates to display to users.
+- **Managing documents:** When accessing or modifying documents created by multiple users within the same application.
 
-### Introduction to Authentication
+### How to Use the Access Token
 
-   - **Overview:** Authentication is crucial within Rocket Lawyer's API ecosystem to ensure secure and controlled access to services. This guide outlines how to manage access and service tokens effectively, emphasizing security and the correct usage of tokens across different scenarios.
+1. **Obtain the Access Token:** Generate the token by calling the Authentication API with your app’s client ID and secret.
+2. **Include in API Requests:** Use the Access Token in the Authorization header of your API requests to authenticate the calls.
 
-### Glossary of Terms
+## Service Token
 
-   - **Access Token:** Created using a key and secret, this token is passed as a bearer token to grant access to Rocket Lawyer's APIs, primarily for server-to-server communication.
-   - **Service Token:** Used to create a scoped access token, this token is designed for specific purposes, such as restricting access by a unique party identifier (UPID) or interview ID. It is commonly passed in emails (e.g., invite to sign) or to front-ends.
-   - **Scoped Access Token:** Created using a key and secret, this token grants access restricted by the purpose defined in the service token. It is often used for accessing binders or specific documents associated with a UPID or interview ID.
-   - **Unique Party Identifier (UPID):** A unique identifier in Rocket Lawyer's system that represents a party. UPIDs are used to manage access to interviews and documents within binders.
-   - **Binder:** Acts as a folder containing an interview, document, and the associated UPIDs that determine who can access the binder's contents.
-   - **App:** An account associated with a user, containing keys and secrets for accessing specific API products within Rocket Lawyer's ecosystem.
-   - **System Roles:** Roles assigned to an app, determining whether it has backend or frontend access. Partners are typically provided with apps that have backend roles.
-   - **API Product:** A grouping of related APIs, such as RocketDoc and RocketSign, which are part of Rocket Lawyer's API offerings.
+### What is a Service Token?
 
-## Getting Started with Authentication
+The Service Token is a temporary token associated with a specific user or session. It is used to create a Scoped Access Token, which limits access to particular documents or interviews. This token is particularly useful when you need to restrict API access to certain resources tied to an individual user (identified by a Unique Person ID, or UPID).
 
-   - **API Authorization:** Authorization to access Rocket Lawyer's APIs is managed using a key and secret. While apps can be created and requested through the developer portal, Rocket Lawyer must manually enable access. 
+### When to Use a Service Token
 
-   - **Access Tokens vs. Scoped Access Tokens:** 
+Service Tokens are used in scenarios where you need to:
 
-     - **Access Tokens:** Allow access to all interviews created by the app, suitable for broad server-to-server access.
-     - **Scoped Access Tokens:** Restrict access to specific users or documents based on the UPID or interview ID, providing more granular control, particularly in front-end applications.
+- **Restrict access to specific documents:** Ensure that only authorized users can access or modify specific documents or interviews.
+- **Create Scoped Access Tokens:** When preparing for frontend interactions, where security and limited access are critical.
 
-## Usage Scenarios
+### How to Use the Service Token
 
-   - **Embedded UX Components:** Partners using embedded RocketDoc and RocketSign UX components do not need to create scoped access tokens directly. These tokens are generated by the UX component using frontend system role credentials.
-   - **Building Custom Front-ends:** Partners who wish to build custom front-ends will need to create API calls from the front-end. For this purpose, a new app with a frontend system role must be created to ensure secure API interactions.
+1. **Generate a Service Token:** Request a Service Token by specifying the purpose, associated interview ID, UPID, and expiration time.
+2. **Use in Scoped Access Token Creation:** Utilize the Service Token to generate a Scoped Access Token for secure frontend use.
 
-## Security Best Practices
+## Using Authentication Tokens During the Interview Process
 
-   - **Frontend Security:** Always use scoped access tokens in front-end applications to prevent exposure of backend credentials in the browser. Never pass credentials for apps with backend system roles to the front-end.
-   - **Token Handling:** Ensure tokens are securely handled, including best practices for storage and transmission, to prevent unauthorized access.
+### Initializing the Interview
 
+1. **Generate an Access Token:** Start by obtaining a General Access Token to authenticate your API requests.
+2. **Create the Interview:** Use the Access Token to initialize an interview by selecting the appropriate document template.
 
+### Securing the Interview Session
 
+1. **Generate a Service Token:** Once the interview is initiated, create a Service Token to ensure secure access to the interview.
+2. **Create a Scoped Access Token:** Use the Service Token to generate a Scoped Access Token, which will be used in frontend applications to restrict access to the interview to the intended user.
+
+### Completing the Interview
+
+1. **Submit Answers:** As users go through the interview, use the Scoped Access Token to submit their answers securely.
+2. **Retrieve the Document:** After completing the interview, use the Scoped Access Token to retrieve the final document.
+
+By following these steps, you ensure that each part of the interview process is securely handled, with appropriate access controls in place for each user.
