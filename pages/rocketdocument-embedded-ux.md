@@ -18,6 +18,7 @@ Below are the links to all the steps on this page. Use them to navigate to the d
 2. [Create the Interview](#step-2-create-the-interview)
 3. [Access the RocketDocument UI](#step-3-access-the-rocketdocument-ui)
 4. [Display Your Document](#step-4-display-your-document)
+5. [Handle Interview Completion](#step-5-handle-interview-completion)
 
 ## Step 1: Generate an Access Token
 
@@ -163,6 +164,24 @@ After loading **RocketDocument Embedded UX**, your interview should be interacti
 ![RocketDocument Embedded UX](https://rl-cicdv2-apigee-public-prod.apigee.io/files/RocketDocument-Embedded-Mobile.png)
 
 > **Success!** You've successfully displayed the document using **RocketDocument Embedded UX**.
+
+## Step 5: Handle Interview Completion
+
+After the interview process is complete, the **RocketDocument Embedded UX** component will fire an `interview-completed` event. It will also tell the `ParentUI` that no further processes are running or yet remain to be completed. It is up to the `ParentUI` to take the user to the next screen since the RocketDocument only fires the event.
+
+Add the JavaScript code below in order to listen to the event:
+
+```javascript
+  <script>
+    document
+      .querySelector("rocket-document")
+      .addEventListener("interview-completed", (e) => {
+        console.log("interview-loading event received", e.detail);
+      });
+  </script>
+```
+
+For additional information, see the [UX Events](/pages/ux-component-events.md) page.
 
 ## Next Steps
 
