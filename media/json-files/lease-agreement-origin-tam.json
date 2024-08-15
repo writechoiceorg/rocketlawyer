@@ -1,0 +1,317 @@
+{
+    "name": "Lease Agreement",
+    "entities": [
+        {
+            "name": "Landlord Company",
+            "roles": [
+                "Signer",
+                "Landlord"
+            ],
+            "class": "Organization"
+        },
+        {
+            "name": "Tenant",
+            "roles": [
+                "Signer",
+                "Tenant"
+            ],
+            "isCyclical": true,
+            "class": "Person"
+        },
+        {
+            "name": "Landlord Person",
+            "roles": [
+                "Signer",
+                "Landlord"
+            ],
+            "class": "Person"
+        },
+        {
+            "name": "Leased Property",
+            "roles": [
+                "Tenant"
+            ],
+            "class": "Property"
+        },
+        {
+            "name": "Property Manager",
+            "roles": [
+                "Signer",
+                "Property Manager"
+            ],
+            "class": "Person"
+        },
+        {
+            "name": "Landlord",
+            "roles": [
+                "Signer",
+                "Landlord"
+            ],
+            "class": "Person"
+        }
+    ],
+    "fields": [
+        {
+            "entity": "Landlord",
+            "fieldClass": "Full Name",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord",
+            "fieldClass": "Address",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord",
+            "fieldClass": "City",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord",
+            "fieldClass": "State",
+            "type": "DROPDOWN",
+            "value": "",
+            "options": [
+                "Alabama",
+                "Alaska",
+                "Arizona",
+                "Arkansas",
+                "California",
+                "Colorado",
+                "Connecticut",
+                "Delaware",
+                "District of Columbia",
+                "Florida",
+                "Georgia",
+                "Hawaii",
+                "Idaho",
+                "Illinois",
+                "Indiana",
+                "Iowa",
+                "Kansas",
+                "Kentucky",
+                "Louisiana",
+                "Maine",
+                "Maryland",
+                "Massachusetts",
+                "Michigan",
+                "Minnesota",
+                "Mississippi",
+                "Missouri",
+                "Montana",
+                "Nebraska",
+                "Nevada",
+                "New Hampshire",
+                "New Jersey",
+                "New Mexico",
+                "New York",
+                "North Carolina",
+                "North Dakota",
+                "Ohio",
+                "Oklahoma",
+                "Oregon",
+                "Pennsylvania",
+                "Rhode Island",
+                "South Carolina",
+                "South Dakota",
+                "Tennessee",
+                "Texas",
+                "Utah",
+                "Vermont",
+                "Virginia",
+                "Washington",
+                "West Virginia",
+                "Wisconsin",
+                "Wyoming"
+            ]
+        },
+        {
+            "entity": "Landlord",
+            "fieldClass": "Zip/Postal Code",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord Company",
+            "fieldClass": "Company Name",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord Company",
+            "fieldClass": "Full Name",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord Company",
+            "fieldClass": "Address",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord Company",
+            "fieldClass": "City",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Landlord Company",
+            "fieldClass": "State",
+            "type": "DROPDOWN",
+            "value": "",
+            "options": [
+                "Alabama",
+                "Alaska",
+                "Arizona",
+                "Arkansas",
+                "California",
+                "Colorado",
+                "Connecticut",
+                "Delaware",
+                "District of Columbia",
+                "Florida",
+                "Georgia",
+                "Hawaii",
+                "Idaho",
+                "Illinois",
+                "Indiana",
+                "Iowa",
+                "Kansas",
+                "Kentucky",
+                "Louisiana",
+                "Maine",
+                "Maryland",
+                "Massachusetts",
+                "Michigan",
+                "Minnesota",
+                "Mississippi",
+                "Missouri",
+                "Montana",
+                "Nebraska",
+                "Nevada",
+                "New Hampshire",
+                "New Jersey",
+                "New Mexico",
+                "New York",
+                "North Carolina",
+                "North Dakota",
+                "Ohio",
+                "Oklahoma",
+                "Oregon",
+                "Pennsylvania",
+                "Rhode Island",
+                "South Carolina",
+                "South Dakota",
+                "Tennessee",
+                "Texas",
+                "Utah",
+                "Vermont",
+                "Virginia",
+                "Washington",
+                "West Virginia",
+                "Wisconsin",
+                "Wyoming"
+            ]
+        },
+        {
+            "entity": "Landlord Company",
+            "fieldClass": "Zip/Postal Code",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Tenant",
+            "fieldClass": "Full Name",
+            "type": "TEXT",
+            "value": "",
+            "cycleId": ""
+        },
+        {
+            "entity": "Leased Property",
+            "fieldClass": "Address",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Leased Property",
+            "fieldClass": "City",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Leased Property",
+            "fieldClass": "State",
+            "type": "DROPDOWN",
+            "value": "",
+            "options": [
+                "Alabama",
+                "Alaska",
+                "Arizona",
+                "Arkansas",
+                "California",
+                "Colorado",
+                "Connecticut",
+                "Delaware",
+                "District of Columbia",
+                "Florida",
+                "Georgia",
+                "Hawaii",
+                "Idaho",
+                "Illinois",
+                "Indiana",
+                "Iowa",
+                "Kansas",
+                "Kentucky",
+                "Louisiana",
+                "Maine",
+                "Maryland",
+                "Massachusetts",
+                "Michigan",
+                "Minnesota",
+                "Mississippi",
+                "Missouri",
+                "Montana",
+                "Nebraska",
+                "Nevada",
+                "New Hampshire",
+                "New Jersey",
+                "New Mexico",
+                "New York",
+                "North Carolina",
+                "North Dakota",
+                "Ohio",
+                "Oklahoma",
+                "Oregon",
+                "Pennsylvania",
+                "Rhode Island",
+                "South Carolina",
+                "South Dakota",
+                "Tennessee",
+                "Texas",
+                "Utah",
+                "Vermont",
+                "Virginia",
+                "Washington",
+                "West Virginia",
+                "Wisconsin",
+                "Wyoming"
+            ]
+        },
+        {
+            "entity": "Leased Property",
+            "fieldClass": "Zip/Postal Code",
+            "type": "TEXT",
+            "value": ""
+        },
+        {
+            "entity": "Leased Property",
+            "fieldClass": "Description",
+            "type": "TEXT",
+            "value": ""
+        }
+    ]
+}

@@ -86,8 +86,8 @@ If you need to update the answers in an ongoing interview, you can do so using t
 
 ## Example TAM files
 
-Below, you can find some example TAM files:
+Below, you can find some example TAM files for a Lease Agreement template:
 
-- **Origin file:** This is a sample of a file that is returned when you go through [Step 1: Retrieve the TAM for a Template](#step-1-retrieve-the-tam-for-a-template). [File](link)
-- **Input file:** This is a sample of how you should structure the answers when going through [Step 2: Submit Pre-filled Answers While Creating the Interview](#step-2-submit-pre-filled-answers-while-creating-the-interview). [File](link)
-- **Output file:** This is a sample of how the answers will be returned if you go through the [Retrieve Persistent Interview Data](#retrieve-persistent-interview-data) or [Retrieve Ephemeral Interview Data](#retrieve-ephemeral-interview-data). [File](link)
+- **[Origin file](media/json-files/lease-agreement-origin-tam.json):** This is a sample of a file that is returned when you go through [Step 1: Retrieve the TAM for a Template](#step-1-retrieve-the-tam-for-a-template).
+- **[Input file](media/json-files/lease-agreement-input-tam.json):** This is a sample of how you should structure the answers when going through [Step 2: Submit Pre-filled Answers While Creating the Interview](#step-2-submit-pre-filled-answers-while-creating-the-interview).
+- **[Output file](media/json-files/lease-agreement-output-tam.json):** This is a sample of how the answers will be returned if you go through the [Retrieve Persistent Interview Data](#retrieve-persistent-interview-data) or [Retrieve Ephemeral Interview Data](#retrieve-ephemeral-interview-data) process.
