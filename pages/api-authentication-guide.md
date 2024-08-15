@@ -23,7 +23,7 @@ Generate a Service Token by sending a request to the authentication endpoint wit
 
 A Scoped Access Token is a secure token designed for frontend interactions where security is paramount. It grants restricted access to specific resources, such as documents or interviews linked to a particular user (identified by a UPID). This token is created using a Service Token, ensuring access is managed carefully and limited to the intended user.
 
-To obtain a Scoped Access Token, you need to generate a Service Token first. Then, use the Service Token to request the Scoped Access Token from the authentication API. You should include this token in the Authorization header of your frontend API requests to maintain secure, user-specific access to the necessary resources.
+To obtain a Scoped Access Token, you must first generate a Service Token. Then, use the Service Token to request the Scoped Access Token from the authentication API. You should include this token in the Authorization header of your frontend API requests to maintain secure, user-specific access to the necessary resources.
 
 ## Using Authentication Tokens During the Interview Process
 
@@ -31,7 +31,7 @@ Authentication tokens are integral to managing the interview process securely an
 
 ### Creating an Access Token
 
-Begin by generating an Access Token to authenticate the initial API requests. This token is used to start a new interview and retrieve the necessary document templates, establishing a secure foundation for the session. To generate the Access Token, you will send a request such as the one in the example below:
+Whenever you want to start using RocketLawyer's APIs, begin by generating an Access Token to authenticate the initial API requests. This token is used to start a new interview and retrieve the necessary document templates, establishing a secure foundation for the session. To generate the Access Token, you will send a request such as the one in the example below:
 
 **Request:**
 ```curl
@@ -47,7 +47,7 @@ curl --request POST \
 '
 ```
 
-In this request, you will send the `client_id` and `client_secret` values, which you can obtain through [the RocketLawyer portal](https://developer.rocketlawyer.com/). After logging in with your credentials, click on your email address in the top right corner and access the **Apps** dashboard. Select your app, go to the **API Keys** section, and find the `cliend_id` under **Key** and the `client_secret` under **Secret**.
+In this request, you will send the `client_id` and `client_secret` values, which you can obtain through [the RocketLawyer portal](https://developer.rocketlawyer.com/). After logging into the portal with your credentials, click on your email address in the top right corner and access the **Apps** dashboard. Select your app, go to the **API Keys** section, and find the `cliend_id` under **Key** and the `client_secret` under **Secret**.
 
 **Response:**
 ```json
@@ -74,11 +74,11 @@ In this request, you will send the `client_id` and `client_secret` values, which
 }
 ```
 
-Your Access Token will returned in the `access_token` object. You should securely store this token in your backend for use in future requests.
+Your Access Token will be returned in the `access_token` object. It will expire 10 hours after you create it. During this time, you should securely store this token in your backend for use in future requests.
 
 ### Creating a Service Token
 
-Once the interview is initiated, create a Service Token to secure the session further. This token is then used to generate a Scoped Access Token, ensuring that access to the interview and associated documents is limited to the specific user. Below, you will see an example request for creating a Service Token:
+Once the interview is initiated, create a Service Token to secure the session further. This token is then used to generate a Scoped Access Token, ensuring that access to the interview and associated documents is limited to the specific user. This token has a 1-year expiration time. Below, you will see an example request for creating a Service Token:
 
 **Request:**
 
@@ -111,7 +111,7 @@ This request will return a response with the service token string for the `token
 
 ### Creating a Scoped Access Token
 
-As the interview progresses, use the Scoped Access Token to submit requests for each Interview Page. This token is used by the front-end application, which means it is visible to the browser. That is why you will not use the general Access Token, which allows access to all functionalities enabled for the partner. The Scoped Access Token allows access only to the informed `interviewId`. Create a Scoped Access Token using the Service Token as an authenticator for the request, as exemplified below:
+As the interview progresses, use the Scoped Access Token to submit requests for each Interview Page. This token is used by the front-end application, which means it is visible to the browser. That is why you will not use the general Access Token at this point, because it allows access to all functionalities enabled for the partner. The Scoped Access Token allows access only to the informed `interviewId` and is valid for 10 hours. Create a Scoped Access Token using the Service Token as an authenticator for the request, as exemplified below:
 
 **Request:**
 ```curl
