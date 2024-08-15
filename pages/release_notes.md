@@ -19,7 +19,7 @@ The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners
 ## Additional Enhancements
 
 ### Embedded User Experience
-The user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
+We have completely rebuilt RocketDocument Embbeded UX to work with the new v2 endpoints. However, the user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
 - **Adjustments to Endpoints:** Endpoints have changed from the v1 format (`/rocketdoc/v1/interviews`) to the v2 format (`/v2/interviews`). Check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page for more information.
 - **More Information on Responses:** The v2 endpoints also return more information, such as the new `medianMinutesToComplete` object in the [Retrieve a Template by ID](link) endpoint that returns how many minutes an end user takes to complete an interview of that template.
 - **Changes to Events:** The list of events was updated. Check the [UX Component Events](pages/ux-component-events) page for more information.
@@ -27,8 +27,8 @@ The user experience remains largely similar for embedded users. Some adjustments
 ### Templates
 Easily retrieve a list of templates a partner can access through the [Get Templates List](link) endpoint. With the change to v2 endpoints, partners can now get HTML previews of documents, PDF thumbnails of a document's first page, short or long document descriptions, and the median time to complete an interview.
 
-### State-Specific Documents
-Partners can now identify and filter documents specific to certain states, ensuring compliance and relevance.
+### Customized Document List
+Each partner can request a set of documents to be enabled for them, granting a customized set of templates. Partners can, for example, identify and filter documents specific to certain states, ensuring compliance and relevance.
 
 ### Resume Interviews
 Partners can use the [Retrieve Interview by ID](link) endpoint to allow end users to resume their interviews from where they left off.
