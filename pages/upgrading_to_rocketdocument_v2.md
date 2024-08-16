@@ -16,27 +16,29 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 
 > **Important Update**: We've tried to keep the API backward compatible, but the response structure for [Get Interview](get_interview_reference) has changed in v2. This is a necessary breaking change, so please update your integration accordingly.
 
-# Step 2: Update Embedded UX URL
+# Step 2: Update Embedded UX Script
 
-Change the RocketDocument Embedded UX URL from v1 to v2:
+To switch to RocketDocument v2, update both the Embedded UX URL and the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component.
 
-|   Environment    |                                         Old v1 URL                                         | New v2 URL |
-|-------------------|--------------------------------------------------------------------------------------------|--------------|
-| Sandbox | `https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js`| `https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js`  |
-| Production | `https://rocket-document.rocketlawyer.com/rocket-document.js`  | `https://rocket-document.rocketlawyer.com/v2/rocket-document.esm.js`  |
+1. **Update the Embedded UX URL**:
+   
+   |   Environment    |                                         Old v1 URL                                         | New v2 URL |
+   |-------------------|--------------------------------------------------------------------------------------------|--------------|
+   | Sandbox | `https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js`| `https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js`  |
+   | Production | `https://rocket-document.rocketlawyer.com/rocket-document.js`  | `https://rocket-document.rocketlawyer.com/v2/rocket-document.esm.js`  |
 
-# Step 3: Adapt the `<script>` Tag
+2. **Adapt the `<script>` Tag**:
+   
+   Update the `<script>` tag in your HTML to point to the new v2 URL, as shown below:
 
-When embedding the RocketDocument v2 Embedded UX, update the `<script>` tag as follows:
+   ```html
+   <script 
+     type="module"
+     src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
+   </script>
+   ```
 
-```html
-<script 
-  type="module"
-  src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
-</script>
-```
-
-# Step 4: Update Monitored Embedded UX Events
+# Step 3: Update Monitored Embedded UX Events
 
 Adjust the monitored events in the Embedded UX. Access the [RocketDocument Events](link) for additional information on how to use events on your application.
 
