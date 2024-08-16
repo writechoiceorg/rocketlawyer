@@ -22,7 +22,11 @@ In this section, we provide some general terms:
 
 Explore definitions for terms related to **RocketDocument™**:
 
-- **RocketDocument™:** This product enables customers to create and customize legal documents through a dynamic, interactive interview process. The product consists in both an Embedded UX and the API endpoints. RocketDocument™ is designed to smooth the document creation process by guiding users through an interactive interview to collect specific details for the document.
+- **RocketDocument™:** This product enables customers to create and customize legal documents through a dynamic, interactive interview process. 
+
+**RocketDocument Embedded UX**: This is an embedded user interface that allows users to interact with and fill out documents directly within your platform. The process is conducted as an interview, presenting a new question to the user for each editable field. This functionality allows you to obtain all user information and fill in all fields from different types of documents.
+
+- **RocketDocument API Endpoints**: A set of APIs that programmatically manage the document creation and filling process. You will use the API endpoints to choose a document template, start an interview, navigate through all questions to fill out the document, and complete the interview to access the final document.
 
 - **Interview:** A guided interview is a question-and-answer session that adjusts based on the user's answers, providing a tailor-made document creation experience. It can have two different storage types:
     - **Persistent Interview:** A persistent interview will send each answer the user fills to the RocketLawyer's servers. The data will be stored there and when the user finishes the interview, it will be returned to genarate the completed document.
@@ -32,7 +36,7 @@ Explore definitions for terms related to **RocketDocument™**:
 
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user's answers.
 
-- **Tagged Answer Model (TAM):** The TAM is a structure that represents the data that a specific Document Template contains. In the TAM, you can access the questions that the client will see, input answers that you already have, or retrieve data from already filled Interviews.
+- **Tagged Answer Model (TAM):** The TAM is a structure representing the data that a specific Document Template contains. In the TAM, you can access the questions that the client will see, input answers that you already have, or retrieve data from already filled Interviews.
 
 ## RocketSign™
 
@@ -40,13 +44,7 @@ Explore definitions for terms related to **RocketDocument™**:
 
 - **RocketSign Embedded UX**: An embedded user interface that allows users to interact with and sign documents directly within your platform. This feature enables document preparation, signing, and management to be seamlessly integrated into your application.
 
-- **RocketSign API Endpoints**: A set of APIs that manage the document signing process and binder-related tasks programmatically, including preparing documents, managing parties, and tracking the status of the legal process.
-
-Below, we provide definitions for terms related to the **RocketSign Embedded UX** and the **RocketSign API Endpoints**:
-
-### RocketSign Embedded UX
-
-Here, you can find a list of definitions for terms related to the  **RocketSign Embedded UX**:
+- **RocketSign API Endpoints**: A set of APIs that programmatically manage the document signing process and binder-related tasks, including preparing documents, managing parties, and tracking the status of the legal process.
 
 - **RocketSign Embedded UX**: A feature that allows users to interact with and sign documents within your platform. An embedded user interface enables document preparation, signing, and management.
 
@@ -56,13 +54,9 @@ Here, you can find a list of definitions for terms related to the  **RocketSign 
 
 - **Event:** Any activity that occurs during the lifecycle of the legal process, such as sending an invitation to sign, a party viewing the document, or an owner modifying the document.
 
-### RocketSign API Endpoints
-
-Here, you can find a list of definitions for terms related to the  **RocketSign API Endpoints**:
-
 - **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.
 
-- **Client Credentials**: Essential authentication details obtained through the onboarding process, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
+- **Client Credentials**: Essential authentication details obtained through onboarding, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
 
 ## Authentication
 
@@ -75,8 +69,6 @@ Explore definitions for terms related to **Authentication**:
 - **Service Token:** The Service Token is an intermediary for creating a Scoped Access Token. You will need an Access Token to create a Service Token and the Service Token to create a Scoped Access Token. For more information on how to work with Service Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
 
 - **Scoped Access Token:** When dealing with front-end matters, you will need a Scoped Access Token. In this situation, the tokens get exposed to the browser, which is why you need a token with a very specific use that cannot be used for purposes other than dealing with the pages displayed to the user. For more information on how to work with Scoped Access Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
-
-- **Backend Access Token:** This token is intended for use by your backend systems and allows deep integration with Rocket Lawyer data. It is obtained through a POST request to the Authentication API and authorizes backend API calls.
 
 - **UPID (Universal Party ID)**: UPID stands for Universally Unique IDentifier of the Party viewing the document. It is used to specify the party in requests related to service tokens. For more information about the UPID, refer to the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketsign-embedded-ux).
 
