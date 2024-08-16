@@ -4,7 +4,7 @@ Please note that other APIs related to authentication, binders, sign, and events
 
 > **Tip**: Check the [Release Notes](/pages/release_notes.md) for the latest features and enhancements available in the v2 API.
 
-# Step 1: Update API Endpoints
+## Step 1: Update API Endpoints
 
 Update all your RocketDocument API endpoints from v1 to v2. Here are some key examples:
 
@@ -16,7 +16,7 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 
 > **Important Update**: We've tried to keep the API backward compatible, but the response structure for [Get Interview](get_interview_reference) has changed in v2. This is a necessary breaking change, so please update your integration accordingly.
 
-# Step 2: Update Embedded UX Script
+## Step 2: Update Embedded UX Script
 
 To switch to RocketDocument v2, update both the Embedded UX URL and the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component.
 
@@ -38,10 +38,17 @@ To switch to RocketDocument v2, update both the Embedded UX URL and the `<script
    </script>
    ```
 
-# Step 3: Update Monitored Embedded UX Events
+## Step 3: Update Monitored Embedded UX Events
 
-Adjust the monitored events in the Embedded UX. Access the [RocketDocument Events](link) for additional information on how to use events on your application.
+To ensure compatibility with RocketDocument v2, it's important to update the events monitored by your Embedded UX component. The v2 version introduces new events and deprecates some of the old ones.
 
-RocketDocument v2 will fire both legacy v1 and new v2 events. However, starting January 2nd, 2025, only the new v2 events will be active. Ensure that your system is ready to handle these changes. 
+RocketDocument v2 will initially fire both legacy v1 events and new v2 events, but starting January 2nd, 2025, only the new v2 events will remain active. Here are the key changes you need to address:
 
-By following these steps, you'll successfully upgrade to RocketDocument v2, taking advantage of the latest features and improvements. If you still have any questions, contact our Support Team [add email].
+- The `interview-started` event has been deprecated and should be replaced with the `interview-loaded` event.
+- The `rocketdocumenterror` event has been deprecated in favor of the more accurately named `interview-error` event.
+
+Ensure that your system is updated to handle these new v2 events to maintain functionality beyond the deprecation date.
+
+For more detailed information on how to implement and use these events, refer to the [RocketDocument Events](/pages/ux-component-events.md) documentation.
+
+By following these steps, you'll successfully upgrade to RocketDocument v2, taking advantage of the latest features and improvements. If you have any questions, please contact our Support Team [add email].
