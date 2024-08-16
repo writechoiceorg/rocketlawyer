@@ -93,7 +93,7 @@ paths:
         - Interviews
       summary: Retrieve Interview by ID
       description: |
-        Retrieves the details of an existing interview identified by the `interviewId`. This endpoint allows you to fetch all the information related to a specific interview, including its status and associated data.
+        Retrieves the details of an existing interview identified by the `interviewId`. This endpoint lets you fetch all the information related to a specific interview, including its status and associated data. This endpoint also enables you to resume a previously started persistent interview.
       operationId: retrieve-interview
       parameters:
         - $ref: "#/components/parameters/interviewIdPath"
