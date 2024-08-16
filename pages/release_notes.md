@@ -18,7 +18,7 @@ The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners
 
 - **Structured Data Retrieval:** Access the Tagged Answer Model (TAM) for any interview, allowing you to view the questions presented to the client, input pre-existing answers, or retrieve data from previously completed interviews.
 - **Pre-filled Interviews:** Improve user experience by pre-filling interview fields with existing customer data, saving time and reducing redundancy.
-- **Data Accessibility:** Easily access and retrieve user-provided data to further customize and enhance the document creation process.
+- **Data Accessibility**: Easily access and retrieve user-provided data, enabling re-usage for new interviews and enhancing the similar document creation process.
 
 ## Additional Enhancements
 
