@@ -4,31 +4,35 @@ This page outlines the key changes in RocketDoc API v2, highlighting new feature
 
 ### Custom User Experience
 
-API partners can now create a [custom user experience directly through the API](pages/rocket-document-v2-build-your-own-ui). This feature allows full customization, enabling partners to seamlessly reflect their brand identity and visual preferences within the user experience. It offers the same utilities as the [RocketDocument Embedded UX](/pages/glossary), such as choosing the [template](/pages/glossary), persistent and ephemeral [interviews](/pages/glossary), and generating the finished [document](/pages/glossary), but with more customization options.
+API partners can now create a [custom user experience directly through the API](pages/rocket-document-v2-build-your-own-ui). This feature allows full customization, enabling partners to seamlessly reflect their brand identity and visual preferences within the user experience. The RocketDoc API replaces the [RocketDocument Embedded UX](/pages/glossary), offering additional features:
+
+- You can choose the [template](/pages/glossary) to use on the interview.
+In addition to persistent interviews, you can use ephemeral [interviews](/pages/glossary). When using ephemeral interviews, no partner's data is persisted on Rocket Lawyer servers.
+- You can customize the interview journey, retrieving what questions to ask and document previews from API endpoints.  
 
 ### Data I/O
 
-The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners to import data to and extract data from interviews using [Tagged Answer Models (TAM)](/pages/glossary). TAMs are the model of questions that a particular template uses.
+The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners to import data to and extract data from interviews using [Tagged Answer Models (TAM)](/pages/glossary). TAMs represent answers and the format required to complete a particular  [template](/pages/glossary). 
 
 #### Benefits
 
-- **Structured Data Retrieval:** Retrieve the Tagged Answer Model (TAM) for any interview, enabling seamless data integration by mapping customer data directly.
+- **Structured Data Retrieval:** Access the Tagged Answer Model (TAM) for any interview, allowing you to view the questions presented to the client, input pre-existing answers, or retrieve data from previously completed interviews.
 - **Pre-filled Interviews:** Improve user experience by pre-filling interview fields with existing customer data, saving time and reducing redundancy.
 - **Data Accessibility:** Easily access and retrieve user-provided data to further customize and enhance the document creation process.
 
 ## Additional Enhancements
 
 ### Embedded User Experience
-We have completely rebuilt RocketDocument Embbeded UX to work with the new v2 endpoints. However, the user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
+We have completely rebuilt RocketDocument Embedded UX to work with the new v2 endpoints. However, the user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
 - **Adjustments to Endpoints:** Endpoints have changed from the v1 format (`/rocketdoc/v1/interviews`) to the v2 format (`/v2/interviews`). Check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page for more information.
 - **More Information on Responses:** The v2 endpoints also return more information, such as the new `medianMinutesToComplete` object in the [Retrieve a Template by ID](link) endpoint that returns how many minutes an end user takes to complete an interview of that template.
-- **Changes to Events:** The list of events was updated. Check the [UX Component Events](pages/ux-component-events) page for more information.
+- **Changes to Events:** The list of events was updated. For more information, check the [UX Component Events](pages/ux-component-events) page.
 
 ### Templates
 Easily retrieve a list of templates a partner can access through the [Get Templates List](link) endpoint. With the change to v2 endpoints, partners can now get HTML previews of documents, PDF thumbnails of a document's first page, short or long document descriptions, and the median time to complete an interview.
 
-### Customized Document List
-Each partner can request a set of documents to be enabled for them, granting a customized set of templates. Partners can, for example, identify and filter documents specific to certain states, ensuring compliance and relevance.
+### Customized Template List
+Each partner can request a set of documents to be enabled, granting a customized set of templates. Partners can, for example, identify and filter documents specific to certain states, ensuring compliance and relevance.
 
 ### Resume Interviews
 Partners can use the [Retrieve Interview by ID](link) endpoint to allow end users to resume their interviews from where they left off.
