@@ -2,6 +2,8 @@ This guide is designed to help you seamlessly upgrade from RocketDocument v1 to 
 
 Please note that other APIs related to authentication, binders, sign, and events will remain on version 1 (v1) and should continue to be accessed through their v1 endpoints. Follow the steps outlined below to update your setup effectively.
 
+> **Tip**: Check the [Release Notes](/pages/release_notes.md) for the latest features and enhancements available in the v2 API.
+
 # Step 1: Update API Endpoints
 
 Update all your RocketDocument API endpoints from v1 to v2. Here are some key examples:
@@ -11,10 +13,8 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 | [Create an interview](create_an_interview_reference)    | `POST /rocketdoc/v1/interviews`                             | `POST /rocketdoc/v2/interviews` |
 | [Get a document](get_a_document_reference)             | `GET /rocketdoc/v1/documents/:documentId`                     | `GET /rocketdoc/v2/documents/:documentId`    |
 | [Get interview](get_interview_reference)           | `GET /rocketdoc/v1/interviews/:interviewId`                              | `GET /rocketdoc/v2/interviews/:interviewId`             |
-> **Note**: v2 endpoints provide more detailed information compared to v1. Explore these new endpoints to enhance the user experience.
-> 
-> **Note**: [Get interview](get_interview_reference) has small changes on response structure
 
+> **Note**: [Get interview](get_interview_reference) has small changes on response structure
 
 # Step 2: Update Embedded UX URL
 
