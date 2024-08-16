@@ -49,6 +49,7 @@ RocketDocument v2 will initially fire both legacy v1 events and new v2 events, b
 
 Ensure that your system is updated to handle these new v2 events to maintain functionality beyond the deprecation date.
 
-For more detailed information on how to implement and use these events, refer to the [RocketDocument Events](/pages/ux-component-events.md) documentation.
+> **Additional Information**: For more detailed information on how to implement and use these events, refer to the [RocketDocument Events](/pages/ux-component-events.md) documentation.
 
 By following these steps, you'll successfully upgrade to RocketDocument v2, taking advantage of the latest features and improvements. If you have any questions, please contact our Support Team [add email].
+
