@@ -383,6 +383,86 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/templatesGetResponse'
+              examples:
+                GetAllVirtualTemplates:
+                  summary: Get a list of virtual templates.
+                  value:
+                    - templateName: "Power of Attorney"
+                      shortDescription: "..."
+                      longDescription: "..."
+                      thumbnailRef: ""
+                      previewRef: ""
+                      templateId: "BC006A4D-B5C0-402F-81BD-954D686924A5"
+                      medianMinutesToComplete: "20"
+                      type: "virtual"
+                    - templateName: "Advance Directive"
+                      shortDescription: "..."
+                      longDescription: "..."
+                      thumbnailRef: ""
+                      previewRef: ""
+                      templateId: "093AC3FF-26B7-4417-8C99-09EFDE8184CD"
+                      medianMinutesToComplete: "20"
+                      type: "virtual"
+                GetAllUngroupedAndVirtualTemplates:
+                  summary: Get a list of ungrouped and virtual templates.
+                  value:
+                    - templateName: "Power of Attorney"
+                      shortDescription: "..."
+                      longDescription: "..."
+                      thumbnailRef: ""
+                      previewRef: ""
+                      templateId: "BC006A4D-B5C0-402F-81BD-954D686924A5"
+                      medianMinutesToComplete: "20"
+                      type: "virtual"
+                    - templateName: "Advance Directive"
+                      shortDescription: "..."
+                      longDescription: "..."
+                      thumbnailRef: ""
+                      previewRef: ""
+                      templateId: "093AC3FF-26B7-4417-8C99-09EFDE8184CD"
+                      medianMinutesToComplete: "20"
+                      type: "virtual"
+                    - templateName: "Accounting Contract"
+                      shortDescription: "Hire an accountant professional"
+                      longDescription: "An Accounting Contract enables ..."
+                      thumbnailRef: "..."
+                      previewRef: "..."
+                      templateId: "25285311-89bd-4cea-8800-7b9ce0192428"
+                      medianMinutesToComplete: "20"
+                      type: "standard"
+                    - templateName: "Affidavit"
+                      shortDescription: "Make a sworn statement to use in any state"
+                      longDescription: "An Affidavit is simply a written, notarized sworn ..."
+                      thumbnailRef: "..."
+                      previewRef: "..."
+                      templateId: "66ea0ae0-32d9-43d7-8e51-b6d2280fafa1"
+                      medianMinutesToComplete: "20"
+                      type: "standard"
+                GetVirtualGroupedTemplates:
+                  summary: Get a list of grouped templates.
+                  value:
+                    - templateName: "California Power of Attorney"
+                      shortDescription: "..."
+                      longDescription: "..."
+                      thumbnailRef: "..."
+                      previewRef: "..."
+                      templateId: "b82a1961-87a0-4cf8-9db9-7d26f09fc590"
+                      medianMinutesToComplete: "20"
+                      type: "standard"
+                      memberAlias: "California"
+                      memberOf:
+                        - "BC006A4D-B5C0-402F-81BD-954D686924A5"
+                    - templateName: "Colorado Power of Attorney"
+                      shortDescription: "..."
+                      longDescription: "..."
+                      thumbnailRef: "..."
+                      previewRef: "..."
+                      templateId: "cc325f21-3aa2-4f35-8688-287afba21772"
+                      medianMinutesToComplete: "20"
+                      type: "standard"
+                      memberAlias: "Colorado"
+                      memberOf:
+                        - "BC006A4D-B5C0-402F-81BD-954D686924A5"
         '400':
           description: Bad Request
         '401':
@@ -592,9 +672,9 @@ components:
       in: query
       description: |
         Specifies the name of the index to filter search results. Use this parameter to perform searches against a specific index. Possible indexed lookups:
-        - `virtual`
-        - `virtualAndUngrouped`
-        - `groupBy`
+        - `virtual`: Lists all virtual templates exclusively. This is a list of all group parents.
+        - `virtualAndUngrouped`: Lists all virtual templates (group parents) and ungrouped standard templates. This search does not contain standard templates that are associated with a virtual template.
+        - `groupBy`: Use this index to show only templates grouped by the `templateId` in `lookupValue`. Note that if the templateId does not identify a virtual template, the resulting list will be empty.
       schema:
         type: string
         enum:
