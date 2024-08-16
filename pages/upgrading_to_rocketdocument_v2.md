@@ -1,5 +1,9 @@
-This guide will help you quickly upgrade from RocketDocument v1 to v2, ensuring your integration remains compatible with the latest version. Follow these steps to update your setup.
+This guide is designed to help you seamlessly upgrade from RocketDocument v1 to v2, ensuring that your integration stays compatible with the latest features and improvements. It is specifically tailored for users of the embedded RocketDocument UX component. 
+
+Please note that other APIs related to authentication, binders, sign, and events will remain on version 1 (v1) and should continue to be accessed through their v1 endpoints. Follow the steps outlined below to update your setup effectively.
+
 # Step 1: Update API Endpoints
+
 Update all your RocketDocument API endpoints from v1 to v2. Here are some key examples:
 
 | Endpoint Name | Old Endpoint | New Endpoint |
@@ -13,21 +17,27 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 
 
 # Step 2: Update Embedded UX URL
+
 Change the RocketDocument Embedded UX URL from v1 to v2:
 
 |   Environment    |                                         Old v1 URL                                         | New v2 URL |
 |-------------------|--------------------------------------------------------------------------------------------|--------------|
 | Sandbox | `https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js`| `https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js`  |
 | Production | `https://rocket-document.rocketlawyer.com/rocket-document.js`  | `https://rocket-document.rocketlawyer.com/v2/rocket-document.esm.js`  |
+
 # Step 3: Adapt the `<script>` Tag
+
 When embedding the RocketDocument v2 Embedded UX, update the `<script>` tag as follows:
+
 ```html
 <script 
   type="module"
   src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
 </script>
 ```
+
 # Step 4: Update Monitored Embedded UX Events
+
 Adjust the monitored events in the Embedded UX. Access the [RocketDocument Events](link) for additional information on how to use events on your application.
 
 RocketDocument v2 will fire both legacy v1 and new v2 events. However, starting January 2nd, 2025, only the new v2 events will be active. Ensure that your system is ready to handle these changes. 
