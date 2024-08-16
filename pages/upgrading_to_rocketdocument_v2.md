@@ -18,25 +18,21 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 
 ## Step 2: Update Embedded UX URLs and Script
 
-To switch to RocketDocument v2, update both the Embedded UX URL and the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component.
-
-1. **Update the Embedded UX URL**:
+To switch to RocketDocument v2, update the Embedded UX URL used in the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component. The following table presents the new and old environment variables: 
    
-   |   Environment    |                                         Old v1 URL                                         | New v2 URL |
-   |-------------------|--------------------------------------------------------------------------------------------|--------------|
-   | Sandbox | `https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js`| `https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js`  |
-   | Production | `https://rocket-document.rocketlawyer.com/rocket-document.js`  | `https://rocket-document.rocketlawyer.com/v2/rocket-document.esm.js`  |
+|   Environment    |                                         Old v1 URL                                         | New v2 URL |
+|-------------------|--------------------------------------------------------------------------------------------|--------------|
+| Sandbox | `https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js`| `https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js`  |
+| Production | `https://rocket-document.rocketlawyer.com/rocket-document.js`  | `https://rocket-document.rocketlawyer.com/v2/rocket-document.esm.js`  |
 
-2. **Adapt the `<script>` Tag**:
-   
-   Update the `<script>` tag in your HTML to point to the new v2 URL, as shown below:
+Update your HTML's `<script>` tag to point to the new v2 URL. The following code block presents an example of using the new Sandbox environment URL:
 
-   ```html
-   <script 
-     type="module"
-     src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
-   </script>
-   ```
+```html
+<script 
+  type="module"
+  src="https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js">
+</script>
+```
 
 ## Step 3: Update Monitored Embedded UX Events
 
