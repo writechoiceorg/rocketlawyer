@@ -16,7 +16,7 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 
 > **Important Update**: We've tried to keep the API backward compatible, but the response structure for [Get Interview](get_interview_reference) has changed in v2. This is a necessary breaking change, so please update your integration accordingly.
 
-## Step 2: Update Embedded UX Script
+## Step 2: Update Embedded UX URLs and Script
 
 To switch to RocketDocument v2, update both the Embedded UX URL and the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component.
 
