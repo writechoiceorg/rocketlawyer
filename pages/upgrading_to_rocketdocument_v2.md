@@ -14,7 +14,7 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 | [Get a document](get_a_document_reference)             | `GET /rocketdoc/v1/documents/:documentId`                     | `GET /rocketdoc/v2/documents/:documentId`    |
 | [Get interview](get_interview_reference)           | `GET /rocketdoc/v1/interviews/:interviewId`                              | `GET /rocketdoc/v2/interviews/:interviewId`             |
 
-> **Note**: [Get interview](get_interview_reference) has small changes on response structure
+> **Important Update**: We've tried to keep the API backward compatible, but the response structure for [Get Interview](get_interview_reference) has changed in v2. This is a necessary breaking change, so please update your integration accordingly.
 
 # Step 2: Update Embedded UX URL
 
