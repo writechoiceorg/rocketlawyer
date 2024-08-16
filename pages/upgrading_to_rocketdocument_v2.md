@@ -12,13 +12,15 @@ Update all your RocketDocument API endpoints from v1 to v2. Here are some key ex
 > **Important Update**: We've tried to keep the API backward compatible, but the response structure for [Get Interview](get_interview_reference) has changed in v2. This is a necessary breaking change, so please update your integration accordingly.
 
 ## Step 2: Update Embedded UX URLs and Script
-To switch to RocketDocument v2, update the Embedded UX URL used in the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component. The following table presents the new and old environment variables: 
-   
-|   Environment    |                                         Old v1 URL                                         | New v2 URL |
-|-------------------|--------------------------------------------------------------------------------------------|--------------|
-| Sandbox | `https://rocket-document.sandbox.rocketlawyer.com/rocket-document.js`| `https://rocket-document.sandbox.rocketlawyer.com/v2/rocket-document.esm.js`  |
-| Production | `https://rocket-document.rocketlawyer.com/rocket-document.js`  | `https://rocket-document.rocketlawyer.com/v2/rocket-document.esm.js`  |
-Update your HTML's `<script>` tag to point to the new v2 URL. The following code block presents an example of using the new Sandbox environment URL:
+To switch to RocketDocument v2, update the Embedded UX URL used in the `<script>` tag in your integration. This ensures that your application loads the correct version of the RocketDocument component. Below, you will find the old (v1) and new (v2) URLs:
+- **v1 URL**: `/rocket-document.js`
+- **v2 URL**: `/v2/rocket-document.esm.js`
+
+To update your HTML's `<script>` tag:
+- Ensures it points to the new v2 URL.
+- For v2, you should include `type="module"` calling the `<script> tag.
+
+The following code block presents an example of using the new v2 URL considering the Sandbox environment:
 ```html
 <script 
   type="module"
@@ -27,7 +29,7 @@ Update your HTML's `<script>` tag to point to the new v2 URL. The following code
 ```
 ## Step 2: Update Monitored Embedded UX Events
 To ensure compatibility with RocketDocument v2, it's important to update the events monitored by your Embedded UX component. The v2 version introduces new events and deprecates some of the old ones.
-RocketDocument v2 will initially fire both legacy v1 events and new v2 events, but starting January 2nd, 2025, only the new v2 events will remain active. Here are the key changes you need to address:
+RocketDocument v2 will initially fire both legacy v1 and new v2 events, but starting January 2nd, 2025, only the new v2 events will remain active. Here are the key changes you need to address:
 - The `interview-started` event has been deprecated and should be replaced with the `interview-loaded` event.
 - The `rocketdocumenterror` event has been deprecated in favor of the more accurately named `interview-error` event.
 Ensure that your system is updated to handle these new v2 events to maintain functionality beyond the deprecation date.
