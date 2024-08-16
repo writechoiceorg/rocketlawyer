@@ -25,17 +25,23 @@ The [Data I/O feature](pages/data-i-o-addon-feature-integration) allows partners
 ### Embedded User Experience
 We have completely rebuilt RocketDocument Embedded UX to work with the new v2 endpoints. However, the user experience remains largely similar for embedded users. Some adjustments were made to improve it, which you can see below:
 - **Adjustments to Endpoints:** Endpoints have changed from the v1 format (`/rocketdoc/v1/interviews`) to the v2 format (`/v2/interviews`). Check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page for more information.
-- **More Information on Responses:** The v2 endpoints also return more information, such as the new `medianMinutesToComplete` object in the [Retrieve a Template by ID](link) endpoint that returns how many minutes an end user takes to complete an interview of that template.
 - **Changes to Events:** The list of events was updated. For more information, check the [UX Component Events](pages/ux-component-events) page.
 
 ### Templates
-Easily retrieve a list of templates a partner can access through the [Get Templates List](link) endpoint. With the change to v2 endpoints, partners can now get HTML previews of documents, PDF thumbnails of a document's first page, short or long document descriptions, and the median time to complete an interview.
+Retrieve a customized list of templates available to each partner through the [Get Templates List](link). With the v2 endpoint enhancements, partners can access:
 
-### Customized Template List
-Each partner can request a set of documents to be enabled, granting a customized set of templates. Partners can, for example, identify and filter documents specific to certain states, ensuring compliance and relevance.
+- HTML previews of documents.
+- PDF thumbnails of the first page.
+- Detailed short or long descriptions of each template.
 
-### Resume Interviews
-Partners can use the [Retrieve Interview by ID](link) endpoint to allow end users to resume their interviews from where they left off.
+Partners can also request specific document sets tailored to their needs, filtering by state or other criteria to ensure compliance and relevance.
+
+## Interviews
+
+- **Resume Interviews**: Partners can use the [Retrieve Interview by ID](link) endpoint to allow end users to resume their interviews from where they left off.
+- **Median Time to Complete**: Display the estimated time required to complete the interview, based on data from thousands of Rocket Lawyer and partner customers over the past years. This helps end users understand how long it will take to complete the interview.
+- **Short and Long Descriptions**: Provide clear document template descriptions to inform end users and ensure they have a solid understanding.
+- **Thumbnails and Previews**: Enhance the user experience by presenting visual thumbnails and previews on interfaces.
 
 ## Further Information
 
