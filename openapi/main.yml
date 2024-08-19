@@ -639,7 +639,7 @@ components:
         Either a pageId or a pseudonym for a page. Enter one of the following options:
         - `pageId`: The unique identifier of the requested page.
         - `"first"`: Pseudonym for the first page of the Interview.
-        - `"last"`: Pseudonym for the last answered page by the end of the Interview.
+        - `"last"`: Pseudonym for the last answered page by the end user of the Interview.
       schema:
         type: string
       example: "Pkbbc224f2d2eb"
@@ -652,7 +652,7 @@ components:
         Either a pageId or a pseudonym for a page. Enter one of the following options:
         - `pageId`: The unique identifier of the requested page.
         - `"first"`: Pseudonym for the first page of the Interview.
-        - `"last"`: Pseudonym for the last answered page by the end of the Interview.
+        - `"last"`: Pseudonym for the last answered page by the end user of the Interview.
       schema:
         type: string
       example: "Pkaab440f2d2eb"
