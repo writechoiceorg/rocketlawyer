@@ -10,7 +10,7 @@ The RocketDocument API also allows partners to use ephemeral interviews. When pa
 
 ### Data I/O
 
-The [Data I/O feature](/rocket-document-v2-data-i/on) allows partners to input and extract data from interviews using [Tagged Answer Models (TAM)](/glossary). TAMs represent a structured way with entities and answers values on a document.  
+The [Data I/O feature](/rocket-document-v2-data-i/on) allows partners to input and extract data from interviews using [Tagged Answer Models (TAM)](/glossary). TAMs provide a structured method for representing entities and answer values within a document.
 
 ### Benefits
 
