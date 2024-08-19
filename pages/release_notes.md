@@ -26,7 +26,7 @@ Rocket Lawyer has completely rebuilt RocketDocument Embedded UX to work with the
 - **Changes to Events**: The number of events triggered by the Embedded UX increased. Now, you can follow each process step and handle it how it best suits you. For a complete overview of the available events access the [UX Component Events](pages/ux-component-events) page.
 - **Date Picker**: The date picker has been enhanced, making it easier and more intuitive for end users to select their desired date.
 - **Processing**: The logic processing was moved to Rocket Lawyer's backend, making the embedded component lighter and the process more secure. Previously, the interview process was done partially on the front end.
-- 
+  
 ### Endpoints Adjustments
 
 Endpoints have changed from the v1 format (`/rocketdoc/v1/interviews`) to the v2 format (`/rocketdoc/v2/interviews`). For more information, check the [Upgrading to RocketDocument v2](pages/upgrading_to_rocketdocument_v2) page.
