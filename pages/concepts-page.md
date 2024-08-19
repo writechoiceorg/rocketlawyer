@@ -13,28 +13,30 @@ Understanding some foundational concepts about Rocket Lawyer's architecture is c
 In this section, we provide some general terms:
 
 - **API Endpoints**: Specific paths in Rocket Lawyer's API that allow developers to integrate legal services into their applications.  
-    
-- **Embedded UX**: A user interface integrated into a partner’s web application, allowing seamless access to Rocket Lawyer’s services.  
-    
-- **iFrame**: An HTML element used to embed RocketSign Embedded UX into a webpage. It displays the RocketSign interface and allows users to interact with it directly within your platform.
 
+- **Client Credentials**: Authentication information obtained through onboarding, including an API Key and Secret used to access Rocket Lawyer's APIs. The client credentials are available at the [Developer Portal](https://developer.rocketlawyer.com/accounts/login).
+
+- **Embedded UX**: A user interface integrated into a partner’s web application, allowing seamless access to Rocket Lawyer’s services.
+
+- **UPID (Universal Party ID)**: UPID stands for Universally Unique IDentifier of the Party viewing the document. It is used to specify the party on a binder in requests related to service tokens. For more information about the UPID, refer to the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketsign-embedded-ux).
+    
 ## RocketDocument™
 
 Explore definitions for terms related to **RocketDocument™**:
 
 - **RocketDocument™:** This product enables customers to create and customize legal documents through a dynamic, interactive interview process.
 
-**RocketDocument Embedded UX**: This is an embedded user interface that allows users to interact with and fill out documents directly within your platform. The process is conducted as an interview, presenting a new question to the user for each editable field. This functionality allows you to obtain all user information and fill in all fields from different types of documents.
+**RocketDocument Embedded UX**: This embedded user interface allows users to interact with and fill out documents directly within your platform. The process is conducted as an interview, presenting a new question to the user for each editable field. This functionality allows you to obtain all user information and fill in all fields from different types of documents.
 
-- **RocketDocument API Endpoints**: A set of APIs that programmatically manage the document creation and filling process. You will use the API endpoints to choose a document template, start an interview, navigate through all questions to fill out the document, and complete the interview to access the final document.  
+- **RocketDocument API Endpoints**: A set of APIs that programmatically manage the document creation and filling process. The RocketDocument API endpoints are used only by partners who create their user interface. With the RocketDocument API, you can choose a document template, start an interview, navigate through all questions to fill out the document and complete the interview to access the final document.
     
-- **Interview:** A guided interview is a question-and-answer session that adjusts based on the user's answers, providing a tailor-made document creation experience. It can have two different storage types:  
+- **Interview (interviewId):** A guided interview is a question-and-answer session that adjusts based on the user's answers, providing a tailor-made document creation experience. It can have two different storage types:  
     
-  - **Persistent Interview:** A persistent interview will send each answer the user fills to the RocketLawyer's servers. The data will be stored there and when the user finishes the interview, it will be returned to genarate the completed document.  
-  - **Ephemeral Interview:** An ephemeral interview will not send data to RocketLawyer's servers. The data managing will be under the partner's discretion, and will need to be returned in its entirity when the user finishes the interview and requests the filled document.
+  - **Persistent Interview:** A persistent interview sends each answer the user fills to RocketLawyer's servers. The data is stored there, and when the user finishes the interview, the data is used to generate the completed document.
+  - **Ephemeral Interview:** An ephemeral interview does not send data to Rocket Lawyer's servers. The partner stores the interview answers on their servers and only sends the data to Rocket Lawyer to generate the document. However, no end-user data persists in the Rocket Lawyer servers.
 
 
-- **Document Template:** This serves as the blueprint for a legal document, containing static legal content, the layout for dynamic content, and control logic that dictates the flow and customization of questions during the interview.  
+- **Document Template (templateId):** This serves as the blueprint for a legal document, containing static legal content, the layout for dynamic content, and control logic that dictates the flow and customization of questions during the interview.  
     
 - **Document:** This is the final product generated from a completed interview. It seamlessly merges the static content from the template with the dynamic content provided by the user's answers.  
     
@@ -42,7 +44,7 @@ Explore definitions for terms related to **RocketDocument™**:
 
 ## RocketSign™
 
-**RocketSign** is Rocket Lawyer’s digital signing solution, comprising two main components:
+**RocketSign** is Rocket Lawyer’s digital signing solution. Below, you find the definitions of related terms:
 
 - **RocketSign Embedded UX**: An embedded user interface that allows users to interact with and sign documents directly within your platform. This feature enables document preparation, signing, and management to be seamlessly integrated into your application.  
     
@@ -52,13 +54,9 @@ Explore definitions for terms related to **RocketDocument™**:
     
 - **Party:** An individual or entity involved in the legal document, either as a signer or participant.  
     
-- **Binder:** Similar to a three-ring binder, it organizes and holds the document, details about each party, the status of the legal process, and all associated signatures.  
-    
+- **Binder (binderId):** Similar to a three-ring binder, it organizes and holds the document, details about each party, the status of the legal process, and all associated signatures. It can be obtained by following the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux).
+
 - **Event:** Any activity that occurs during the lifecycle of the legal process, such as sending an invitation to sign, a party viewing the document, or an owner modifying the document.  
-    
-- **RocketSign & Binders API**: This is an API for managing document signing processes and binder-related tasks, including preparing and signing documents.  
-    
-- **Client Credentials**: Essential authentication details obtained through onboarding, including an API Key and Secret used for accessing Rocket Lawyer's APIs.
 
 ## Authentication
 
@@ -70,20 +68,5 @@ Explore definitions for terms related to **Authentication**:
     
 - **Service Token:** The Service Token is an intermediary for creating a Scoped Access Token. You will need an Access Token to create a Service Token and the Service Token to create a Scoped Access Token. For more information on how to work with Service Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).  
     
-- **Scoped Access Token:** When dealing with front-end matters, you will need a Scoped Access Token. In this situation, the tokens get exposed to the browser, which is why you need a token with a very specific use that cannot be used for purposes other than dealing with the pages displayed to the user. For more information on how to work with Scoped Access Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).  
-    
-- **UPID (Universal Party ID)**: UPID stands for Universally Unique IDentifier of the Party viewing the document. It is used to specify the party in requests related to service tokens. For more information about the UPID, refer to the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketsign-embedded-ux).
-
-## **Identifiers**
-
-Explore definitions for terms related to **Identifiers**:
-
-- **templateId:** This is a unique identifier for a document template used to initialize an interview. It defines the legal document's structure, static content, and customization logic.  
-    
-- **partnerEndUserId:** This is a unique identifier used within your system to represent the end-user interacting with the Rocket Lawyer platform.  
-    
-- **interviewId:** This is a unique identifier for a specific interview session, representing a legal document customization process based on the user's responses.  
-    
-- **partyEmailAddress:** The end user's email address for document notifications.  
-    
-- **binderId**: This is a unique identifier for a binder used to display and manage documents. It can be obtained by following the [RocketDocument Embedded UX Quick Start guide](https://developer.rocketlawyer.com/rocketdocument-embedded-ux).
+- **Scoped Access Token:** When dealing with front-end matters, you will need a Scoped Access Token. In this situation, the tokens get exposed to the browser, which is why you need a token with a specific use that cannot be used for purposes other than dealing with the pages displayed to the user. The Scoped Access Token is only with the Rocket Lawyer API and building your own user interface. For more information on how to work with Scoped Access Token, refer to the [Authentication API page](https://developer.rocketlawyer.com/docs/partner-auth-service-product-sandbox/1/overview).
+- 

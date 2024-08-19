@@ -1,12 +1,16 @@
 This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting interviews, going through question pages, and completing interviews to retrieve documents. The following image summarizes all required actions:
 ![diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/Rocket%20Lawyer%20-%20Diagram.png?raw=true)
 
+In the above diagram, FE refers to operations executed by your front end, while BE refers to operations performed by your back end. 
+
 You will go through the following steps:
 - [Step 1: Authenticate](#step-1-authenticate)
 - [Step 2: Choose a Template](#step-2-choose-a-template)
 - [Step 3: Start an Interview](#step-3-start-an-interview)
 - [Step 4: Navigating Question Pages](#step-4-navigating-question-pages)
 - [Step 5: Complete the Interview and Get the Document](#step-5-complete-the-interview-and-get-the-document)
+
+In addition, you can check the [sequence diagram](#-complete-sequece-diagram) to see if it covers all the steps required to complete the process. 
 # Step 1: Authenticate
 To begin interacting with the RocketDocument API, you must obtain a general access token. This token authenticates most API requests, ensuring secure communication between your backend systems and the RocketDocument API.
 ## Create General Access Token
@@ -26,6 +30,8 @@ curl --request POST \
 '
 ```
 In this request, you will send the `client_id` and `client_secret` values, which you can obtain through [the RocketLawyer portal](https://developer.rocketlawyer.com/). After logging in with your credentials, click on your email address in the top right corner and access the **Apps** dashboard. Select your app, go to the **API Keys** section, and find the `cliend_id` under **Key** and the `client_secret` under **Secret**.
+
+> Your credentials are not immediately available after creating a Rocket Lawyer account. You must request them, and the Rocket Lawyer support team will manually provision them for you.
 
 **Response:**
 ```json
@@ -85,8 +91,8 @@ This endpoint will return a list of templates with the `templateId` and `templat
 ]
 ```
 ## Optional steps
-You can also add additional information to the template selection to improve your user experiece.
-- Get a thumbnail image for a specific template by submitting a request to the [Retrieve a Termplate Thumbnail](/docs/rocketdoc-api-product-sandbox/1/routes/templates/%7BtemplateId%7D/thumbnail/get) endpoint.
+You can also add additional information to the template selection to improve your user experience.
+- Get a thumbnail image for a specific template by submitting a request to the [Retrieve a Template Thumbnail](/docs/rocketdoc-api-product-sandbox/1/routes/templates/%7BtemplateId%7D/thumbnail/get) endpoint.
 - Retrieve a preview of a specific template by submitting a request to the [Retrieve a Template Preview](/docs/rocketdoc-api-product-sandbox/1/routes/templates/%7BtemplateId%7D/preview/get) endpoint.
 # Step 3: Start an Interview
 Initiate an interview session by selecting a document template and creating either a persistent or ephemeral interview. In both cases, the user will fill in the preexisting fields of the chosen template to generate a personalized document.
@@ -102,7 +108,7 @@ curl --request POST \
      --data-raw '
 {
     "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
-    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "partnerEndUserId": "<unique ID to represent your customer>",
     "partyEmailAddress": "someone@something.com"
 }
 '
@@ -114,7 +120,7 @@ In this request, you will send the selected template's identifier (`templateId`)
 {
     "interviewName": "Lease Agreement (6)",
     "concurrencyId": "78f97e2f-f947-4441-bc71-1a08e9e5ec7c",
-    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "partnerEndUserId": "<unique ID to represent your customer>",
     "storageType": "persistent",
     "interviewStatus": "created",
     "createdAt": "2024-08-08T19:21:43.112Z",
@@ -141,6 +147,9 @@ In the response, you will receive the following information:
 - `interviewId`: The interview's unique identifier.
 - `templateId`: The template's unique identifier.
 - `templateVersionId`: The template version identification.
+> **Service Token**
+> When you create an interview, you will receive a service token (`rl-rdoc-servicetoken`) through the response header. In the next steps, you will use this token to create the scoped access token.
+
 ## Create Ephemeral Interview
 When using an ephemeral interview, the answers are not kept in RocketLawyer's servers, so they must all be sent once the interview is done to create the document. To start an ephemeral interview, use the [Create an Interview](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/post) endpoint, using the following model of request:
 
@@ -150,9 +159,10 @@ curl --request POST \
      --url https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews \
      --header 'accept: application/json' \
      --header 'content-type: application/json' \
+     --header 'Authorization: Bearer {{generalAccessToken}}' \
      --data '
 {
-    "templateId": "{{templateId}}",
+    "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
     "partyEmailAddress": "someone@something.com",
     "storageType": "ephemeral"
 }
@@ -165,7 +175,7 @@ For the ephemeral interview, you will add the `"storageType": "ephemeral"` objec
 {
     "interviewName": "Lease Agreement (8)",
     "pageId": "first",
-    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "partnerEndUserId": "<unique ID to represent your customer>",
     "storageType": "ephemeral",
     "interviewStatus": "created",
     "createdAt": "2024-08-09T21:16:45.573Z",
@@ -180,38 +190,14 @@ For the ephemeral interview, you will add the `"storageType": "ephemeral"` objec
     "templateVersionId": "9f0fd7b2-b53c-49a7-aedb-1d5f01d41ced"
 }
 ```
+> **Service Token**
+> When you create an interview, you will receive a service token (`rl-rdoc-servicetoken`) through the response header. In the next steps, you will use this token to create the scoped access token.
+
 ## Get Scoped Access Token
-To access the pages related to a specific `documentId`, you will need a Scoped Access Token. Having this token to use for front-end matters will keep your general access token safe on your back end.
-### Create Service Token
-To create a scoped access token, you will first need a service token. You can get it by sending a request with the following parameters to the authentication endpoint.
+To access the pages related to a specific `documentId`, you will need a Scoped Access Token. Using this token for front-end matters will keep your general access token safe on your back end.
 
-**Request:**
-```curl
-curl --request POST \
-     --location 'https://api-sandbox.rocketlawyer.com/partners/v1/auth/servicetoken' \
-     --header 'Content-Type: application/json' \
-     --header 'Authorization: Bearer {{generalAccessToken}}' \
-     --data '
-{
-   "purpose" : "api.rocketlawyer.com/rocketdoc",
-   "interviewId" : "42313c4d-11bb-414a-81a4-9fda067d1ae7",
-   "partnerEndUserId" : "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
-   "expirationTime": 1753696695
-}
-'
-```
-This request will return a response with the service token string for the `token` object.
-
-**Response:**
-```json
-{
-    "purpose": "api.rocketlawyer.com/rocketdoc",
-    "expirationTime": "1753696695",
-    "token": "{{serviceToken}}"
-}
-```
 ### Create Scoped Access Token
-Now you can create a scoped access token, using the service token as an authenticator for the request, as exemplified below:
+To create a scoped access token, use the service token received at the response header when creating an interview as an authenticator for the request, as exemplified below:
 
 **Request:**
 ```curl
@@ -258,7 +244,7 @@ As users progress through the interview, you will retrieve and submit individual
 ## Get First Page
 Retrieve the first page of the interview session through the [Retrieve a Page](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint. To retrieve the first page, you will add the `pageId` parameter in the path as "first".
 > **Ephemeral Interview**
-> This is the only get page request that you will use for ephemeral interviews, since it will always return the template's default `answersPayload`.
+> When using the ephemeral interviews, you will always receive a page preview since no end-user data is stored by Rocket Lawyer. Therefore, the `answersPayload` will always contain the default content.
 Below, you can find an example request for the first page:
 **Request:**
 ```curl
@@ -475,7 +461,7 @@ curl --request GET \
 {
     "interviewName": "Lease Agreement (6)",
     "concurrencyId": "78f97e2f-f947-4441-bc71-1a08e9e5ec7c",
-    "partnerEndUserId": "UNIVERSAL PARTY IDENTIFIER - UNIQUE ID TO REPRESENT A CUSTOMER",
+    "partnerEndUserId": "<unique ID to represent your customer>",
     "storageType": "persistent",
     "interviewStatus": "created",
     "createdAt": "2024-08-08T19:21:43.112Z",
@@ -565,3 +551,9 @@ curl --request POST \
   }
 }
 ```
+
+# Complete Sequece Diagram
+
+The next diagram presents all the steps described in the previous sections.
+
+![Sequence diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/API%20Usage%20for%20RocketDoc%20Interview%20(partner%20owning%20UI).png?raw=true)
