@@ -58,9 +58,19 @@ In this request, you will send the `client_id` and `client_secret` values, which
 }
 ```
 Your Access Token will returned in the `access_token` object. You should securely store this token in your backend for use in future requests.
+
+> **Inform the Rocket Lawyer Team**
+> 
+> Before starting to build your integration, you must create a new APP through the [Developer Portal](https://developer.rocketlawyer.com/my-apps) and inform the Rocket Lawyer team using the [Partner Requests Portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10). 
+
 # Step 2: Choose a Template
 In this step, you will retrieve a list of available document templates from the RocketDocument API. If you want, you can also obtain a thumbnail image and an HTML preview for a specific template, allowing you to display template options within your custom UI.
-## Get List of Templates
+
+> **Request Templates**
+> 
+> When starting your integration, you have to request the templates you will use for the Rocket Lawyer team through the [Partner Requests Portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10).
+
+## Get a List of Templates
 Retrieve a list of available document templates by sending a request to the [Get Template List](docs/rocketdoc-api-product-sandbox/1/routes/interviews/get) endpoint. Below is an example of request for retrieving the list of templates:
 
 **Request:**
