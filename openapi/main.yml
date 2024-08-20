@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: RocketDocument API
+  title: RocketDocument v2 API
   version: "2.2"
 
 servers:
