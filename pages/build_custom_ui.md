@@ -1,5 +1,5 @@
 This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting interviews, going through question pages, and completing interviews to retrieve documents. The following image summarizes all required actions:
-![diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/Rocket%20Lawyer%20-%20Diagram%202.png?raw=true)
+![diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/Rocket%20Lawyer%20-%20Diagram%203.png?raw=true)
 
 In the above diagram, FE refers to operations executed by your front end, while BE refers to operations performed by your back end. 
 
