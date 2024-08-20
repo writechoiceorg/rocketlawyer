@@ -4,6 +4,7 @@ The Data I/O feature in RocketDocument v2 allows API partners to pre-fill interv
 
 Data I/O uses the Tagged Answer Model (TAM) to structure data within interviews. Partners can retrieve the TAM for a specific template, pre-fill fields with customer data, and later retrieve the user's responses after they complete the interview. The key steps in using this feature are retrieving the TAM, submitting the answers, and optionally retrieving or updating the interview data.
 
+<a name="step-1"></a>
 # Step 1: Retrieve the TAM for a Template
 
 To start using the Data I/O feature, you must retrieve the Tagged Answer Model (TAM) for the interview template you plan to use. The TAM provides the structure you will use to map your customer data. You can do this by sending a request to the [Retrieve Tagged Answer Model for a Template](/docs/rocketdoc-api-product-sandbox/1/routes/templates/%7BtemplateId%7D/tagged-answer-model/get). Below, you will find an example request and response for this endpoint:
@@ -44,6 +45,8 @@ curl --request GET \
 }
 ```
 
+
+<a name="step-2"></a>
 # Step 2: Data In - Submit Pre-filled Answers While Creating the Interview
 
 Once you have the TAM, you can pre-fill the interview fields with your customer's data by submitting the answers when creating the interview. You must structure your data following the TAM, but at this point, there is no need to submit an answer to all the fields. During the interview, the answers you have already provided will appear pre-filled for the end user. You can submit your data by sending a request to the [Create an Interview](https://rl-cicdv2-apigee-public-rocketdocv2.apigee.io/docs/rocketdoc-api-product-sandbox/1/routes/interviews/post) endpoint containing the answers in the `inputData` object, following the structure retrieved in the TAM. The response to this request will be the interview with the informed fields already filled. Below, you will find an example of a request to this endpoint:
@@ -68,12 +71,14 @@ curl --request POST \
 ```
 
 
+<a name="step-3"></a>
 # Step 3: Update an Interview 
 
 If you need to update the answers in an ongoing interview, use the TAM structure. To update all template fields simultaneously, use the [Update an Interview](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/put) endpoint.
 
 > **Updating an Interview will Replace Previous Data** Ensure this is the intention before proceeding.
 
+<a name="step-4"></a>
 # Step 4: Data Out - Retrieve Data from Interviews
 
 ## Retrieve Persistent Interview Data
@@ -88,6 +93,6 @@ Similarly to retrieving data from a persistent interview, you can also retrieve 
 
 Below, you can find some example TAM files for a Lease Agreement template:
 
-- **[Origin file](/files/lease-agreement-origin-tam.json):** This is a sample of a file that is returned when you go through [Step 1: Retrieve the TAM for a Template](#step-1-retrieve-the-tam-for-a-template).
-- **[Input file](/files/lease-agreement-input-tam.json):** This is a sample of how you should structure the answers when going through [Step 2: Submit Pre-filled Answers While Creating the Interview](#step-2-submit-pre-filled-answers-while-creating-the-interview).
+- **[Origin file](/files/lease-agreement-origin-tam.json):** This is a sample of a file that is returned when you go through [Step 1: Retrieve the TAM for a Template](rocket-document-v2-data-i/o#step-1).
+- **[Input file](/files/lease-agreement-input-tam.json):** This is a sample of how you should structure the answers when going through [Step 2: Submit Pre-filled Answers While Creating the Interview](rocket-document-v2-data-i/o#step-2).
 - **[Output file](/files/lease-agreement-output-tam.json):** This is a sample of how the answers will be returned if you go through the [Retrieve Persistent Interview Data](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/tagged-answers/get) or [Retrieve Ephemeral Interview Data](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/tagged-answers/post) process.
