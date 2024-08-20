@@ -152,7 +152,7 @@ In addition, when using the **RocketDocument Embedded UX**, you can add argument
 </rocket-document>
 ```
 You can notice that, in addition to the `accessToken`, `serviceToken`, and `interviewId` used for authentication and identification of the current interview, you can also use the following ones:
-- `pageId`: Enables you to resume a previous interview the end user left. To use this feature, you first need to send a request to the [Retrieve Interview by ID](link) informing the `interviewId` and `pageId = "last"`. You will receive the `pageId' of the last question answered by the end user, which you can use to continue the interview.
+- `pageId`: Enables you to resume a previous interview the end user left. To use this feature, inform `pageId = "last"` to display the last answered page. 
 - `showProgressBar`: Controls if the progress bar will be displayed. The default value is `true`.
 - `showDocumentPreview`: Controls if the document preview is available. The default value is `true`.
 - `showDocumentTitle`: Controls if the interview title will be displayed. The default value is `true`.
