@@ -1,7 +1,7 @@
 This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting interviews, going through question pages, and completing interviews to retrieve documents. The following image summarizes all required actions:
 ![diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/Rocket%20Lawyer%20-%20Diagram%203.png?raw=true)
 
-In the above diagram, FE refers to operations executed by your front end, while BE refers to operations performed by your back end. 
+In the above diagram, FE refers to operations executed by your front end, while BE refers to operations performed by your back end.
 
 You will go through the following steps:
 - [Step 1: Authenticate](#step-1-authenticate)
@@ -11,6 +11,10 @@ You will go through the following steps:
 - [Step 5: Complete the Interview and Get the Document](#step-5-complete-the-interview-and-get-the-document)
 
 In addition, you can check the [sequence diagram](#-complete-sequece-diagram) to see if it covers all the steps required to complete the process. 
+
+# Requirements
+When building your custom UX, you have to create two apps in the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/my-apps). One app will be used for your back-end operations, while the other for your front-end operations. This is necessary because the app credentials have either back or front end roles. The back-end credentials will be used from Step 1 to Step 3 to choose a template and start an interview. The front-end credentials will be used to create a scoped access token in Step 4, enabling you to navigate through the questions page, complete the interview, and get the final document.    
+
 # Step 1: Authenticate
 To begin interacting with the RocketDocument API, you must obtain a general access token. This token authenticates most API requests, ensuring secure communication between your backend systems and the RocketDocument API.
 ## Create General Access Token
@@ -64,7 +68,7 @@ Your Access Token will returned in the `access_token` object. You should securel
 > Before starting to build your integration, you must create a new APP through the [Developer Portal](https://developer.rocketlawyer.com/my-apps) and inform the Rocket Lawyer team using the [Partner Requests Portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10). 
 
 # Step 2: Choose a Template
-In this step, you will retrieve a list of available document templates from the RocketDocument API. If you want, you can also obtain a thumbnail image and an HTML preview for a specific template, allowing you to display template options within your custom UI.
+In this step, you will retrieve a list of available document templates from the RocketDocument API. You can also obtain a thumbnail image and an HTML preview for a specific template, allowing you to display template options within your custom UI.
 
 > **Request Templates**
 > 
@@ -203,11 +207,11 @@ For the ephemeral interview, you will add the `"storageType": "ephemeral"` objec
 > **Service Token**
 > When you create an interview, you will receive a service token (`rl-rdoc-servicetoken`) through the response header. In the next steps, you will use this token to create the scoped access token.
 
-## Get Scoped Access Token
+# Step 4: Get Scoped Access Token
 To access the pages related to a specific `documentId`, you will need a Scoped Access Token. Using this token for front-end matters will keep your general access token safe on your back end.
 
-### Create Scoped Access Token
-To create a scoped access token, use the service token received at the response header when creating an interview as an authenticator for the request, as exemplified below:
+## Create Scoped Access Token
+To create a scoped access token, use the service token received at the response header when creating an interview to authenticate the request. In addition, you also need to provide the `client_id` and `client_secret`, which should come from your front-end app. The following code block presents a request example of how to get the scoped access token:
 
 **Request:**
 ```curl
@@ -249,7 +253,7 @@ The response will return the scoped access token under the `access_token` object
     "status": "approved"
 }
 ```
-# Step 4: Navigating Question Pages
+# Step 5: Navigating Question Pages
 As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process.
 ## Get First Page
 Retrieve the first page of the interview session through the [Retrieve a Page](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint. To retrieve the first page, you will add the `pageId` parameter in the path as "first".
@@ -493,7 +497,7 @@ curl --request GET \
     "templateVersionId": "9f0fd7b2-b53c-49a7-aedb-1d5f01d41ced"
 }
 ```
-# Step 5: Complete the Interview and Get the Document
+# Step 6: Complete the Interview and Get the Document
 Once all questions are answered, the interview session is completed, and the final document is generated. You can then retrieve the finished document as a persistent document linked to the `documentId` or an ephemeral document based on the session's data.
 ## Complete Interview
 Complete the interview session and ensure the processing and saving of the answers by sending a request to the [Complete an Interview](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/completions/post) endpoint. Below, you will find an example of a request and a response:
@@ -564,6 +568,6 @@ curl --request POST \
 
 # Complete Sequece Diagram
 
-The next diagram presents all the steps described in the previous sections.
+The following diagram presents all the steps described in the previous sections.
 
 ![Sequence diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/API%20Usage%20for%20RocketDoc%20Interview%20(partner%20owning%20UI).png?raw=true)
