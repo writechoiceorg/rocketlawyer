@@ -1,20 +1,23 @@
 This guide will help partners integrate their own UX with RocketDocument v2 API, focusing on direct API interactions. The integration involves obtaining access tokens, selecting document templates, starting interviews, going through question pages, and completing interviews to retrieve documents. The following image summarizes all required actions:
-![diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/Rocket%20Lawyer%20-%20Diagram%203.png?raw=true)
+![diagram](/files/build-ux_workflow.png)
 
-In the above diagram, FE refers to operations executed by your front end, while BE refers to operations performed by your back end.
+In the above diagram, FE refers to operations executed by your front end, while BE refers to operations performed by your back end. 
 
 You will go through the following steps:
-- [Step 1: Authenticate](#step-1-authenticate)
-- [Step 2: Choose a Template](#step-2-choose-a-template)
-- [Step 3: Start an Interview](#step-3-start-an-interview)
-- [Step 4: Navigating Question Pages](#step-4-navigating-question-pages)
-- [Step 5: Complete the Interview and Get the Document](#step-5-complete-the-interview-and-get-the-document)
+- [Step 1: Authenticate](rocketdocument-v2-build-your-own-ux#step-1)
+- [Step 2: Choose a Template](rocketdocument-v2-build-your-own-ux#step-2)
+- [Step 3: Start an Interview](rocketdocument-v2-build-your-own-ux#step-3)
+- [Step 4: Get Scoped Access Token](rocketdocument-v2-build-your-own-ux#step-4)
+- [Step 5: Navigating Question Pages](rocketdocument-v2-build-your-own-ux#step-5)
+- [Step 6: Complete the Interview and Get the Document](rocketdocument-v2-build-your-own-ux#step-6)
 
-In addition, you can check the [sequence diagram](#-complete-sequece-diagram) to see if it covers all the steps required to complete the process. 
+In addition, you can check the [sequence diagram](rocketdocument-v2-build-your-own-ux#complete-sequence-diagram) to see if it covers all the steps required to complete the process. 
 
 # Requirements
 When building your custom UX, you have to create two apps in the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/my-apps). One app will be used for your back-end operations, while the other for your front-end operations. This is necessary because the app credentials have either back or front end roles. The back-end credentials will be used from Step 1 to Step 3 to choose a template and start an interview. The front-end credentials will be used to create a scoped access token in Step 4, enabling you to navigate through the questions page, complete the interview, and get the final document.    
 
+
+<a name="step-1"></a>
 # Step 1: Authenticate
 To begin interacting with the RocketDocument API, you must obtain a general access token. This token authenticates most API requests, ensuring secure communication between your backend systems and the RocketDocument API.
 ## Create General Access Token
@@ -28,8 +31,8 @@ curl --request POST \
      --data '
 {
     "grant_type": "client_credentials",
-    "client_id": "{{partnerClientId}}",
-    "client_secret": "{{partnerClientSecret}}"
+    "client_id": "{partnerClientId}",
+    "client_secret": "{partnerClientSecret}"
 }
 '
 ```
@@ -53,7 +56,7 @@ In this request, you will send the `client_id` and `client_secret` values, which
     "token_type": "BearerToken",
     "issued_at": "1723146278357",
     "client_id": "ZEAURAIq2q7ngQMBxRdvGFOQmy7q57xWxVW2nVP4EGzLy68H",
-    "access_token": "{{generalAccessToken}}",
+    "access_token": "{generalAccessToken}",
     "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
     "scope": "",
     "expires_in": "35999",
@@ -67,6 +70,7 @@ Your Access Token will returned in the `access_token` object. You should securel
 > 
 > Before starting to build your integration, you must create a new APP through the [Developer Portal](https://developer.rocketlawyer.com/my-apps) and inform the Rocket Lawyer team using the [Partner Requests Portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10). 
 
+<a name="step-2"></a>
 # Step 2: Choose a Template
 In this step, you will retrieve a list of available document templates from the RocketDocument API. You can also obtain a thumbnail image and an HTML preview for a specific template, allowing you to display template options within your custom UI.
 
@@ -75,13 +79,13 @@ In this step, you will retrieve a list of available document templates from the 
 > When starting your integration, you have to request the templates you will use for the Rocket Lawyer team through the [Partner Requests Portal](https://rocket-lawyer.atlassian.net/servicedesk/customer/portal/10).
 
 ## Get a List of Templates
-Retrieve a list of available document templates by sending a request to the [Get Template List](docs/rocketdoc-api-product-sandbox/1/routes/interviews/get) endpoint. Below is an example of request for retrieving the list of templates:
+Retrieve a list of available document templates by sending a request to the [Get Template List](docs/rocketdoc-api-product-sandbox/1/routes/templates/get) endpoint. Below is an example of request for retrieving the list of templates:
 
 **Request:**
 ```curl
 curl --request GET \
      --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/templates' \
-     --header 'Authorization: Bearer {{generalAccessToken}}'
+     --header 'Authorization: Bearer {generalAccessToken}'
 ```
 This endpoint will return a list of templates with the `templateId` and `templateName`, which you will need to retrieve the desired template later. Below, you will find an example of a response:
 
@@ -108,6 +112,8 @@ This endpoint will return a list of templates with the `templateId` and `templat
 You can also add additional information to the template selection to improve your user experience.
 - Get a thumbnail image for a specific template by submitting a request to the [Retrieve a Template Thumbnail](/docs/rocketdoc-api-product-sandbox/1/routes/templates/%7BtemplateId%7D/thumbnail/get) endpoint.
 - Retrieve a preview of a specific template by submitting a request to the [Retrieve a Template Preview](/docs/rocketdoc-api-product-sandbox/1/routes/templates/%7BtemplateId%7D/preview/get) endpoint.
+
+<a name="step-3"></a>
 # Step 3: Start an Interview
 Initiate an interview session by selecting a document template and creating either a persistent or ephemeral interview. In both cases, the user will fill in the preexisting fields of the chosen template to generate a personalized document.
 ## Create Persistent Interview
@@ -118,7 +124,7 @@ When using the persistent interview, the answers to each question are stored in 
 curl --request POST \
      --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews' \
      --header 'Content-Type: application/json' \
-     --header 'Authorization: Bearer {{generalAccessToken}}' \
+     --header 'Authorization: Bearer {generalAccessToken}' \
      --data-raw '
 {
     "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
@@ -173,7 +179,7 @@ curl --request POST \
      --url https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews \
      --header 'accept: application/json' \
      --header 'content-type: application/json' \
-     --header 'Authorization: Bearer {{generalAccessToken}}' \
+     --header 'Authorization: Bearer {generalAccessToken}' \
      --data '
 {
     "templateId": "04d9d0ba-3113-40d3-9a4e-e7b226a72154",
@@ -207,11 +213,14 @@ For the ephemeral interview, you will add the `"storageType": "ephemeral"` objec
 > **Service Token**
 > When you create an interview, you will receive a service token (`rl-rdoc-servicetoken`) through the response header. In the next steps, you will use this token to create the scoped access token.
 
+
+<a name="step-4"></a>
 # Step 4: Get Scoped Access Token
-To access the pages related to a specific `documentId`, you will need a Scoped Access Token. Using this token for front-end matters will keep your general access token safe on your back end.
+To create a scoped access token, use the service token received at the response header when creating an interview to authenticate the request. In addition, you also need to provide the `client_id` and `client_secret`, which should come from your front-end app. The following code block presents a request example of how to get the scoped access token:
+
 
 ## Create Scoped Access Token
-To create a scoped access token, use the service token received at the response header when creating an interview to authenticate the request. In addition, you also need to provide the `client_id` and `client_secret`, which should come from your front-end app. The following code block presents a request example of how to get the scoped access token:
+To create a scoped access token, use the service token received at the response header when creating an interview as an authenticator for the request, as exemplified below:
 
 **Request:**
 ```curl
@@ -221,9 +230,9 @@ curl --request POST \
      --data '
 {
     "grant_type": "authorization_code",
-	"client_id" : "{{partnerClientId}}",
-	"client_secret" : "{{partnerClientSecret}}",
-	"code" : "{{serviceToken}}"
+	"client_id" : "{partnerClientId}",
+	"client_secret" : "{partnerClientSecret}",
+	"code" : "{serviceToken}"
 }
 '
 ```
@@ -244,8 +253,8 @@ The response will return the scoped access token under the `access_token` object
     "developer.email": "developer@rocketlawyer.com",
     "token_type": "BearerToken",
     "issued_at": "1723146287236",
-    "client_id": "{{partnerClientId}}",
-    "access_token": "{{scopedAccessToken}}",
+    "client_id": "{partnerClientId}",
+    "access_token": "{scopedAccessToken}",
     "application_name": "eebb78c0-ab4f-4212-8665-b1292330dbf5",
     "scope": "",
     "expires_in": "35999",
@@ -253,6 +262,8 @@ The response will return the scoped access token under the `access_token` object
     "status": "approved"
 }
 ```
+
+<a name="step-5"></a>
 # Step 5: Navigating Question Pages
 As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process.
 ## Get First Page
@@ -263,8 +274,8 @@ Below, you can find an example request for the first page:
 **Request:**
 ```curl
 curl --request GET \
-     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/first' \
-     --header 'Authorization: Bearer {{scopedAccessToken}}'
+     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}/pages/first' \
+     --header 'Authorization: Bearer {scopedAccessToken}'
 ```
 This will return a response with the questions for the first page, and the `isFirst` object will return `true`.
 
@@ -334,8 +345,8 @@ To retrieve a page by its ID, use the [Retrieve a Page](/docs/rocketdoc-api-prod
 **Request:**
 ```curl
 curl --request GET \
-     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}/pages/{{pageId}}' \
-     --header 'Authorization: Bearer {{scopedAccessToken}}' \
+     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}/pages/{pageId}' \
+     --header 'Authorization: Bearer {scopedAccessToken}' \
 ```
 This request will get a response similar to the one below:
 
@@ -401,7 +412,7 @@ Once a page is filled, you can submit the questions on the current page and move
 curl --request PATCH \
      --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/42313c4d-11bb-414a-81a4-9fda067d1ae7/pages/Pkrmp0p6bxdxoe' \
      --header 'Content-Type: application/json' \
-     --header 'Authorization: Bearer {{scopedAccessToken}}' \
+     --header 'Authorization: Bearer {scopedAccessToken}' \
      --data '
 {
   "currentPageData": {
@@ -465,9 +476,9 @@ For persistent interviews, users can resume a previously started session. This s
 **Request:**
 ```curl
 curl --request GET \
-     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{{interviewId}}' \
+     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}' \
      --header 'Content-Type: application/json' \
-     --header 'Authorization: Bearer {{scopedAccessToken}}'
+     --header 'Authorization: Bearer {scopedAccessToken}'
 ```
 
 **Response:**
@@ -497,6 +508,8 @@ curl --request GET \
     "templateVersionId": "9f0fd7b2-b53c-49a7-aedb-1d5f01d41ced"
 }
 ```
+
+<a name="step-6"></a>
 # Step 6: Complete the Interview and Get the Document
 Once all questions are answered, the interview session is completed, and the final document is generated. You can then retrieve the finished document as a persistent document linked to the `documentId` or an ephemeral document based on the session's data.
 ## Complete Interview
@@ -505,9 +518,9 @@ Complete the interview session and ensure the processing and saving of the answe
 **Request:**
 ```curl
 curl --request POST \
-     --url https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/interviewId/completions \
+     --url https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}/completions \
      --header 'accept: application/json' \
-     --header 'authorization: Bearer {{generalAccessToken}}'
+     --header 'authorization: Bearer {generalAccessToken}'
 ```
 
 **Response:**
@@ -520,27 +533,27 @@ curl --request POST \
 }
 ```
 ## Get Persistent Document
-To retrieve the completed persistent document, make a request to the [Retrieve Persistent Document](link) endpoint. It can return a document in either HTML or PDF format, depending on what is informed in the `Accept` parameter. Below, you will find an example of a request:
+To retrieve the completed persistent document, make a request to the [Retrieve Persistent Document](/docs/rocketdoc-api-product-sandbox/1/routes/documents/%7BdocumentId%7D/get) endpoint. It can return a document in either HTML or PDF format, depending on what is informed in the `Accept` parameter. Below, you will find an example of a request:
 
 **Request:**
 ```curl
 curl --request GET \
      --url https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents/83a61e13-e2c1-44db-a9cb-44ee1a025fa5 \
      --header 'Accept: text/html' \
-     --header 'authorization: Bearer {{generalAccessToken}}'
+     --header 'authorization: Bearer {generalAccessToken}'
 ```
 
 **Response:**
 Document data in HTML or PDF format.
 ## Get Ephemeral Document
-To retrieve the completed ephemeral document, make a request to the [Retrieve Ephemeral Document](link) endpoint. This will submit all the questions and answers linked to the `interviewId` and return the completed document. Below, you will find an example of a request and a response:
+To retrieve the completed ephemeral document, make a request to the [Retrieve Ephemeral Document](/docs/rocketdoc-api-product-sandbox/1/routes/documents/post) endpoint. This will submit all the questions and answers linked to the `interviewId` and return the completed document. Below, you will find an example of a request and a response:
 
 **Request:**
 ```curl
 curl --request POST \
      --url https://api-sandbox.rocketlawyer.com/rocketdoc/v2/documents \
      --header 'accept: application/json' \
-     --header 'authorization: Bearer {{generalAccessToken}}' \
+     --header 'authorization: Bearer {generalAccessToken}' \
      --header 'content-type: application/json' \
      --data '
 {
@@ -566,8 +579,11 @@ curl --request POST \
 }
 ```
 
+
+<a name="complete-sequence-diagram"></a>
 # Complete Sequece Diagram
 
 The following diagram presents all the steps described in the previous sections.
 
-![Sequence diagram](https://github.com/writechoiceorg/rocketlawyer/blob/main/media/API%20Usage%20for%20RocketDoc%20Interview%20(partner%20owning%20UI).png?raw=true)
+
+![Sequence diagram](/files/Sequence_diagram_API_usage.png)
