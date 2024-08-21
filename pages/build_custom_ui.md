@@ -222,7 +222,7 @@ Users can also resume a previously started session. This step involves retrievin
 
 Once all questions are answered, you can complete the interview session and ensure the processing and saving of the answers by sending a request to the [Complete an Interview](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/completions/post) endpoint.
 
-To retrieve the completed persistent document, make a request to the [Retrieve Persistent Document](/docs/rocketdoc-api-product-sandbox/1/routes/documents/%7BdocumentId%7D/get) endpoint. It can return a document in either HTML or PDF format, depending on what is informed in the `Accept` parameter. Below, you will find an example of a request:
+To retrieve the completed document, make a request to the [Retrieve Document](/docs/rocketdoc-api-product-sandbox/1/routes/documents/%7BdocumentId%7D/get) endpoint. It can return a document in either HTML or PDF format, depending on what is informed in the `Accept` parameter. Below, you will find an example of a request:
 
 **Request:**
 ```curl
