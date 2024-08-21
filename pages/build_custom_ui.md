@@ -111,9 +111,9 @@ To create a scoped access token, use the service token received at the response 
 
 As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process. The following sections describe how to access the interview pages. To learn how to build each page based on the API responses provided by Rocket Lawyer, check [Building Interview Pages](building-interview-pages).
 
-## Get First Page
+## Get a Page
 
-Retrieve the first page of the interview session through the [Retrieve a Page](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint. To retrieve the first page, you will add the `pageId` parameter in the path as "first". To retrieve other pages, you will add the page ID to the path instead of "first". Below, you can find an example request for the first page:
+Retrieve the first page of the interview session through the [Get Page by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint. To retrieve the first page, you will add the `pageId` parameter in the path as `first`. To retrieve other pages, you will add the `pageId` to the path instead of `first`. Below, you can find an example request for the first page:
 
 **Request:**
 ```curl
@@ -121,7 +121,7 @@ curl --request GET \
      --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}/pages/first' \
      --header 'Authorization: Bearer {scopedAccessToken}'
 ```
-This will return a response with the questions for the first page, and the `isFirst` object will return `true`.
+This will return a response with the questions for the first page, and the `isFirst` object will return `true`. In the `nextPageData` object you will also get the `pageId` of the following page, so you can use it to retrieve the next page when needed.
 
 **Response:**
 ```json
@@ -215,7 +215,9 @@ curl --request PATCH \
 
 In this request, the page objects (`currentPageData`, `previousPageData`, and `nextPageData`) can be either `reference` or `display`. When sending `reference`, the response will return only the `pageId` to help with navigation. When using `display`, the response will return complete question information for that page, including all content necessary for the interview process.
 
-Users can also resume a previously started session. This step involves retrieving the saved state of the interview and continuing from where the user left off. You can do that by submitting a request to the [Retrieve Interview by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get) endpoint providing `pageId = last`. Thus, you will receive the last answered page from the end user, including the page content and the `pageId`, allowing you to continue the interview.
+## Optional Step
+
+Users can also resume a previously started session. This step involves retrieving the saved state of the interview and continuing from where the user left off. You can do that by submitting a request to the [Get Page by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get) endpoint providing `pageId = last`. Thus, you will receive the last answered page from the end user, including the page content and the `pageId`, allowing you to continue the interview.
 
 <a name="step-6"></a>
 # Step 6: Complete the Interview and Get the Document
