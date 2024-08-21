@@ -266,3 +266,638 @@ The `answersPayload` is updated similarly for cyclical pages but with an array f
  }
 ]
 ```
+
+# Pages Examples
+
+Rocket Lawyer provides the [Demo App](https://partner-demo-app.ip.cicdv2.sandbox.rocketlawyer.com/partners/logo-ipsum-2/document?templateId=0b0f7ca1-e59e-42cd-974d-a7bdc63645f6) to help you understand how to build interview pages. The following sections present the page data used to create each Demo App page.
+
+## Page 1: Text Fields
+
+The following image presents the first page content.
+
+![Text fields page](/files/demo-app-image1.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfmu8tao22p40",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "0",
+  "questions": [
+    {
+      "id": "Qlfmu8t9u32a73",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "fields": [
+        {
+          "id": "Flfmu8ta21l9eh",
+          "label": "For Shorter Answers",
+          "type": "TEXT",
+          "default": ""
+        },
+        {
+          "id": "Flfmuapr3merom",
+          "label": "For Longer Answers",
+          "type": "PARAGRAPH",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 2: Other Fields
+
+The following image presents the seccond page content.
+
+![Text fields page](/files/demo-app-image2.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfmuc7bp91na3",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "8",
+  "questions": [
+    {
+      "id": "Qlfmuc7alkdhgw",
+      "hint": "Vestibulum lectus mauris ultrices eros in. Sed lectus vestibulum mattis ullamcorper velit sed. Nunc sed id semper risus in hendrerit gravida rutrum. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ac tortor dignissim convallis aenean et. Lacinia quis vel eros donec ac odio tempor orci dapibus.",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "fields": [
+        {
+          "id": "Flfmuc7avnckno",
+          "label": "For Specific Dates",
+          "type": "DATE",
+          "default": ""
+        },
+        {
+          "id": "Flfmudkmyins28",
+          "label": "For Numbers",
+          "type": "NUMBER",
+          "default": ""
+        },
+        {
+          "id": "Flfmudy12wpt42",
+          "label": "For Currency Fields",
+          "type": "CURRENCY",
+          "default": ""
+        },
+        {
+          "id": "Flfmueaitww2si",
+          "label": "For Percentages",
+          "type": "PERCENTAGE",
+          "default": ""
+        },
+        {
+          "id": "Flfmueus054smy",
+          "label": "For Social Security Numbers",
+          "type": "SSN",
+          "default": ""
+        },
+        {
+          "id": "Flfmuf9d0rxhhy",
+          "label": "For Phone Numbers",
+          "type": "PHONE_NUMBER",
+          "default": ""
+        },
+        {
+          "id": "Flfmufliy5gnuf",
+          "label": "For Phone Extensions",
+          "type": "PHONE_EXT",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 3: Dropdowns
+
+The following image presents the third page content.
+
+![Text fields page](/files/demo-app-image3.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfqvjc6l4o4u8",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "17",
+  "questions": [
+    {
+      "id": "Qlfqvjc49rfy5f",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "fields": [
+        {
+          "id": "Flfqvjc5djla5m",
+          "label": "For answers from a set number of options",
+          "type": "DROPDOWN",
+          "options": [
+            "Option 1",
+            "Option 2",
+            "Option 3",
+            "Option 4",
+            "Option 5"
+          ],
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 4: Checkboxes
+
+The following image presents the fourth page content.
+
+![Text fields page](/files/demo-app-image4.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfqvit43sqo1v",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "25",
+  "questions": [
+    {
+      "id": "Qlfqvit2q2xfq0",
+      "hint": "Vestibulum lectus mauris ultrices eros in. Sed lectus vestibulum mattis ullamcorper velit sed. Nunc sed id semper risus in hendrerit gravida rutrum. Dui accumsan sit amet nulla facilisi morbi tempus iaculis urna. Ac tortor dignissim convallis aenean et. Lacinia quis vel eros donec ac odio tempor orci dapibus.",
+      "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+      "fields": [
+        {
+          "id": "Flfqvit30l6v1v",
+          "label": "Checkbox Options 1",
+          "type": "CHECKBOX",
+          "default": "false"
+        },
+        {
+          "id": "Flfqvnozj9u8r7",
+          "label": "Checkbox Options 2",
+          "type": "CHECKBOX",
+          "default": "false"
+        },
+        {
+          "id": "Flfqvnvr121l11",
+          "label": "Checkbox Options 3",
+          "type": "CHECKBOX",
+          "default": "false"
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 5: Radio Buttons 
+
+The following image presents the fifth page content.
+
+![Text fields page](/files/demo-app-image5.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfmujgzikgt81",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "33",
+  "questions": [
+    {
+      "id": "Qlfmujgxlrwily",
+      "hint": "",
+      "title": "This is a question based on Radios. Select Option A to have the next question in sequence appear.",
+      "fields": [
+        {
+          "id": "Flfmulpp4orak5",
+          "label": "Radio Option A",
+          "type": "RADIO",
+          "default": "true"
+        },
+        {
+          "id": "Flfmum2u1mcvif",
+          "label": "Radio Option B",
+          "type": "RADIO",
+          "default": "false"
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 6: Conditionals
+
+The following image presents the sixth page content. This page uses conditionals which are handled by the server side.
+
+![Text fields page](/files/demo-app-image6.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfmuuwzedl04e",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "42",
+  "questions": [
+    {
+      "id": "Qlfmuuwx10sjly",
+      "hint": "Select option D to have the next question appear.",
+      "title": "This question will appear when Radio Option A is selected.",
+      "fields": [
+        {
+          "id": "Flfmuuwxkfljt6",
+          "label": "Radio Option C",
+          "type": "RADIO",
+          "default": "true"
+        },
+        {
+          "id": "Flfmuwllpj97qz",
+          "label": "Radio Option D",
+          "type": "RADIO",
+          "default": "false"
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 7: Conditionals 
+
+The following image presents the seventh page content. This page uses conditionals which are handled by the server side.
+
+![Text fields page](/files/demo-app-image7.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfmuxn81cb728",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "50",
+  "questions": [
+    {
+      "id": "Qlfmuxn4q5gzt4",
+      "hint": "",
+      "title": "This question will appear when Radio Option A and Radio Option D are BOTH selected.",
+      "fields": [
+        {
+          "id": "Flfmuxn5g03q4z",
+          "label": "Radio Option E",
+          "type": "RADIO",
+          "default": "true"
+        },
+        {
+          "id": "Flfmuytjst5yo9",
+          "label": "Radio Option F",
+          "type": "RADIO",
+          "default": "false"
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 8: Conditionals
+
+The following image presents the eighth page content. This page uses conditionals which are handled by the server side.
+
+![Text fields page](/files/demo-app-image8.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfmuznu0nlsb6",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "58",
+  "questions": [
+    {
+      "id": "Qlfmuznqy9h345",
+      "title": "This question will appear if Radio Option A and Radio Option C are selected OR if Radio Option B and Radio Option D are selected.",
+      "hint": "",
+      "fields": [
+        {
+          "id": "Flfmuznrnxr8vn",
+          "label": "Text Field",
+          "type": "TEXT",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+```
+
+## Page 9: Cyclicals
+
+The following image presents the ninth page content regarding the first cyclical answer.
+
+![Text fields page](/files/demo-app-image9.png)
+
+The following image presents the ninth page content regarding the seccond cyclical answer.
+
+![Text fields page](/files/demo-app-image10.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfqvs6we4in99",
+  "format": "display",
+  "type": "cyclical",
+  "cycleId": "Clfqvty59mpobo",
+  "progressPercentage": "67",
+  "questions": [
+    {
+      "id": "Qlfqvs6u935a34",
+      "hint": "The user can input as many entries as needed. Notice how the punctuation adapts in the boiler plate according to the number of entries.",
+      "title": "This is a simple cyclical question with one answer.",
+      "fields": [
+        {
+          "id": "Flfqvs6uomr7a8",
+          "label": "Cyclical Answer 1",
+          "type": "TEXT",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": [
+  ]
+}
+```
+
+## Page 10: Cyclical with Multiple Fields
+
+The following image presents the tenth page content.
+
+![Text fields page](/files/demo-app-image11.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfqvvhkwshzo1",
+  "format": "display",
+  "type": "cyclical",
+  "cycleId": "Clfqvxpiwq5btl",
+  "progressPercentage": "75",
+  "questions": [
+    {
+      "id": "Qlfqvvhibiztva",
+      "title": "This is a simple cyclical question with more than one answer.",
+      "hint": "",
+      "fields": [
+        {
+          "id": "Flfqvvhivulxtb",
+          "label": "Cyclical Answer 2",
+          "type": "TEXT",
+          "default": ""
+        },
+        {
+          "id": "Flfqvwpr3a35lw",
+          "label": "Date",
+          "type": "DATE",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": [
+  ]
+}
+```
+
+## Page 11: Chain Question with Conditionals
+
+The following image presents the eleventh page content when **Chain 3 Radio** is selected.
+
+![Text fields page](/files/demo-app-image12.png)
+
+The following image presents the eleventh page content when **Chain 4 Radio** is selected.
+
+![Text fields page](/files/demo-app-image13.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfqykq1ry32lk",
+  "format": "display",
+  "type": "single",
+  "progressPercentage": "83",
+  "questions": [
+    {
+      "id": "Qlfqykpwkmsmfx",
+      "hint": "More than one question will appear on the same page, if logic dictates they should be grouped as a question.",
+      "title": "This is a chain question.",
+      "fields": [
+        {
+          "id": "Flfqykpxer721j",
+          "label": "Date",
+          "type": "DATE",
+          "default": ""
+        },
+        {
+          "id": "Flfqyoh037bgfr",
+          "label": "Chain 2",
+          "type": "TEXT",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "id": "Qlfqykusjwfsqy",
+      "hint": "To trigger the next chain question to appear on this page, select Chain 4 radio.",
+      "title": "This is the second chain question.",
+      "fields": [
+        {
+          "id": "Flfqyp3z2r6prc",
+          "label": "Chain 3 Radio",
+          "default": "true",
+          "type": "RADIO",
+          "default": ""
+        },
+        {
+          "id": "Flfqypitjtpdvs",
+          "label": "Chain 4 Radio",
+          "default": "false",
+          "type": "RADIO",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "id": "Qlfqykymvr6c8m",
+      "title": "This question will pop up if the Chain 3 Radio is selected.",
+      "hint": "",
+      "showIf": "condition(Flfqypitjtpdvs = true)",
+      "fields": [
+        {
+          "id": "Flfqykynx3au7f",
+          "label": "Dropdown Option of US States",
+          "type": "DROPDOWN",
+          "default": "",
+          "options": [
+            "Alabama",
+            "Alaska",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Massachusetts",
+            "Michigan",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Pennsylvania",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"
+          ]
+        }
+      ]
+    }
+  ],
+  "answers": {
+  }
+}
+
+```
+
+## Page 12: Complex Cyclicals
+
+The following image presents the twelfth page content.
+
+![Text fields page](/files/demo-app-image14.png)
+
+The following code block presents the data used to build the above page.
+
+```json
+{
+  "pageId": "Plfqwers2moy7d",
+  "format": "display",
+  "type": "cyclical",
+  "cycleId": "Clfqxxxexkmjzr",
+  "progressPercentage": "92",
+  "questions": [
+    {
+      "id": "Qlfqwernnhnfnj",
+      "hint": "This comprises of chain questions. Three individual questions which have been joined together on one page. The last question will pop up is the corresponding checkbox is triggered.",
+      "title": "This is a complex cyclical question.",
+      "fields": [
+        {
+          "id": "Flfqwerocs85au",
+          "label": "Complex Cyclical 1",
+          "type": "TEXT",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "id": "Qlfqxqtkv06v5x",
+      "hint": "Joining questions together creates a chain cyclical.",
+      "title": "This is the second question on the same page, which makes it a chain cyclical.",
+      "fields": [
+        {
+          "id": "Flfqxqtlgdisas",
+          "label": "Enter a Number",
+          "type": "NUMBER",
+          "default": ""
+        },
+        {
+          "id": "Flfqxr4tv21nvc",
+          "label": "Check the box to trigger the next question to appear",
+          "type": "CHECKBOX",
+          "default": ""
+        }
+      ]
+    },
+    {
+      "id": "Qlfqxs3m3vujui",
+      "hint": "This is the third question in the chain cyclical.",
+      "title": "This chain cyclical question will pop up if the checkbox is ticked.",
+      "showIf": "condition(Flfqxr4tv21nvc = true)",
+      "fields": [
+        {
+          "id": "Flfqxyudep8lza",
+          "label": "Complex cyclical 4",
+          "type": "TEXT",
+          "default": ""
+        }
+      ]
+    }
+  ],
+  "answers": [
+  ]
+}
+
+```
