@@ -230,9 +230,9 @@ curl --request POST \
      --data '
 {
     "grant_type": "authorization_code",
-	"client_id" : "{partnerClientId}",
-	"client_secret" : "{partnerClientSecret}",
-	"code" : "{serviceToken}"
+  "client_id" : "{partnerClientId}",
+  "client_secret" : "{partnerClientSecret}",
+  "code" : "{serviceToken}"
 }
 '
 ```
@@ -265,7 +265,7 @@ The response will return the scoped access token under the `access_token` object
 
 <a name="step-5"></a>
 # Step 5: Navigating Question Pages
-As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process. The following sections describe how to access the interview pages. To learn how to build each page based on the API responses provided by Rocket Lawyer, check [Build Interview Pages](link to the new page).
+As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process. The following sections describe how to access the interview pages. To learn how to build each page based on the API responses provided by Rocket Lawyer, check [Building Interview Pages](building-interview-pages).
 ## Get First Page
 Retrieve the first page of the interview session through the [Retrieve a Page](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint. To retrieve the first page, you will add the `pageId` parameter in the path as "first".
 > **Ephemeral Interview**

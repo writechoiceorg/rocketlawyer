@@ -4,15 +4,15 @@ When you create your own UX, you are responsible for presenting all interview qu
 
 Before describing how to manage the questions, it's important to have an overview of the interview process. Below is a summary of the necessary steps:
 
-1. **Create an interview** ([Create an Interview](endpoint link)): When an interview is created, the `answersPayload` is initialized and included in the response. This `answersPayload` contains the default values for the document template and serves as the starting point for the interview process.
-2. **Retrieve a Page in the Interview** ([Get Interview by Id](endpoint link)): This step will be different depending on the interview type:
-    - **Ephemeral interviews**: The endpoint request will always return the default `answersPayload` associated with the document template.
-    - **Persistent interviews**: The endpoint will return the `answersPayload` from the last saved point, allowing the interview to resume from where it was left off.
+1. **Create an interview** ([Create an Interview](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/post)): When an interview is created, the `answersPayload` is initialized and included in the response. This `answersPayload` contains the default values for the document template and serves as the starting point for the interview process.
+2. **Retrieve a Page in the Interview** ([Get Interview by Id](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get)): This step will be different depending on the interview type:
+   - **Ephemeral interviews**: The endpoint request will always return the default `answersPayload` associated with the document template.
+   - **Persistent interviews**: The endpoint will return the `answersPayload` from the last saved point, allowing the interview to resume from where it was left off.
 3. **Update an Interview Page** ([Update an Interview Page's Answers](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/patch)): When the end user answers a question, the partner should submit the updated `answersPayload` to Rocket Lawyer. The server processes this request, builds the next page based on the updated data, and returns the `answersPayload` along with the page data to the partner. 
 
 > It is important to notice that you can use the [Get First Page](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint to retrieve the information related to the first interview question. In addition, if you want to resume an interview, you should use the [Get Page by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint, which will return the information from the last answered question by the end user.
 
-For a complete tutorial on how to create your own UI, access the [RocketDocument v2 Build your own UX ](https://rl-cicdv2-apigee-public-rocketdocv2.apigee.io/rocketdocument-v2-build-your-own-ux) page.
+For a complete tutorial on how to create your own UI, access the [RocketDocument v2 Build Your Own UX](rocketdocument-v2-build-your-own-ux) page.
 
 ## Question Navigation
 
@@ -275,7 +275,9 @@ Rocket Lawyer provides the [Demo App](https://partner-demo-app.ip.cicdv2.sandbo
 
 The following image presents the first page content.
 
-![Text fields page](/files/demo-app-image1.png)
+
+<img src="/files/demo-app-image1.png" alt="Text fields page" width=1024>
+
 
 The following code block presents the data used to build the above page.
 
@@ -314,7 +316,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the seccond page content.
 
-![Text fields page](/files/demo-app-image2.png)
+<img src="/files/demo-app-image2.png" alt="Other fields page" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -384,7 +386,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the third page content.
 
-![Text fields page](/files/demo-app-image3.png)
+<img src="/files/demo-app-image3.png" alt="Dropdowns Image" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -424,7 +426,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the fourth page content.
 
-![Text fields page](/files/demo-app-image4.png)
+<img src="/files/demo-app-image4.png" alt="Checkboxes image" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -470,7 +472,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the fifth page content.
 
-![Text fields page](/files/demo-app-image5.png)
+<img src="/files/demo-app-image5.png" alt="Radio Buttons" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -510,7 +512,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the sixth page content. This page uses conditionals which are handled by the server side.
 
-![Text fields page](/files/demo-app-image6.png)
+<img src="/files/demo-app-image6.png" alt="Conditionals" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -550,7 +552,8 @@ The following code block presents the data used to build the above page.
 
 The following image presents the seventh page content. This page uses conditionals which are handled by the server side.
 
-![Text fields page](/files/demo-app-image7.png)
+
+<img src="/files/demo-app-image7.png" alt="Conditionals" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -590,7 +593,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the eighth page content. This page uses conditionals which are handled by the server side.
 
-![Text fields page](/files/demo-app-image8.png)
+<img src="/files/demo-app-image8.png" alt="Conditionals" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -624,11 +627,12 @@ The following code block presents the data used to build the above page.
 
 The following image presents the ninth page content regarding the first cyclical answer.
 
-![Text fields page](/files/demo-app-image9.png)
 
-The following image presents the ninth page content regarding the seccond cyclical answer.
+<img src="/files/demo-app-image9.png" alt="Cyclical first" width=1024>
 
-![Text fields page](/files/demo-app-image10.png)
+The following image presents the ninth page content regarding the second cyclical answer.
+
+<img src="/files/demo-app-image10.png" alt="Cyclical second" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -663,7 +667,7 @@ The following code block presents the data used to build the above page.
 
 The following image presents the tenth page content.
 
-![Text fields page](/files/demo-app-image11.png)
+<img src="/files/demo-app-image11.png" alt="Cyclical with Multiple Fields" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -704,11 +708,11 @@ The following code block presents the data used to build the above page.
 
 The following image presents the eleventh page content when **Chain 3 Radio** is selected.
 
-![Text fields page](/files/demo-app-image12.png)
+<img src="/files/demo-app-image12.png" alt="Chain 3 Radio" width=1024>
 
 The following image presents the eleventh page content when **Chain 4 Radio** is selected.
 
-![Text fields page](/files/demo-app-image13.png)
+<img src="/files/demo-app-image13.png" alt="Chain 4 Radio" width=1024>
 
 The following code block presents the data used to build the above page.
 
@@ -837,7 +841,9 @@ The following code block presents the data used to build the above page.
 
 The following image presents the twelfth page content.
 
-![Text fields page](/files/demo-app-image14.png)
+<img src="/files/demo-app-image14.png" alt="Complex Cyclical" width=1024>
+
+Cyclical with Multiple Fields
 
 The following code block presents the data used to build the above page.
 
