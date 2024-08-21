@@ -14,7 +14,7 @@ You will go through the following steps:
 In addition, you can check the [sequence diagram](rocketdocument-v2-build-your-own-ux#complete-sequence-diagram) to see if it covers all the steps required to complete the process. 
 
 # Requirements
-When building your custom UX, you have to create two apps in the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/my-apps). One app will be used for your back-end operations, while the other for your front-end operations. This is necessary because the app credentials have either back or front end roles. The back-end credentials will be used from Step 1 to Step 3 to choose a template and start an interview. The front-end credentials will be used to create a scoped access token in Step 4, enabling you to navigate through the questions page, complete the interview, and get the final document.    
+When building your custom UX, you have to create two apps in the [Rocket Lawyer Developer Portal](https://developer.rocketlawyer.com/my-apps). One app will be used for your back-end operations, while the other for your front-end operations. This is necessary because the app credentials have either back or front-end roles. The back-end credentials will be used from Step 1 to Step 3 to choose a template and start an interview. The front-end credentials will be used to create a scoped access token in Step 4, enabling you to navigate through the questions page, complete the interview, and get the final document.    
 
 
 <a name="step-1"></a>
@@ -265,11 +265,11 @@ The response will return the scoped access token under the `access_token` object
 
 <a name="step-5"></a>
 # Step 5: Navigating Question Pages
-As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process.
+As users progress through the interview, you will retrieve and submit individual pages of questions. This step ensures that user responses are captured, stored, and used to generate the next page, guiding the user through the document creation process. The following sections describe how to access the interview pages. To learn how to build each page based on the API responses provided by Rocket Lawyer, check [Build Interview Pages](link to the new page).
 ## Get First Page
 Retrieve the first page of the interview session through the [Retrieve a Page](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/pages/%7BpageId%7D/get) endpoint. To retrieve the first page, you will add the `pageId` parameter in the path as "first".
 > **Ephemeral Interview**
-> When using the ephemeral interviews, you will always receive a page preview since no end-user data is stored by Rocket Lawyer. Therefore, the `answersPayload` will always contain the default content.
+> When using the ephemeral interviews, you must provide the `answersPayload` to Rocket Lawyer servers to generate previews. However, the data is only processed for preview generation and not stored.
 Below, you can find an example request for the first page:
 **Request:**
 ```curl
@@ -470,13 +470,13 @@ In this request, the page objects (`currentPageData`, `previousPageData`, and `n
     }
 }
 ```
-## Optional step: Resume an Interview
-For persistent interviews, users can resume a previously started session. This step involves retrieving the saved state of the interview and continuing from where the user left off. You can do that  by submitting a request to the [Retrieve Interview by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get) endpoint. Below, you will find an example of request and response for this endpoint:
+## Optional Step: Resume an Interview
+For persistent interviews, users can resume a previously started session. This step involves retrieving the saved state of the interview and continuing from where the user left off. You can do that by submitting a request to the [Retrieve Interview by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get) endpoint providing `pageId = last`. Thus, you will receive the last answered page from the end user, including the page content and the `pageId`, allowing you to continue the interview. Below, you will find an example of request and response for this endpoint:
 
 **Request:**
 ```curl
 curl --request GET \
-     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}' \
+     --location 'https://api-sandbox.rocketlawyer.com/rocketdoc/v2/interviews/{interviewId}/pages/{pageId}' \
      --header 'Content-Type: application/json' \
      --header 'Authorization: Bearer {scopedAccessToken}'
 ```
