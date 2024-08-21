@@ -215,9 +215,9 @@ curl --request PATCH \
 
 In this request, the page objects (`currentPageData`, `previousPageData`, and `nextPageData`) can be either `reference` or `display`. When sending `reference`, the response will return only the `pageId` to help with navigation. When using `display`, the response will return complete question information for that page, including all content necessary for the interview process.
 
-## Optional Step
+## Optional Step: Resume an Interview
 
-Users can also resume a previously started session. This step involves retrieving the saved state of the interview and continuing from where the user left off. You can do that by submitting a request to the [Get Page by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get) endpoint providing `pageId = last`. Thus, you will receive the last answered page from the end user, including the page content and the `pageId`, allowing you to continue the interview.
+Users can also resume a previously started interview. This step involves retrieving the saved state of the interview and continuing from where the user left off. You can do that by submitting a request to the [Get Page by ID](/docs/rocketdoc-api-product-sandbox/1/routes/interviews/%7BinterviewId%7D/get) endpoint providing `pageId = last`. Thus, you will receive the last answered page from the end user, including the page content and the `pageId`, allowing you to continue the interview.
 
 <a name="step-6"></a>
 # Step 6: Complete the Interview and Get the Document
